@@ -10,4 +10,6 @@ Assess emotional well-being with the Burns Depression Checklist and gain insight
 
 ![user flow for mind-check](https://github.com/kunalkeshan/Mind-Check/assets/68579547/9a5ed71b-f3ca-4dee-bd9d-fdf1cc14e5fb)
 
+## References
 
+- [Testing a React Application With Vitest](https://www.eternaldev.com/blog/testing-a-react-application-with-vitest/)

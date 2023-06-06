@@ -6,8 +6,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from 'lucide-react';
-import { MAIN_LINKS } from '../../data/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { MAIN_LINKS } from '../../data/navigation';
 
 function Navbar() {
 	const [open, setOpen] = useState(false);
