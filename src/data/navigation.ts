@@ -1,6 +1,13 @@
 // Navigation Data
 
-const COMMON_LINKS = [
+interface NavLink {
+	name: string;
+	url: string;
+}
+
+type NavLinks = NavLink[];
+
+const COMMON_LINKS: NavLinks = [
 	{
 		name: 'Home',
 		url: '/',
@@ -11,6 +18,6 @@ const COMMON_LINKS = [
 	},
 ];
 
-export const MAIN_LINKS = [...COMMON_LINKS];
+export const MAIN_LINKS: NavLinks = [...COMMON_LINKS];
 
-export const FOOTER_LINKS = [...COMMON_LINKS];
+export const FOOTER_LINKS: NavLinks = [...COMMON_LINKS];
