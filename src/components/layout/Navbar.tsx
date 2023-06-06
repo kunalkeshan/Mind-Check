@@ -1,3 +1,8 @@
+/**
+ * Navbar Component
+ */
+
+// Dependencies
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from 'lucide-react';
