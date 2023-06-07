@@ -48,7 +48,7 @@ function Navbar() {
 					))}
 				</ul>
 				<Link
-					to='/checklist'
+					to='/test'
 					className='hidden md:block px-8 py-4 border-secondary border-2 ml-auto rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
 				>
 					Try for free
@@ -88,7 +88,7 @@ function Navbar() {
 							))}
 						</ul>
 						<Link
-							to='/checklist'
+							to='/test'
 							className='px-8 py-4 w-fit border-secondary border-2 rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
 							onClick={handleCloseMenu}
 						>
