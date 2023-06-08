@@ -11,7 +11,7 @@ const INSTRUCTIONS: Instructions = [
 		image: '/images/instructions/survey.png',
 	},
 	{
-		text: 'Each question will have a point range from 1 to 5. Choose the number that best represents how you feel.',
+		text: 'Each question will have a point range from 0 to 4. Choose the number that best represents how you feel.',
 		image: '/images/instructions/score.png',
 	},
 	{

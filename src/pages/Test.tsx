@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import Instructions from '../components/test/Instructions';
 import { Link } from 'react-router-dom';
+import Instructions from '../components/test/Instructions';
+import TestQuestions from '../components/test/Test';
+import ScrollToTop from '../components/reusable/ScrollToTop';
 
 function Test() {
 	const [testInProgress, setTestInProgress] = useState(false);
@@ -27,11 +29,15 @@ function Test() {
 			</nav>
 			<main className='w-full min-h-screen mt-12'>
 				{testInProgress ? (
-					<></>
+					<>
+						<TestQuestions />
+						<ScrollToTop />
+					</>
 				) : (
 					<Instructions setTestInProgress={setTestInProgress} />
 				)}
 			</main>
+			<ScrollToTop />
 		</>
 	);
 }
