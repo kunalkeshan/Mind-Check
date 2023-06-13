@@ -25,7 +25,7 @@ function Test() {
 				<form className='w-full flex flex-col gap-2 col-span-2'>
 					{Object.keys(QUESTIONS).map((sectionName, index) => (
 						<div key={index} className='mt-2'>
-							<h3 className='text-2xl font-heading sticky top-16 py-1 self-start bg-primary'>
+							<h3 className='text-2xl font-heading sticky top-16 py-1 self-start bg-primary font-semibold'>
 								{sectionName}
 							</h3>
 							<hr className='border-b' />
