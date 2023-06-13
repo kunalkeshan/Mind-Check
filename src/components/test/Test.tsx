@@ -1,21 +1,9 @@
-import { useMemo, useState } from 'react';
 import QUESTIONS from '../../data/questions';
 import { Link } from 'react-router-dom';
 
 function Test() {
-	const sections = useMemo(() => {
-		return Object.keys(QUESTIONS);
-	}, []);
-	const [activeSection, setActiveSection] = useState(sections[0]);
-	const [sectionQuestions, setSectionQuestions] = useState(
-		QUESTIONS[activeSection as keyof typeof QUESTIONS]
-	);
-
-	const handleSectionChange = (section: string) => () => {
-		setActiveSection(section);
-	};
 	return (
-		<section className='w-full max-w-7xl mx-auto py-12 px-8 flex flex-col'>
+		<section className='w-full max-w-7xl mx-auto py-12 px-8 flex flex-col min-h-screen'>
 			<h1 className='font-heading text-3xl md:text-5xl font-bold text-center'>
 				Mental Health Check
 			</h1>
@@ -25,7 +13,7 @@ function Test() {
 				new mood therapy.
 			</h2>
 			<p className='text-sm mt-4'>
-				Select a section to answer the questions.{' '}
+				Answer the questions from each section.
 				<Link
 					to='#help'
 					className='md:hidden underline underline-offset-2 text-textSecondary text-opacity-80 hover:text-opacity-100'
@@ -33,81 +21,132 @@ function Test() {
 					Need help?
 				</Link>
 			</p>
-			<div className='grid grid-cols-2 text-sm font-semibold md:grid-cols-4 text-textPrimary gap-4 mt-2'>
-				{sections.map((section, index) => (
+			<div className='mt-4 flex flex-col md:flex-row gap-4'>
+				<form className='w-full flex flex-col gap-2 col-span-2'>
+					{Object.keys(QUESTIONS).map((sectionName, index) => (
+						<div key={index} className='mt-2'>
+							<h3 className='text-2xl font-heading sticky top-16 py-1 self-start bg-primary'>
+								{sectionName}
+							</h3>
+							<hr className='border-b' />
+							{QUESTIONS[
+								sectionName as keyof typeof QUESTIONS
+							].map((question, index2) => (
+								<div className='text-lg mt-1'>
+									<div className='flex items-center justify-between'>
+										<p>
+											{index2 + 1}. {question.question}
+										</p>
+										<div className='flex gap-4 items-center'>
+											<label
+												key={index2}
+												htmlFor={question.question
+													.replace(/ /g, '-')
+													.concat('-0')}
+												className='flex flex-col'
+											>
+												<input
+													type='radio'
+													name={question.question}
+													value={0}
+													required
+													id={question.question
+														.replace(/ /g, '-')
+														.concat('-0')}
+												/>
+												<span>0</span>
+											</label>
+											<label
+												key={index2}
+												htmlFor={question.question
+													.replace(/ /g, '-')
+													.concat('-1')}
+												className='flex flex-col'
+											>
+												<input
+													type='radio'
+													name={question.question}
+													value={1}
+													required
+													id={question.question
+														.replace(/ /g, '-')
+														.concat('-1')}
+													className='flex flex-col'
+												/>
+												<span>1</span>
+											</label>
+											<label
+												key={index2}
+												htmlFor={question.question
+													.replace(/ /g, '-')
+													.concat('-2')}
+												className='flex flex-col'
+											>
+												<input
+													type='radio'
+													name={question.question}
+													value={2}
+													required
+													id={question.question
+														.replace(/ /g, '-')
+														.concat('-2')}
+												/>
+												<span>2</span>
+											</label>
+											<label
+												key={index2}
+												htmlFor={question.question
+													.replace(/ /g, '-')
+													.concat('-3')}
+												className='flex flex-col'
+											>
+												<input
+													type='radio'
+													name={question.question}
+													value={3}
+													required
+													id={question.question
+														.replace(/ /g, '-')
+														.concat('-3')}
+												/>
+												<span>3</span>
+											</label>
+											<label
+												key={index2}
+												htmlFor={question.question
+													.replace(/ /g, '-')
+													.concat('-4')}
+												className='flex flex-col'
+											>
+												<input
+													type='radio'
+													name={question.question}
+													value={4}
+													required
+													id={question.question
+														.replace(/ /g, '-')
+														.concat('-4')}
+												/>
+												<span>4</span>
+											</label>
+										</div>
+									</div>
+									<hr />
+								</div>
+							))}
+						</div>
+					))}
 					<button
-						key={index}
-						onClick={handleSectionChange(section)}
-						className={`${
-							activeSection === section
-								? 'bg-opacity-100 border-textPrimary'
-								: 'bg-opacity-60 border-tertiary'
-						} bg-secondary hover:bg-secondaryDark rounded-xl border-2 px-4 py-2 transition-all`}
+						type='submit'
+						className='px-8 py-4 mx-auto border-secondary border-2 mt-4 w-full rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
 					>
-						{section}
+						Submit
 					</button>
-				))}
-			</div>
-			<div className='mt-4 flex gap-4 flex-col md:flex-row'>
-				<div className='w-full flex flex-col gap-2'>
-					<h3 className='text-2xl font-heading'>{activeSection}</h3>
-					<hr />
-					<ul className='text-lg flex flex-col gap-2'>
-						{sectionQuestions.map((question, index) => (
-							<li
-								key={index}
-								className='grid gird-cols-1 md:grid-cols-2'
-							>
-								<div>
-									{index + 1}. {question.question}
-								</div>
-								<div className='flex gap-4 items-center mt-1 md:mt-0'>
-									<span className='text-xs flex flex-col justify-center items-center'>
-										<input
-											type='radio'
-											name={question.question}
-											value={0}
-										/>
-										<p>0</p>
-									</span>
-									<span className='text-xs flex flex-col justify-center items-center'>
-										<input
-											type='radio'
-											name={question.question}
-											value={1}
-										/>
-										<p>1</p>
-									</span>
-									<span className='text-xs flex flex-col justify-center items-center'>
-										<input
-											type='radio'
-											name={question.question}
-											value={2}
-										/>
-										<p>2</p>
-									</span>
-									<span className='text-xs flex flex-col justify-center items-center'>
-										<input
-											type='radio'
-											name={question.question}
-											value={3}
-										/>
-										<p>3</p>
-									</span>
-									<span className='text-xs flex flex-col justify-center items-center'>
-										<input
-											type='radio'
-											name={question.question}
-											value={4}
-										/>
-										<p>4</p>
-									</span>
-								</div>
-							</li>
-						))}
-					</ul>
-				</div>
-				<div className='flex flex-col gap-2' id='help'>
+				</form>
+				<div
+					className='flex flex-col gap-2 sticky top-20 self-start'
+					id='help'
+				>
 					<h3 className='text-2xl font-heading'>Help</h3>
 					<hr />
 					<p>
