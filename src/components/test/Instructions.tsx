@@ -23,7 +23,7 @@ const Instructions: React.FC<InstructionsProps> = ({ setTestInProgress }) => {
 			<div className='flex flex-col gap-8 mt-8 w-full'>
 				{INSTRUCTIONS.map((instruction, index) => (
 					<div
-						key={index}
+						key={`${instruction.text}`}
 						className={`${
 							index % 2
 								? index % 3

@@ -1,21 +1,33 @@
 import { useMemo, useLayoutEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import FEEDBACKS from '../data/feedback';
 
 function Score() {
 	const navigate = useNavigate();
 
 	const score = useMemo(() => {
-		if (sessionStorage.getItem('MindCheckUserScore.v1')) {
-			return parseInt(
-				sessionStorage.getItem('MindCheckUserScore.v1') as string,
-				10
-			);
-		} else return null;
+		return parseInt(
+			(sessionStorage.getItem('MindCheckUserScore.v1') as string) ?? 0,
+			10
+		);
 	}, []);
+
+	const feedbackOnScore = useMemo(() => {
+		const data = FEEDBACKS.find((feedback) => {
+			if (score >= feedback.range.min && score <= feedback.range.max) {
+				return true;
+			}
+		});
+		return data?.feedback;
+	}, [score]);
 
 	useLayoutEffect(() => {
 		if (!score) navigate('/test');
 	}, [navigate, score]);
+
+	const handleTakeAnotherTest = () => {
+		sessionStorage.removeItem('MindCheckUserScore.v1');
+	};
 
 	return (
 		<>
@@ -48,15 +60,18 @@ function Score() {
 				</h2>
 
 				<section className='flex flex-col items-center text-center gap-6 max-w-2xl mx-auto mt-6'>
-					<div className='w-40 h-40 border-8 border-green-500 text-green-500 text-4xl flex items-center justify-center font-bold font-heading rounded-full'>
-						5/100
+					<div
+						className={`${
+							score >= 0 && score <= 33
+								? 'border-green-500 text-green-500'
+								: score >= 34 && score <= 66
+								? 'border-orange-500 text-orange-500'
+								: 'border-red-500 text-red-500'
+						} w-40 h-40 border-8 text-4xl flex items-center justify-center font-bold font-heading rounded-full`}
+					>
+						{score} <span className='text-sm'>/100</span>
 					</div>
-					<p className='text-xl font-semibold'>
-						Great job! Your score suggests that you are currently
-						experiencing no symptoms of depression. Keep up the
-						positive outlook and continue taking care of your mental
-						well-being.
-					</p>
+					<p className='text-xl font-semibold'>{feedbackOnScore}</p>
 					<p>
 						<b>Note:</b> If you experience persistent scores above
 						10 or have any suicidal feelings, it's important to seek
@@ -71,6 +86,7 @@ function Score() {
 					<Link
 						to='/test'
 						className='px-8 py-4 mx-auto border-secondary border-2 mt-4 w-full rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
+						onClick={handleTakeAnotherTest}
 					>
 						Take another test.
 					</Link>
