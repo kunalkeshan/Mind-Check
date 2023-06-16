@@ -1,3 +1,7 @@
+/**
+ * Landing Page - Features Section
+ */
+
 const FEATURES_CONTENT = [
 	{
 		title: 'Free Test and Feedback',

@@ -1,3 +1,8 @@
+/**
+ * Public Layout Component
+ */
+
+// Dependencies
 import { PropsWithChildren } from 'react';
 import Footer from './Footer';
 import Navbar from './Navbar';

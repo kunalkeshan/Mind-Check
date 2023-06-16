@@ -1,3 +1,8 @@
+/**
+ * Work in Progress Component
+ */
+
+// Dependencies
 import Lottie from 'lottie-react';
 import MentalHealthAwarnessAnimationData from '../../assets/lottie/mental-health-awareness.json';
 

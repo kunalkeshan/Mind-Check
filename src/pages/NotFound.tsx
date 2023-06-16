@@ -1,7 +1,13 @@
+/**
+ * Not Found Page
+ */
+
+// Dependencies
 import Lottie from 'lottie-react';
 import YogaMentalHealthAnimationData from '../assets/lottie/yogamental-health.json';
 import { Link } from 'react-router-dom';
 import PublicLayout from '../components/layout/PublicLayout';
+import ScrollToTop from '../components/reusable/ScrollToTop';
 
 function NotFound() {
 	return (
@@ -27,6 +33,7 @@ function NotFound() {
 					Go Home
 				</Link>
 			</section>
+			<ScrollToTop />
 		</PublicLayout>
 	);
 }

@@ -1,3 +1,7 @@
+/**
+ * Questions Data
+ */
+
 interface Question {
 	question: string;
 	score?: number;

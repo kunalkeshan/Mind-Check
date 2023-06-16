@@ -1,4 +1,6 @@
-// Navigation Data
+/**
+ * Navigation Data
+ */
 
 interface NavLink {
 	name: string;
