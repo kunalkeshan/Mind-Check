@@ -6,7 +6,9 @@ function PublicLayout({ children }: PropsWithChildren) {
 	return (
 		<>
 			<Navbar />
-			<main>{children}</main>
+			<main className='w-full max-w-7xl mx-auto py-24 px-8 text-textPrimary'>
+				{children}
+			</main>
 			<Footer />
 		</>
 	);
