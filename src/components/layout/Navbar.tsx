@@ -20,7 +20,7 @@ function Navbar() {
 		setOpen(false);
 	};
 	return (
-		<nav className='fixed top-0 left-0 py-4 px-8 bg-primary w-full text-textPrimary'>
+		<nav className='fixed top-0 left-0 py-4 px-8 bg-primary w-full text-textPrimary z-50'>
 			<div className='max-w-7xl mx-auto flex items-center justify-between md:justify-normal w-full md:gap-8'>
 				<Link
 					to={'/'}
