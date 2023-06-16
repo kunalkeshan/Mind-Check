@@ -60,7 +60,6 @@ VITE_FIREBASE_PROJECT_ID=YOUR_FIREBASE_PROJECT_ID
 # etc - refer .env.sample for more information
 ```
 
-
 ### Reporting Issues
 
 If you encounter any issues or have suggestions for improvement, please open an issue on the issue tracker: [https://github.com/kunalkeshan/Mind-Check.git/issues](https://github.com/kunalkeshan/Mind-Check.git/issues)
