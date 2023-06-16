@@ -1,3 +1,7 @@
+/**
+ * Landing Page - How It Works? Section
+ */
+
 const HOW_IT_WORKS_CONTENT = [
 	{
 		title: 'Open the Test',

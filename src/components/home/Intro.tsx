@@ -1,3 +1,8 @@
+/**
+ * Landing Page - Intro Section
+ */
+
+// Dependencies
 import Lottie from 'lottie-react';
 import MentalWellBeingAnimationData from '../../assets/lottie/mental-wellbeing-seek-help.json';
 import { Link } from 'react-router-dom';

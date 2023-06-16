@@ -1,3 +1,7 @@
+/**
+ * Instructions Data
+ */
+
 interface Instruction {
 	text: string;
 	image: string;

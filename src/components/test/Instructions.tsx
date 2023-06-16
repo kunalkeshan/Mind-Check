@@ -1,3 +1,8 @@
+/**
+ * Test Page - Instructions Section
+ */
+
+// Dependencies
 import React from 'react';
 import INSTRUCTIONS from '../../data/instructions';
 

@@ -1,3 +1,8 @@
+/**
+ * Test Page
+ */
+
+// Dependencies
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Instructions from '../components/test/Instructions';

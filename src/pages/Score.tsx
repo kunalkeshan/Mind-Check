@@ -1,6 +1,12 @@
+/**
+ * Score Page
+ */
+
+// Dependencies
 import { useMemo, useLayoutEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import FEEDBACKS from '../data/feedback';
+import ScrollToTop from '../components/reusable/ScrollToTop';
 
 function Score() {
 	const navigate = useNavigate();
@@ -92,6 +98,7 @@ function Score() {
 					</Link>
 				</section>
 			</main>
+			<ScrollToTop />
 		</>
 	);
 }

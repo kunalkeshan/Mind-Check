@@ -1,3 +1,7 @@
+/**
+ * Feedback Data
+ */
+
 interface Feedback {
 	range: {
 		min: number;
