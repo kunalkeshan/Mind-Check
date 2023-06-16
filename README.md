@@ -46,9 +46,23 @@ Make sure to set up your Firebase project and add the necessary environment vari
 
 If you're interested in contributing to Mind Check, please refer to the [Contributing Guidelines](CONTRIBUTING.md) for detailed information on how to get involved.
 
+### 🤗 Project Contributors
+
+<a href="https://github.com/kunalkeshan/Mind-Check/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=kunalkeshan/Mind-Check" />
+</a>
+
 ## License
 
 Mind Check is released under the MPL-V2.0 License. See the [LICENSE](LICENSE) file for more details.
+
+### ⚔ Forking This Repo
+
+Many people have contacted us asking if they can use this code for their own websites. The answer to that question is usually "yes", with attribution. There are some cases, such as using this code for a business or something that is greater than a personal project, that we may be less comfortable saying yes to. If in doubt, please don't hesitate to ask us.
+
+We value keeping this project open source, but as you all know, plagiarism is bad. We actively spend a non-negligible amount of effort developing, designing, and trying to perfect this iteration of our project, and we are proud of it! All we ask is to not claim this effort as your own.
+
+So, feel free to fork this repo. If you do, please just give us proper credit by linking back to this repo, [https://github.com/kunalkeshan/Mind-Check](https://github.com/kunalkeshan/Mind-Check). Refer to this handy [quora](https://www.quora.com/Is-it-bad-to-copy-other-peoples-code) post if you're not sure what to do. Thanks!
 
 ## Contact
 
