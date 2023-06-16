@@ -20,4 +20,10 @@ const COMMON_LINKS: NavLinks = [
 
 export const MAIN_LINKS: NavLinks = [...COMMON_LINKS];
 
-export const FOOTER_LINKS: NavLinks = [...COMMON_LINKS];
+export const FOOTER_LINKS: NavLinks = [
+	...COMMON_LINKS,
+	{
+		name: 'GitHub',
+		url: 'https://github.com/kunalkeshan/Mind-Check',
+	},
+];
