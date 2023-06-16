@@ -31,7 +31,7 @@ const FEATURES_CONTENT = [
 
 function Features() {
 	return (
-		<section className='mt-20 text-center md:text-left'>
+		<section className='mt-20 text-center md:text-left' id='features'>
 			<h2 className='font-heading text-2xl md:text-4xl font-bold'>
 				Our Features
 			</h2>

@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import Test from './pages/Test';
 import NotFound from './pages/NotFound';
 import Score from './pages/Score';
+import Login from './pages/Login';
 
 function App() {
 	return (
@@ -10,6 +11,7 @@ function App() {
 			<Route path='/' element={<Home />} />
 			<Route path='/test' element={<Test />} />
 			<Route path='/score' element={<Score />} />
+			<Route path='/login' element={<Login />} />
 			<Route path='*' element={<NotFound />} />
 		</Routes>
 	);
