@@ -32,7 +32,7 @@ function Login() {
 					'scores',
 					response.user.uid
 				);
-				setDoc(scoreDocRef, {});
+				setDoc(scoreDocRef, { scores: [] });
 			}
 			setUser(response.user);
 		} catch (error) {
