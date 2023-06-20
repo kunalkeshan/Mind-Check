@@ -71,3 +71,6 @@ If you have any questions or suggestions, feel free to reach out to the project 
 ## References
 
 - [Testing a React Application With Vitest](https://www.eternaldev.com/blog/testing-a-react-application-with-vitest/)
+- [Env Variables and Modes in Vite](https://vitejs.dev/guide/env-and-mode.html)
+- [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction)
+- [Firebase rules based on authentication](https://stackoverflow.com/questions/60972889/firebase-firestore-rules-authenticated-access-to-all-collections-except-one)

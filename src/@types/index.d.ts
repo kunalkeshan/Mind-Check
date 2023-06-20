@@ -1,0 +1,3 @@
+interface UserTestScores {
+	id: string;
+}
