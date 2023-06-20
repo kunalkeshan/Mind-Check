@@ -18,6 +18,10 @@ const COMMON_LINKS: NavLinks = [
 		name: 'Features',
 		url: '/#features',
 	},
+	{
+		name: 'Login/Signup',
+		url: '/login',
+	},
 ];
 
 export const MAIN_LINKS: NavLinks = [...COMMON_LINKS];

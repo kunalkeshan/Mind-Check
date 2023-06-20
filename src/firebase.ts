@@ -3,6 +3,7 @@
 // Dependencies
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 // import { getAnalytics } from 'firebase/analytics';
 
 // Web app Firebase configuration
@@ -19,4 +20,5 @@ const firebaseConfig = {
 // Initialize Firebase
 export const FirebaseApp = initializeApp(firebaseConfig);
 export const FirebaseAuth = getAuth(FirebaseApp);
+export const FirebaseDb = getFirestore();
 // const analytics = getAnalytics(app);
