@@ -1,28 +1,15 @@
-import { onAuthStateChanged, User } from 'firebase/auth';
-import { createContext, ReactNode, useEffect, useMemo, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 import { FirebaseAuth } from '../firebase';
 import { useUserStore } from '../store/user';
 import { useNavigate } from 'react-router-dom';
 
-export interface AuthContextState {
-	user: User | null;
-}
-
-export const AuthContext = createContext<AuthContextState>({
-	user: {} as User,
-});
+export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const [initialLoader, setInitialLoader] = useState<boolean>(true);
-	const { user, setUser } = useUserStore();
+	const { setUser } = useUserStore();
 	const navigate = useNavigate();
-
-	const value = useMemo(
-		() => ({
-			user,
-		}),
-		[user]
-	);
 
 	useEffect(
 		() =>
@@ -38,7 +25,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	);
 
 	return (
-		<AuthContext.Provider value={value}>
+		<AuthContext.Provider value={{}}>
 			{initialLoader ? 'Loading...' : children}
 		</AuthContext.Provider>
 	);
