@@ -6,8 +6,13 @@
 import { useLayoutEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import QUESTIONS from '../../data/questions';
+import { useUserStore } from '../../store/user';
+import { nanoid } from 'nanoid';
+import { FirebaseDb } from '../../firebase';
+import { Timestamp, doc, setDoc } from 'firebase/firestore';
 
 function Test() {
+	const { user } = useUserStore();
 	const navigate = useNavigate();
 	const score = useMemo(() => {
 		return parseInt(
@@ -15,6 +20,30 @@ function Test() {
 			10
 		);
 	}, []);
+
+	const handleTestSumbmissionInFirebase = async (
+		data: FormData,
+		calculatedScore: number
+	) => {
+		const normalizedData: any = {};
+		Object.keys(QUESTIONS).forEach((key) => {
+			normalizedData[key] = {};
+			QUESTIONS[key as keyof typeof QUESTIONS].forEach((question) => {
+				normalizedData[key][question.id] = parseInt(
+					data.get(question.question) as unknown as string,
+					10
+				);
+			});
+		});
+		if (user === null) {
+			const docRef = doc(FirebaseDb, 'anonScores', nanoid());
+			setDoc(docRef, {
+				score: normalizedData,
+				time: Timestamp.now(),
+				calculatedScore,
+			});
+		}
+	};
 
 	const handleTestSubmission = (e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -28,6 +57,7 @@ function Test() {
 				);
 			});
 		});
+		handleTestSumbmissionInFirebase(data, calculatedScore);
 		sessionStorage.setItem(
 			'MindCheckUserScore.v1',
 			calculatedScore.toString()
@@ -60,7 +90,7 @@ function Test() {
 					Need help?
 				</Link>
 			</p>
-			<div className='mt-4 flex flex-col md:flex-row gap-4'>
+			<div className='mt-4 flex flex-col md:flex-row gap-12'>
 				<form
 					className='w-full flex flex-col gap-2 col-span-2'
 					onSubmit={handleTestSubmission}
