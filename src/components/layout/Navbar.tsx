@@ -8,9 +8,11 @@ import { Link } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MAIN_LINKS } from '../../data/navigation';
+import { useUserStore } from '../../store/user';
 
 function Navbar() {
 	const [open, setOpen] = useState(false);
+	const { user } = useUserStore();
 
 	const handleMenuToggle = () => {
 		setOpen(!open);
@@ -46,13 +48,29 @@ function Navbar() {
 							<Link to={link.url}>{link.name}</Link>
 						</li>
 					))}
+					<li className='hover:text-textSecondary transition-all font-semibold text-lg'>
+						{user !== null ? (
+							<Link to='/test'>Take Test</Link>
+						) : (
+							<Link to='/login'>Login/Signup</Link>
+						)}
+					</li>
 				</ul>
-				<Link
-					to='/test'
-					className='hidden md:block px-8 py-4 border-secondary border-2 ml-auto rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
-				>
-					Try for free
-				</Link>
+				{user !== null ? (
+					<Link
+						to='/me'
+						className='hidden md:block px-8 py-4 border-secondary border-2 ml-auto rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
+					>
+						Profile
+					</Link>
+				) : (
+					<Link
+						to='/test'
+						className='hidden md:block px-8 py-4 border-secondary border-2 ml-auto rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
+					>
+						Try for free
+					</Link>
+				)}
 				<button
 					className={`${
 						open ? 'text-white' : ''
@@ -86,14 +104,31 @@ function Navbar() {
 									</Link>
 								</li>
 							))}
+							<li className='hover:text-textSecondary transition-all font-semibold text-lg'>
+								{user !== null ? (
+									<Link to='/test'>Take Test</Link>
+								) : (
+									<Link to='/login'>Login/Signup</Link>
+								)}
+							</li>
 						</ul>
-						<Link
-							to='/test'
-							className='px-8 py-4 w-fit border-secondary border-2 rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
-							onClick={handleCloseMenu}
-						>
-							Try for free
-						</Link>
+						{user !== null ? (
+							<Link
+								to='/test'
+								className='px-8 py-4 w-fit border-secondary border-2 rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
+								onClick={handleCloseMenu}
+							>
+								Profile
+							</Link>
+						) : (
+							<Link
+								to='/test'
+								className='px-8 py-4 w-fit border-secondary border-2 rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
+								onClick={handleCloseMenu}
+							>
+								Try for free
+							</Link>
+						)}
 					</motion.div>
 				)}
 			</AnimatePresence>
