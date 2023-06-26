@@ -1,5 +1,5 @@
 /**
- * Profile Page
+ * Score History Page
  */
 
 // Dependencies
@@ -8,7 +8,7 @@ import UserProfileHeader from '../components/profile/Header';
 import ScrollToTop from '../components/reusable/ScrollToTop';
 import WorkInProgress from '../components/reusable/WorkInProgress';
 
-function Profile() {
+function ScoreHistory() {
 	return (
 		<PublicLayout>
 			<UserProfileHeader />
@@ -18,4 +18,4 @@ function Profile() {
 	);
 }
 
-export default Profile;
+export default ScoreHistory;

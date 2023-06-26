@@ -7,8 +7,10 @@ import { useMemo, useLayoutEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import FEEDBACKS from '../data/feedback';
 import ScrollToTop from '../components/reusable/ScrollToTop';
+import { useUserStore } from '../store/user';
 
 function Score() {
+	const { user } = useUserStore();
 	const navigate = useNavigate();
 
 	const score = useMemo(() => {
@@ -96,6 +98,15 @@ function Score() {
 					>
 						Take another test.
 					</Link>
+					{user ? (
+						<Link to='/me' className='hover:underline'>
+							View profile and past scores.
+						</Link>
+					) : (
+						<button title='Login using google.'>
+							Login to save score.
+						</button>
+					)}
 				</section>
 			</main>
 			<ScrollToTop />

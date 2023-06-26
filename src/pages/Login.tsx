@@ -24,7 +24,6 @@ function Login() {
 		try {
 			setLoading(true);
 			const response = await signInWithPopup(FirebaseAuth, provider);
-			console.log(response);
 			if (
 				response.user.metadata.creationTime ===
 				response.user.metadata.lastSignInTime
