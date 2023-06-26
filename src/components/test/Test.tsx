@@ -49,6 +49,18 @@ function Test() {
 			}
 		} else {
 			// Save scores for current logged in user
+			const docRef = doc(
+				FirebaseDb,
+				'users',
+				user.uid,
+				'scores',
+				nanoid()
+			);
+			setDoc(docRef, {
+				score: normalizedData,
+				time: Timestamp.now(),
+				calculatedScore,
+			});
 		}
 	};
 

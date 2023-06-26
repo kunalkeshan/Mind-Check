@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound';
 import Score from './pages/Score';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import ScoreHistory from './pages/ScoreHistory';
 import { useUserStore } from './store/user';
 
 function App() {
@@ -46,6 +47,14 @@ function App() {
 				element={
 					<ProtectedRoute>
 						<Profile />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path='/me/history'
+				element={
+					<ProtectedRoute>
+						<ScoreHistory />
 					</ProtectedRoute>
 				}
 			/>
