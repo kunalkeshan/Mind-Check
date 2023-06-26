@@ -36,12 +36,19 @@ function Test() {
 			});
 		});
 		if (user === null) {
-			const docRef = doc(FirebaseDb, 'anonScores', nanoid());
-			setDoc(docRef, {
-				score: normalizedData,
-				time: Timestamp.now(),
-				calculatedScore,
-			});
+			// Save scores anonymously
+			try {
+				const docRef = doc(FirebaseDb, 'anonScores', nanoid());
+				setDoc(docRef, {
+					score: normalizedData,
+					time: Timestamp.now(),
+					calculatedScore,
+				});
+			} catch (e) {
+				// Empty
+			}
+		} else {
+			// Save scores for current logged in user
 		}
 	};
 
