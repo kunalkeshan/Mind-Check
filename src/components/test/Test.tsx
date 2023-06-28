@@ -15,16 +15,54 @@ function Test() {
 	const { user } = useUserStore();
 	const navigate = useNavigate();
 	const score = useMemo(() => {
-		return parseInt(
-			(sessionStorage.getItem('MindCheckUserScore.v1') as string) ?? 0,
-			10
-		);
+		if (
+			(sessionStorage.getItem('MindCheckUserScore.v2') as string) !== null
+		) {
+			const data = JSON.parse(
+				sessionStorage.getItem('MindCheckUserScore.v2') as string
+			);
+			return data.calculatedScore;
+		}
+		return false;
 	}, []);
 
 	const handleTestSumbmissionInFirebase = async (
-		data: FormData,
+		data: any,
 		calculatedScore: number
 	) => {
+		try {
+			if (user === null) {
+				// Save scores anonymously
+				const docRef = doc(FirebaseDb, 'anonScores', nanoid());
+				setDoc(docRef, {
+					score: data,
+					time: Timestamp.now(),
+					calculatedScore,
+				});
+			} else {
+				// Save scores for current logged in user
+				const docRef = doc(
+					FirebaseDb,
+					'users',
+					user.uid,
+					'scores',
+					nanoid()
+				);
+				setDoc(docRef, {
+					score: data,
+					time: Timestamp.now(),
+					calculatedScore,
+				});
+			}
+		} catch (e) {
+			// Empty
+		}
+	};
+
+	const handleTestSubmission = (e: React.ChangeEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const data = new FormData(e.currentTarget);
+		let calculatedScore = 0;
 		const normalizedData: any = {};
 		Object.keys(QUESTIONS).forEach((key) => {
 			normalizedData[key] = {};
@@ -33,53 +71,16 @@ function Test() {
 					data.get(question.question) as unknown as string,
 					10
 				);
-			});
-		});
-		if (user === null) {
-			// Save scores anonymously
-			try {
-				const docRef = doc(FirebaseDb, 'anonScores', nanoid());
-				setDoc(docRef, {
-					score: normalizedData,
-					time: Timestamp.now(),
-					calculatedScore,
-				});
-			} catch (e) {
-				// Empty
-			}
-		} else {
-			// Save scores for current logged in user
-			const docRef = doc(
-				FirebaseDb,
-				'users',
-				user.uid,
-				'scores',
-				nanoid()
-			);
-			setDoc(docRef, {
-				score: normalizedData,
-				time: Timestamp.now(),
-				calculatedScore,
-			});
-		}
-	};
-
-	const handleTestSubmission = (e: React.ChangeEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		const data = new FormData(e.currentTarget);
-		let calculatedScore = 0;
-		Object.keys(QUESTIONS).forEach((key) => {
-			QUESTIONS[key as keyof typeof QUESTIONS].forEach((question) => {
 				calculatedScore += parseInt(
 					data.get(question.question) as unknown as string,
 					10
 				);
 			});
 		});
-		handleTestSumbmissionInFirebase(data, calculatedScore);
+		handleTestSumbmissionInFirebase(normalizedData, calculatedScore);
 		sessionStorage.setItem(
-			'MindCheckUserScore.v1',
-			calculatedScore.toString()
+			'MindCheckUserScore.v2',
+			JSON.stringify({ data: normalizedData, calculatedScore })
 		);
 		navigate('/score');
 	};

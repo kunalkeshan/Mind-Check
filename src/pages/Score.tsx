@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 /**
  * Score Page
  */
@@ -14,15 +15,23 @@ function Score() {
 	const navigate = useNavigate();
 
 	const score = useMemo(() => {
-		return parseInt(
-			(sessionStorage.getItem('MindCheckUserScore.v1') as string) ?? 0,
-			10
-		);
+		if (
+			(sessionStorage.getItem('MindCheckUserScore.v2') as string) !== null
+		) {
+			const data = JSON.parse(
+				sessionStorage.getItem('MindCheckUserScore.v2') as string
+			);
+			return data;
+		}
+		return false;
 	}, []);
 
 	const feedbackOnScore = useMemo(() => {
 		const data = FEEDBACKS.find((feedback) => {
-			if (score >= feedback.range.min && score <= feedback.range.max) {
+			if (
+				score.calculatedScore >= feedback.range.min &&
+				score.calculatedScore <= feedback.range.max
+			) {
 				return true;
 			}
 		});
@@ -34,7 +43,7 @@ function Score() {
 	}, [navigate, score]);
 
 	const handleTakeAnotherTest = () => {
-		sessionStorage.removeItem('MindCheckUserScore.v1');
+		sessionStorage.removeItem('MindCheckUserScore.v2');
 	};
 
 	return (
@@ -70,14 +79,17 @@ function Score() {
 				<section className='flex flex-col items-center text-center gap-6 max-w-2xl mx-auto mt-6'>
 					<div
 						className={`${
-							score >= 0 && score <= 33
+							score.calculatedScore >= 0 &&
+							score.calculatedScore <= 33
 								? 'border-green-500 text-green-500'
-								: score >= 34 && score <= 66
+								: score.calculatedScore >= 34 &&
+								  score.calculatedScore <= 66
 								? 'border-orange-500 text-orange-500'
 								: 'border-red-500 text-red-500'
 						} w-40 h-40 border-8 text-4xl flex items-center justify-center font-bold font-heading rounded-full`}
 					>
-						{score} <span className='text-sm'>/100</span>
+						{score.calculatedScore}{' '}
+						<span className='text-sm'>/100</span>
 					</div>
 					<p className='text-xl font-semibold'>{feedbackOnScore}</p>
 					<p>
