@@ -10,8 +10,9 @@ import Test from './pages/Test';
 import NotFound from './pages/NotFound';
 import Score from './pages/Score';
 import Login from './pages/Login';
-import Profile from './pages/Profile';
-import ScoreHistory from './pages/ScoreHistory';
+import Profile from './pages/me/Profile';
+import ScoreHistory from './pages/me/ScoreHistory';
+import Main from './pages/me/Main';
 import { useUserStore } from './store/user';
 
 function App() {
@@ -46,18 +47,13 @@ function App() {
 				path='/me'
 				element={
 					<ProtectedRoute>
-						<Profile />
+						<Main />
 					</ProtectedRoute>
 				}
-			/>
-			<Route
-				path='/me/history'
-				element={
-					<ProtectedRoute>
-						<ScoreHistory />
-					</ProtectedRoute>
-				}
-			/>
+			>
+				<Route index element={<Profile />} />
+				<Route path='history' element={<ScoreHistory />} />
+			</Route>
 			<Route path='*' element={<NotFound />} />
 		</Routes>
 	);
