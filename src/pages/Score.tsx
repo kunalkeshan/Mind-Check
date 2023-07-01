@@ -4,15 +4,23 @@
  */
 
 // Dependencies
-import { useMemo, useLayoutEffect } from 'react';
+import { useMemo, useLayoutEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import FEEDBACKS from '../data/feedback';
 import ScrollToTop from '../components/reusable/ScrollToTop';
+import { FirebaseAuth, FirebaseDb } from '../firebase';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
+import { toast } from 'react-hot-toast';
+import { doc, setDoc } from 'firebase/firestore';
+import { nanoid } from 'nanoid';
 import { useUserStore } from '../store/user';
 
 function Score() {
 	const { user } = useUserStore();
 	const navigate = useNavigate();
+	const [loginLoading, setLoginLoading] = useState(false);
+	const { setUser } = useUserStore();
 
 	const score = useMemo(() => {
 		if (
@@ -44,6 +52,41 @@ function Score() {
 
 	const handleTakeAnotherTest = () => {
 		sessionStorage.removeItem('MindCheckUserScore.v2');
+	};
+
+	const handleLoginAndSaveTestScore = async () => {
+		const provider = new GoogleAuthProvider();
+		try {
+			setLoginLoading(true);
+			const response = await signInWithPopup(FirebaseAuth, provider);
+			const scoresRef = doc(
+				FirebaseDb,
+				'users',
+				response.user.uid,
+				'scores',
+				nanoid()
+			);
+			setUser(response.user);
+			setDoc(scoresRef, score);
+			toast.success('Scores saved, go to your profile to learn more.');
+		} catch (error) {
+			if (error instanceof FirebaseError) {
+				switch (error.code) {
+					case 'auth/popup-closed-by-user': {
+						toast.error(
+							'Do not close popup before selecting email.'
+						);
+						break;
+					}
+					default: {
+						toast.error('Unable to login. Try again later.');
+						break;
+					}
+				}
+			}
+		} finally {
+			setLoginLoading(false);
+		}
 	};
 
 	return (
@@ -111,11 +154,24 @@ function Score() {
 						Take another test.
 					</Link>
 					{user ? (
-						<Link to='/me' className='hover:underline'>
+						<Link
+							to='/me'
+							className='hover:underline text-textSecondary'
+							onClick={handleTakeAnotherTest}
+						>
 							View profile and past scores.
 						</Link>
 					) : (
-						<button title='Login using google.'>
+						<button
+							title='Login using google.'
+							disabled={loginLoading}
+							className={`${
+								loginLoading
+									? 'text-gray-500 cursor-default'
+									: ''
+							} hover:underline text-textSecondary`}
+							onClick={handleLoginAndSaveTestScore}
+						>
 							Login to save score.
 						</button>
 					)}
