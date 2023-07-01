@@ -10,16 +10,14 @@ interface NavLink {
 type NavLinks = NavLink[];
 
 const COMMON_LINKS: NavLinks = [
-	{
-		name: 'Home',
-		url: '/',
-	},
-	{
-		name: 'Features',
-		url: '/#features',
-	},
+	{ name: 'Home', url: '/' },
+	{ name: 'Features', url: '/#features' },
 ];
 
 export const MAIN_LINKS: NavLinks = [...COMMON_LINKS];
 
-export const FOOTER_LINKS: NavLinks = [...COMMON_LINKS];
+export const FOOTER_LINKS: NavLinks = [
+	...COMMON_LINKS,
+	{ name: 'Terms of Conditions', url: '/terms-of-conditions' },
+	{ name: 'Privacy Policy', url: '/privacy-policy' },
+];
