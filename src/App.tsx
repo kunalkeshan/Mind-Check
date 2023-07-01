@@ -13,6 +13,8 @@ import Login from './pages/Login';
 import Profile from './pages/me/Profile';
 import ScoreHistory from './pages/me/ScoreHistory';
 import Main from './pages/me/Main';
+import TermsOfConditions from './pages/TermsOfConditions';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import { useUserStore } from './store/user';
 
 function App() {
@@ -54,6 +56,11 @@ function App() {
 				<Route index element={<Profile />} />
 				<Route path='history' element={<ScoreHistory />} />
 			</Route>
+			<Route
+				path='/terms-of-conditions'
+				element={<TermsOfConditions />}
+			/>
+			<Route path='/privacy-policy' element={<PrivacyPolicy />} />
 			<Route path='*' element={<NotFound />} />
 		</Routes>
 	);
