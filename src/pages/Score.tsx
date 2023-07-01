@@ -12,7 +12,7 @@ import { FirebaseAuth, FirebaseDb } from '../firebase';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import { toast } from 'react-hot-toast';
-import { doc, setDoc } from 'firebase/firestore';
+import { Timestamp, doc, setDoc } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import { useUserStore } from '../store/user';
 
@@ -67,7 +67,11 @@ function Score() {
 				nanoid()
 			);
 			setUser(response.user);
-			setDoc(scoresRef, score);
+			setDoc(scoresRef, {
+				calculatedScore: score.calculatedScore,
+				score: score.data,
+				time: Timestamp.now(),
+			});
 			toast.success('Scores saved, go to your profile to learn more.');
 		} catch (error) {
 			if (error instanceof FirebaseError) {
