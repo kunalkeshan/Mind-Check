@@ -2,10 +2,9 @@
  * Profile Page
  */
 
+// Dependencies
 import ProfileCard from '../../components/profile/ProfileCard';
 import TotalHistoryChart from '../../components/profile/TotalHistoryChart';
-
-// Dependencies
 
 function Profile() {
 	return (
