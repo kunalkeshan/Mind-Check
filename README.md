@@ -10,7 +10,7 @@ Mind Check is a web application designed to help individuals assess and track th
 
 - **Free Test and Feedback**: Mind Check offers a collection of mental health tests that users can take for free. After completing a test, users receive personalized feedback based on their responses.
 
-- **User Accounts**: (Coming Soon!) Users have the option to create an account to store their test data and access additional features. Creating an account allows users to view their test history, track their progress over time, and receive recommendations for improving their mental well-being.
+- **User Accounts**: Users have the option to create an account to store their test data and access additional features. Creating an account allows users to view their test history, track their progress over time, and receive recommendations for improving their mental well-being.
 
 - **Secure Data Storage**: Mind Check utilizes Firebase, a cloud-based platform, for secure data storage and authentication. User data, including test results and personal information, is encrypted and protected.
 

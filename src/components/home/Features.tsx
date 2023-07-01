@@ -14,14 +14,14 @@ const FEATURES_CONTENT = [
 		title: 'Login/Create Account to Store Test Data',
 		description:
 			'Create your account or log in to store your test data securely. Your information will be protected, allowing you to track your progress over time and access your past test results whenever you need them.',
-		available: false,
+		available: true,
 		image: '/images/features/account.svg',
 	},
 	{
 		title: 'View Past Score History',
 		description:
 			'Easily access and review your previous test scores. Monitor your journey and observe patterns in your emotional well-being over time. Understanding your progress is essential, and our app provides a clear overview of your score history.',
-		available: false,
+		available: true,
 		image: '/images/features/history.svg',
 	},
 	{
