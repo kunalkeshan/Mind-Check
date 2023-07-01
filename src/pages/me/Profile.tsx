@@ -3,16 +3,29 @@
  */
 
 // Dependencies
-import { useEffect, useState } from 'react';
 import { useUserStore } from '../../store/user';
 import { collection, getCountFromServer } from 'firebase/firestore';
 import { FirebaseAuth, FirebaseDb } from '../../firebase';
 import { signOut } from 'firebase/auth';
 import { toast } from 'react-hot-toast';
+import { useQuery } from 'react-query';
 
 function Profile() {
 	const { user } = useUserStore();
-	const [testsTaken, setTestsTaken] = useState<number | null>(null);
+	const {
+		data: testCountData,
+		error: testCountError,
+		isLoading: testCountIsLoading,
+	} = useQuery('testsTakenByUser', async () => {
+		const scoresRef = collection(
+			FirebaseDb,
+			'users',
+			user?.uid as string,
+			'scores'
+		);
+		const count = await getCountFromServer(scoresRef);
+		return count.data().count;
+	});
 
 	const handleUserSignOut = async () => {
 		toast.promise(signOut(FirebaseAuth), {
@@ -21,24 +34,6 @@ function Profile() {
 			error: 'Unable to sign out at the moment',
 		});
 	};
-
-	useEffect(() => {
-		const fetchTestsTakenCount = async () => {
-			try {
-				const scoresRef = collection(
-					FirebaseDb,
-					'users',
-					user?.uid as string,
-					'scores'
-				);
-				const snapshot = await getCountFromServer(scoresRef);
-				setTestsTaken(snapshot.data().count);
-			} catch (error) {
-				// error if count fails
-			}
-		};
-		if (testsTaken === null) fetchTestsTakenCount();
-	}, [testsTaken, user?.uid]);
 
 	return (
 		<div className='w-full relative grid grid-cols-3 mt-8 text-left'>
@@ -65,7 +60,11 @@ function Profile() {
 						</p>
 						<p>
 							Tests Taken:{' '}
-							{testsTaken === null ? 'Loading...' : testsTaken}
+							{testCountIsLoading
+								? 'Loading...'
+								: testCountError
+								? 'Unable to get count'
+								: testCountData}
 						</p>
 					</div>
 					<hr className='border w-full' />
