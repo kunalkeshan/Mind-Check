@@ -35,6 +35,33 @@ function Footer() {
 						</li>
 					))}
 				</ul>
+				<hr className='w-full border' />
+				<p className='text-center w-full'>
+					Copyright &copy; Mind-Check - 2023 | Design Inspired by{' '}
+					<a
+						href='https://medix-html-webflow-template.webflow.io/'
+						target='_blank'
+						className='text-textSecondary underline text-opacity-80 hover:text-opacity-100 transition-all'
+					>
+						Medix
+					</a>{' '}
+					| Open Source on{' '}
+					<a
+						href='https://github.com/kunalkeshan/Mind-Check'
+						target='_blank'
+						className='text-textSecondary underline text-opacity-80 hover:text-opacity-100 transition-all'
+					>
+						GitHub
+					</a>{' '}
+					| Powered by{' '}
+					<a
+						href='https://vitejs.dev/guide/'
+						target='_blank'
+						className='text-textSecondary underline text-opacity-80 hover:text-opacity-100 transition-all'
+					>
+						Vite + React
+					</a>
+				</p>
 			</div>
 		</footer>
 	);

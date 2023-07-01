@@ -1,28 +1,45 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 /**
  * Score Page
  */
 
 // Dependencies
-import { useMemo, useLayoutEffect } from 'react';
+import { useMemo, useLayoutEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import FEEDBACKS from '../data/feedback';
 import ScrollToTop from '../components/reusable/ScrollToTop';
+import { FirebaseAuth, FirebaseDb } from '../firebase';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
+import { toast } from 'react-hot-toast';
+import { doc, setDoc } from 'firebase/firestore';
+import { nanoid } from 'nanoid';
 import { useUserStore } from '../store/user';
 
 function Score() {
 	const { user } = useUserStore();
 	const navigate = useNavigate();
+	const [loginLoading, setLoginLoading] = useState(false);
+	const { setUser } = useUserStore();
 
 	const score = useMemo(() => {
-		return parseInt(
-			(sessionStorage.getItem('MindCheckUserScore.v1') as string) ?? 0,
-			10
-		);
+		if (
+			(sessionStorage.getItem('MindCheckUserScore.v2') as string) !== null
+		) {
+			const data = JSON.parse(
+				sessionStorage.getItem('MindCheckUserScore.v2') as string
+			);
+			return data;
+		}
+		return false;
 	}, []);
 
 	const feedbackOnScore = useMemo(() => {
 		const data = FEEDBACKS.find((feedback) => {
-			if (score >= feedback.range.min && score <= feedback.range.max) {
+			if (
+				score.calculatedScore >= feedback.range.min &&
+				score.calculatedScore <= feedback.range.max
+			) {
 				return true;
 			}
 		});
@@ -34,7 +51,42 @@ function Score() {
 	}, [navigate, score]);
 
 	const handleTakeAnotherTest = () => {
-		sessionStorage.removeItem('MindCheckUserScore.v1');
+		sessionStorage.removeItem('MindCheckUserScore.v2');
+	};
+
+	const handleLoginAndSaveTestScore = async () => {
+		const provider = new GoogleAuthProvider();
+		try {
+			setLoginLoading(true);
+			const response = await signInWithPopup(FirebaseAuth, provider);
+			const scoresRef = doc(
+				FirebaseDb,
+				'users',
+				response.user.uid,
+				'scores',
+				nanoid()
+			);
+			setUser(response.user);
+			setDoc(scoresRef, score);
+			toast.success('Scores saved, go to your profile to learn more.');
+		} catch (error) {
+			if (error instanceof FirebaseError) {
+				switch (error.code) {
+					case 'auth/popup-closed-by-user': {
+						toast.error(
+							'Do not close popup before selecting email.'
+						);
+						break;
+					}
+					default: {
+						toast.error('Unable to login. Try again later.');
+						break;
+					}
+				}
+			}
+		} finally {
+			setLoginLoading(false);
+		}
 	};
 
 	return (
@@ -70,14 +122,17 @@ function Score() {
 				<section className='flex flex-col items-center text-center gap-6 max-w-2xl mx-auto mt-6'>
 					<div
 						className={`${
-							score >= 0 && score <= 33
+							score.calculatedScore >= 0 &&
+							score.calculatedScore <= 33
 								? 'border-green-500 text-green-500'
-								: score >= 34 && score <= 66
+								: score.calculatedScore >= 34 &&
+								  score.calculatedScore <= 66
 								? 'border-orange-500 text-orange-500'
 								: 'border-red-500 text-red-500'
 						} w-40 h-40 border-8 text-4xl flex items-center justify-center font-bold font-heading rounded-full`}
 					>
-						{score} <span className='text-sm'>/100</span>
+						{score.calculatedScore}{' '}
+						<span className='text-sm'>/100</span>
 					</div>
 					<p className='text-xl font-semibold'>{feedbackOnScore}</p>
 					<p>
@@ -99,11 +154,24 @@ function Score() {
 						Take another test.
 					</Link>
 					{user ? (
-						<Link to='/me' className='hover:underline'>
+						<Link
+							to='/me'
+							className='hover:underline text-textSecondary'
+							onClick={handleTakeAnotherTest}
+						>
 							View profile and past scores.
 						</Link>
 					) : (
-						<button title='Login using google.'>
+						<button
+							title='Login using google.'
+							disabled={loginLoading}
+							className={`${
+								loginLoading
+									? 'text-gray-500 cursor-default'
+									: ''
+							} hover:underline text-textSecondary`}
+							onClick={handleLoginAndSaveTestScore}
+						>
 							Login to save score.
 						</button>
 					)}
