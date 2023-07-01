@@ -9,7 +9,60 @@ interface LegalInfo {
 
 type LegalInfoList = LegalInfo[];
 
-export const TERMS_AND_CCONDITIONS: LegalInfoList = [];
+export const TERMS_AND_CCONDITIONS: LegalInfoList = [
+	{
+		title: 'Description of the App',
+		information: [
+			'Mind Check is a mental health assessment application that provides users with personalized feedback based on their test inputs. The App is intended for informational and self-assessment purposes only and is not a substitute for professional mental health advice or treatment.',
+		],
+	},
+	{
+		title: 'Acceptable Use',
+		information: [
+			'You agree to use the App only for lawful purposes and in a manner consistent with these Terms. You shall not:',
+			'Attempt to gain unauthorized access to the App, its servers, or any connected databases.',
+			'Use the App to infringe upon the rights of others, including intellectual property rights.',
+			'Transmit any harmful or malicious content that could damage the App or other users.',
+			'Engage in any activity that may interrupt or interfere with the proper functioning of the App.',
+		],
+	},
+	{
+		title: 'Privacy',
+		information: [
+			'We respect your privacy and handle your personal information in accordance with our Privacy Policy, which is incorporated into these Terms. By using the App, you consent to our collection, use, and disclosure of your personal information as described in the Privacy Policy.',
+		],
+	},
+	{
+		title: 'Intellectual Property',
+		information: [
+			'All intellectual property rights related to the App, including but not limited to copyrights, trademarks, and trade secrets, are owned by Mind Check. You are granted a limited, non-exclusive, and non-transferable license to use the App for personal, non-commercial purposes.',
+		],
+	},
+	{
+		title: 'Disclaimer',
+		information: [
+			'The App\'s content and information are provided "as is," without any warranties, express or implied. Mind Check does not guarantee the accuracy, completeness, or reliability of the App\'s content or information. The App is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your qualified healthcare provider with any questions you may have regarding your mental health.',
+		],
+	},
+	{
+		title: 'Limitation of Liability',
+		information: [
+			'To the extent permitted by law, Mind Check shall not be liable for any direct, indirect, incidental, consequential, or special damages arising from or in connection with the use of the App or its content. This includes but is not limited to damages for loss of profits, data, or other intangible losses.',
+		],
+	},
+	{
+		title: 'Modifications',
+		information: [
+			'Mind Check reserves the right to modify these Terms at any time. Any changes will be effective immediately upon posting the updated Terms on the App. Your continued use of the App after the posting of the updated Terms constitutes your acceptance of the revised Terms.',
+		],
+	},
+	{
+		title: 'Governing Law',
+		information: [
+			'These Terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law principles.',
+		],
+	},
+];
 
 export const PRIVACY_POLICY: LegalInfoList = [
 	{
