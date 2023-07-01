@@ -33,7 +33,7 @@ function ScoreHistory() {
 				user?.uid as string,
 				'scores'
 			);
-			const q = query(ref, orderBy('time', 'asc'));
+			const q = query(ref, orderBy('time', 'desc'));
 			const data = await getDocs(q);
 			const scores: Score[] = [];
 			data.forEach((doc) => {
