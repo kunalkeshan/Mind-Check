@@ -114,7 +114,7 @@ function Navbar() {
 						</ul>
 						{user !== null ? (
 							<Link
-								to='/test'
+								to='/me'
 								className='px-8 py-4 w-fit border-secondary border-2 rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
 								onClick={handleCloseMenu}
 							>
