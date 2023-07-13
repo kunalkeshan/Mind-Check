@@ -13,7 +13,7 @@ import { useUserStore } from "../../store/user";
 function Navbar() {
   const [open, setOpen] = useState(false);
   const { user } = useUserStore();
-
+  //   console.log(user?.photoURL);
   const handleMenuToggle = () => {
     setOpen(!open);
   };
@@ -38,6 +38,12 @@ function Navbar() {
           <p className="font-heading text-3xl font-bold">Mind Check</p>
         </Link>
         <ul className="hidden md:flex gap-4 items-center">
+          <Link
+            to="/me"
+            className="hidden md:block px-8 py-4 border-secondary border-2 ml-auto rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark"
+          >
+            Profile
+          </Link>
           {MAIN_LINKS.map((link, index) => (
             <li
               key={index}
@@ -55,11 +61,13 @@ function Navbar() {
           </li>
         </ul>
         {user !== null ? (
-          <img
-            src={user?.photoURL ?? ""}
-            alt={user?.displayName ?? ""}
-            className="w-full h-auto rounded-full object-contain"
-          />
+          <Link to="/me" className="hidden md:block ml-auto">
+            <img
+              src={user?.photoURL ?? ""}
+              alt={user?.displayName ?? ""}
+              className="rounded-full scale-75"
+            />
+          </Link>
         ) : (
           <Link
             to="/test"
