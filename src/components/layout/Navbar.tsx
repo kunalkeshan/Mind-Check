@@ -68,7 +68,7 @@ function Navbar() {
             <img
               src={user?.photoURL ?? ""}
               alt={user?.displayName ?? ""}
-              className="rounded-full scale-75"
+              className="rounded-full scale-50"
             />
           </Link>
         ) : (
