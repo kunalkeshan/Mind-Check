@@ -38,12 +38,15 @@ function Navbar() {
           <p className="font-heading text-3xl font-bold">Mind Check</p>
         </Link>
         <ul className="hidden md:flex gap-4 items-center">
-          <Link
-            to="/me"
-            className="hidden md:block px-8 py-4 border-secondary border-2 ml-auto rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark"
-          >
-            Profile
-          </Link>
+          {user === null && (
+            <Link
+              to="/me"
+              className="hidden md:block px-8 py-4 border-secondary border-2 ml-auto rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark"
+            >
+              Profile
+            </Link>
+          )}
+
           {MAIN_LINKS.map((link, index) => (
             <li
               key={index}
