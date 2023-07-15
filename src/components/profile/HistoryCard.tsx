@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Timestamp } from 'firebase/firestore';
-import FEEDBACKS from '../../data/feedback';
+import FEEDBACKS, { FEEDBACKS_LENGTH } from '../../data/feedback';
 
 interface Score {
 	id: string;
@@ -18,7 +18,7 @@ const HistoryCard: React.FC<Score> = ({ calculatedScore, time }) => {
 				return true;
 			}
 		});
-		return data?.feedback;
+		return data?.feedback[Math.floor(Math.random() * FEEDBACKS_LENGTH)];
 	}, [calculatedScore]);
 	return (
 		<div className='w-full bg-tertiary border border-secondary rounded-xl px-8 py-4 flex flex-col md:flex-row md:justify-between gap-4 items-center transition-all hover:border-secondaryDark hover:-translate-y-1 hover:shadow-md select-none'>

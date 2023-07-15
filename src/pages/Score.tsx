@@ -6,7 +6,7 @@
 // Dependencies
 import { useMemo, useLayoutEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import FEEDBACKS from '../data/feedback';
+import FEEDBACKS, { FEEDBACKS_LENGTH } from '../data/feedback';
 import ScrollToTop from '../components/reusable/ScrollToTop';
 import { FirebaseAuth, FirebaseDb } from '../firebase';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
@@ -43,7 +43,7 @@ function Score() {
 				return true;
 			}
 		});
-		return data?.feedback;
+		return data?.feedback[Math.floor(Math.random() * FEEDBACKS_LENGTH)];
 	}, [score]);
 
 	useLayoutEffect(() => {
