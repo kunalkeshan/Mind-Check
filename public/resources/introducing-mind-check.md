@@ -1,7 +1,5 @@
 # Introducing Mind Check: Assess and Track Your Mental Well-being
 
-![MindCheck Thumbnail](../public/thumbnail.PNG)
-
 In today's fast-paced world, taking care of our mental health is more important than ever. Introducing Mind Check, a web application designed to help individuals assess and track their mental well-being. With its user-friendly interface and comprehensive features, Mind Check aims to empower individuals on their journey towards improved mental health.
 
 **Here's a closer look at some of the key features Mind Check offers:**
@@ -30,4 +28,4 @@ Take the first step towards a healthier mind. Visit Mind Check today and embark 
 
 ---
 
-*(Note: The Burn Depression Checklist is a recognized assessment tool, but Mind Check is not a substitute for professional diagnosis or treatment. If you are experiencing severe or persistent mental health symptoms, we strongly encourage you to seek professional help.)*
+_(Note: The Burn Depression Checklist is a recognized assessment tool, but Mind Check is not a substitute for professional diagnosis or treatment. If you are experiencing severe or persistent mental health symptoms, we strongly encourage you to seek professional help.)_
