@@ -16,6 +16,9 @@ import Main from './pages/me/Main';
 import TermsOfConditions from './pages/TermsOfConditions';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import { useUserStore } from './store/user';
+import Resources from './pages/resources/Resources';
+import AllResources from './pages/resources/AllResources';
+import SignleResource from './pages/resources/SignleResource';
 
 function App() {
 	const { user } = useUserStore();
@@ -55,6 +58,10 @@ function App() {
 			>
 				<Route index element={<Profile />} />
 				<Route path='history' element={<ScoreHistory />} />
+			</Route>
+			<Route path='/resources' element={<Resources />}>
+				<Route index element={<AllResources />} />
+				<Route path=':resourceSlug' element={<SignleResource />} />
 			</Route>
 			<Route
 				path='/terms-of-conditions'
