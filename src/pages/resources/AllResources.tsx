@@ -9,8 +9,6 @@ function AllResources() {
 		fetchAllResources
 	);
 
-	console.log(data);
-
 	return (
 		<div className='w-full'>
 			<p className='font-heading font-semibold text-xl tracking-wide text-textSecondary'>
