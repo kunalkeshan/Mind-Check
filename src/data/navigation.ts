@@ -12,6 +12,7 @@ type NavLinks = NavLink[];
 const COMMON_LINKS: NavLinks = [
 	{ name: 'Home', url: '/' },
 	{ name: 'Features', url: '/#features' },
+	{ name: 'Resources', url: '/resources' },
 ];
 
 export const MAIN_LINKS: NavLinks = [...COMMON_LINKS];
