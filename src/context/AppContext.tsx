@@ -3,6 +3,7 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 import { FirebaseAuth } from '../firebase';
 import { useUserStore } from '../store/user';
 import { useNavigate } from 'react-router-dom';
+import { fetchAllResources } from '../utils/resources';
 
 export const AuthContext = createContext({});
 
@@ -23,6 +24,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 			}),
 		[navigate, setUser]
 	);
+
+	useEffect(() => {
+		fetchAllResources();
+	}, []);
 
 	return (
 		<AuthContext.Provider value={{}}>
