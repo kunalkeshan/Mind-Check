@@ -17,6 +17,10 @@ export interface Resource {
 	published: Date;
 	image: string;
 	body?: string;
+	author: {
+		name: string;
+		social: string; // linkedin, twitter, or personal portfolio
+	};
 }
 
 const RESOURCES: Resource[] = [
@@ -28,6 +32,10 @@ const RESOURCES: Resource[] = [
 		url: 'introducing-mind-check',
 		image: '/images/resources/introducing-mind-check.svg',
 		published: new Date('2023-07-16'),
+		author: {
+			name: 'Kunal Keshan',
+			social: 'https://kunalkesha.dev/',
+		},
 	},
 ];
 

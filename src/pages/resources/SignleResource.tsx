@@ -1,9 +1,15 @@
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { fetchSingleResource } from '../../utils/resources';
+import {
+	calculateReadingTime,
+	fetchSingleResource,
+} from '../../utils/resources';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import ReactMarkdown from 'react-markdown';
+import { Copy, Github, Share } from 'lucide-react';
+import { toast } from 'react-hot-toast';
+import { useMemo } from 'react';
 
 function SignleResource() {
 	const { resourceSlug } = useParams();
@@ -11,6 +17,41 @@ function SignleResource() {
 		['fetchSingleResource', resourceSlug],
 		() => fetchSingleResource(resourceSlug ?? '')
 	);
+
+	const totalReadingTime = calculateReadingTime(data?.body ?? '');
+
+	const shareData = useMemo(() => {
+		return {
+			url: window.location.href,
+			title: data?.title,
+			text: data?.description,
+		};
+	}, [data]);
+
+	const handleSharePost = async () => {
+		if (navigator.canShare()) {
+			try {
+				await navigator.share(shareData);
+			} catch (error) {
+				toast.error('Unable to share. Try again later.');
+			}
+		} else {
+			toast.error('Your device cannot share this. Copy the URL!');
+		}
+	};
+
+	const handleCopyPostLink = async () => {
+		if (navigator.clipboard) {
+			try {
+				await navigator.clipboard.writeText(shareData.url);
+				toast.success('Link copied!');
+			} catch (error) {
+				toast.error('Unable to copy link. Try again later.');
+			}
+		} else {
+			toast.error('Your device copy this!');
+		}
+	};
 
 	return (
 		<div className='w-full'>
@@ -48,12 +89,58 @@ function SignleResource() {
 						className='[&>*]:mt-4 text-lg'
 						components={{
 							h1: ({ children, ...props }) => (
-								<h1
-									className='text-3xl md:text-5xl font-heading font-bold text-center'
-									{...props}
-								>
-									{children}
-								</h1>
+								<header className='[&>*]:mt-2'>
+									<h1
+										className='text-3xl md:text-5xl font-heading font-bold'
+										{...props}
+									>
+										{children}
+									</h1>
+									<span className='text-sm'>
+										Written by:{' '}
+										<a
+											href={data?.author.social}
+											title={data?.author.social}
+											target='_blank'
+											className='text-textSecondary hover:underline underline-offset-4 text-opacity-80 hover:text-opacity-100 transition-all duration-300'
+										>
+											{data?.author.name}
+										</a>{' '}
+										•{' '}
+									</span>
+									<span className='text-sm'>
+										{new Date(
+											data?.published ?? ''
+										).toLocaleDateString()}{' '}
+										•{' '}
+									</span>
+									<span className='text-sm'>
+										{totalReadingTime} min read
+									</span>
+									<div className='w-full border-t gap-2 border-b flex items-center justify-end py-2 text-sm hover:text-textSecondary text-textPrimary transition-all duration-300'>
+										<button
+											onClick={handleSharePost}
+											className='flex items-center gap-2'
+										>
+											<Share
+												size={16}
+												strokeWidth={1.25}
+											/>
+											Share
+										</button>
+										•
+										<button
+											onClick={handleCopyPostLink}
+											className='flex items-center gap-2'
+										>
+											<Copy
+												size={16}
+												strokeWidth={1.25}
+											/>
+											Copy link
+										</button>
+									</div>
+								</header>
 							),
 							h2: ({ children, ...props }) => (
 								<h2
@@ -75,6 +162,15 @@ function SignleResource() {
 							),
 						}}
 					/>
+					<a
+						href={`https://github.com/kunalkeshan/Mind-Check/tree/main/public/resources/${data?.url}.md`}
+						title={`https://github.com/kunalkeshan/Mind-Check/tree/main/public/resources/${data?.url}.md`}
+						className='flex justify-end items-center gap-2 w-full mt-4 text-textSecondary hover:underline text-opacity-80 transition-all duration-300 hover:text-opacity-100 underline-offset-4'
+						target='_blank'
+					>
+						Edit this page on GitHub{' '}
+						<Github size={16} strokeWidth={1.25} />
+					</a>
 				</article>
 			)}
 		</div>

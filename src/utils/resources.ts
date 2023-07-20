@@ -37,3 +37,10 @@ export const fetchSingleResource = async (url: string) => {
 		return data;
 	}
 };
+
+export const calculateReadingTime = (text: string) => {
+	const textLength = text.trim().split(/s+/gi).length;
+	const AVERAGE_HUMAN_READING_TIME = 200; // words per minute;
+	const totalReadingTime = Math.ceil(textLength / AVERAGE_HUMAN_READING_TIME);
+	return totalReadingTime;
+};

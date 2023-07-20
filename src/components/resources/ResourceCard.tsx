@@ -1,12 +1,15 @@
 import React from 'react';
 import { Resource } from '../../data/resources';
 import { Link } from 'react-router-dom';
+import { calculateReadingTime } from '../../utils/resources';
 
 interface ResourceCardProps {
 	resource: Resource;
 }
 
 const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
+	const totalReadingTime = calculateReadingTime(resource.body ?? '');
+
 	return (
 		<Link
 			to={`/resources/${resource.url}`}
@@ -16,8 +19,10 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
 				{resource.title}
 			</h3>
 			<p className='text-xs'>
-				Published: {new Date(resource.published).toLocaleDateString()}
+				By <b>{resource.author.name}</b>, published on{' '}
+				<b>{new Date(resource.published).toLocaleDateString()}</b>
 			</p>
+			<p className='text-xs'>{totalReadingTime} min read</p>
 			<div className='w-[160px] h-[160px] p-4 flex items-center justify-center mx-auto relative my-4'>
 				<img
 					src={resource.image}
