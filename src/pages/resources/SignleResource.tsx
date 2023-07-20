@@ -7,6 +7,7 @@ import {
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import ReactMarkdown from 'react-markdown';
+import { Github } from 'lucide-react';
 
 function SignleResource() {
 	const { resourceSlug } = useParams();
@@ -103,6 +104,15 @@ function SignleResource() {
 							),
 						}}
 					/>
+					<a
+						href={`https://github.com/kunalkeshan/Mind-Check/tree/main/public/resources/${data?.url}.md`}
+						title={`https://github.com/kunalkeshan/Mind-Check/tree/main/public/resources/${data?.url}.md`}
+						className='flex justify-end items-center gap-2 w-full mt-4 text-textSecondary hover:underline text-opacity-80 transition-all duration-300 hover:text-opacity-100 underline-offset-4'
+						target='_blank'
+					>
+						Edit this page on GitHub{' '}
+						<Github size={16} strokeWidth={1.25} />
+					</a>
 				</article>
 			)}
 		</div>
