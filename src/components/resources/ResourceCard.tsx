@@ -19,8 +19,8 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
 				{resource.title}
 			</h3>
 			<p className='text-xs'>
-				By {resource.author.name}, published on{' '}
-				{new Date(resource.published).toLocaleDateString()}
+				By <b>{resource.author.name}</b>, published on{' '}
+				<b>{new Date(resource.published).toLocaleDateString()}</b>
 			</p>
 			<p className='text-xs'>{totalReadingTime} min read</p>
 			<div className='w-[160px] h-[160px] p-4 flex items-center justify-center mx-auto relative my-4'>
