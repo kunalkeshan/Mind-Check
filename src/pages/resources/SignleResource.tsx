@@ -29,7 +29,7 @@ function SignleResource() {
 	}, [data]);
 
 	const handleSharePost = async () => {
-		if (navigator.canShare()) {
+		if (navigator.canShare(shareData)) {
 			try {
 				await navigator.share(shareData);
 			} catch (error) {
