@@ -7,7 +7,9 @@ import {
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import ReactMarkdown from 'react-markdown';
-import { Github } from 'lucide-react';
+import { Copy, Github, Share } from 'lucide-react';
+import { toast } from 'react-hot-toast';
+import { useMemo } from 'react';
 
 function SignleResource() {
 	const { resourceSlug } = useParams();
@@ -17,6 +19,39 @@ function SignleResource() {
 	);
 
 	const totalReadingTime = calculateReadingTime(data?.body ?? '');
+
+	const shareData = useMemo(() => {
+		return {
+			url: window.location.href,
+			title: data?.title,
+			text: data?.description,
+		};
+	}, [data]);
+
+	const handleSharePost = async () => {
+		if (navigator.canShare()) {
+			try {
+				await navigator.share(shareData);
+			} catch (error) {
+				toast.error('Unable to share. Try again later.');
+			}
+		} else {
+			toast.error('Your device cannot share this. Copy the URL!');
+		}
+	};
+
+	const handleCopyPostLink = async () => {
+		if (navigator.clipboard) {
+			try {
+				await navigator.clipboard.writeText(shareData.url);
+				toast.success('Link copied!');
+			} catch (error) {
+				toast.error('Unable to copy link. Try again later.');
+			}
+		} else {
+			toast.error('Your device copy this!');
+		}
+	};
 
 	return (
 		<div className='w-full'>
@@ -82,6 +117,29 @@ function SignleResource() {
 									<span className='text-sm'>
 										{totalReadingTime} min read
 									</span>
+									<div className='w-full border-t gap-2 border-b flex items-center justify-end py-2 text-sm hover:text-textSecondary text-textPrimary transition-all duration-300'>
+										<button
+											onClick={handleSharePost}
+											className='flex items-center gap-2'
+										>
+											<Share
+												size={16}
+												strokeWidth={1.25}
+											/>
+											Share
+										</button>
+										•
+										<button
+											onClick={handleCopyPostLink}
+											className='flex items-center gap-2'
+										>
+											<Copy
+												size={16}
+												strokeWidth={1.25}
+											/>
+											Copy link
+										</button>
+									</div>
 								</header>
 							),
 							h2: ({ children, ...props }) => (
