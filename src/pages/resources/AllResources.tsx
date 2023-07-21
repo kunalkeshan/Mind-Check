@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import ResourceCard from '../../components/resources/ResourceCard';
 
 function AllResources() {
-	const { data, isError, isLoading } = useQuery(
-		['fetchAllResources'],
-		fetchAllResources
+	const { data, isError, isLoading } = useQuery(['fetchAllResources'], () =>
+		fetchAllResources({})
 	);
 
 	return (

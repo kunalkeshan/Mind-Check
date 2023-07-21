@@ -2,8 +2,23 @@ import RESOURCES, { Resource } from '../data/resources';
 
 const SOURCE_URL = '/resources';
 
-export const fetchAllResources = async () => {
-	const data = RESOURCES.map(async (resource) => {
+interface IFetchAllResourcesOptions {
+	limit: number;
+	sort: {
+		by?: 'date';
+		order: 'asc' | 'desc';
+	};
+}
+
+type FetchAllResourcesOptions = Partial<IFetchAllResourcesOptions>;
+
+const fetchAllResourcesDefaults: FetchAllResourcesOptions = {
+	limit: 0,
+};
+
+export const fetchAllResources = async (_options: FetchAllResourcesOptions) => {
+	const options = { ...fetchAllResourcesDefaults, ..._options };
+	const data = RESOURCES.slice(0, options.limit).map(async (resource) => {
 		if (sessionStorage.getItem(resource.url)) {
 			const data = JSON.parse(
 				sessionStorage.getItem(resource.url) as string
