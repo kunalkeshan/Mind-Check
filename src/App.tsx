@@ -19,6 +19,7 @@ import { useUserStore } from './store/user';
 import Resources from './pages/resources/Resources';
 import AllResources from './pages/resources/AllResources';
 import SignleResource from './pages/resources/SignleResource';
+import IndividualScoreHistoryPage from './pages/me/IndividualScoreHistory';
 
 function App() {
 	const { user } = useUserStore();
@@ -58,6 +59,10 @@ function App() {
 			>
 				<Route index element={<Profile />} />
 				<Route path='history' element={<ScoreHistory />} />
+				<Route
+					path='history/:historyId'
+					element={<IndividualScoreHistoryPage />}
+				/>
 			</Route>
 			<Route path='/resources' element={<Resources />}>
 				<Route index element={<AllResources />} />

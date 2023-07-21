@@ -52,6 +52,7 @@ function ScoreHistory() {
 			return scores;
 		}
 	);
+
 	return (
 		<div className='w-full flex flex-col items-center gap-4 mt-4'>
 			{isLoading

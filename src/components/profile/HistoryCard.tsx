@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Timestamp } from 'firebase/firestore';
 import FEEDBACKS, { FEEDBACKS_LENGTH } from '../../data/feedback';
+import { Link } from 'react-router-dom';
 
 interface Score {
 	id: string;
@@ -8,7 +9,7 @@ interface Score {
 	time: Timestamp;
 }
 
-const HistoryCard: React.FC<Score> = ({ calculatedScore, time }) => {
+const HistoryCard: React.FC<Score> = ({ calculatedScore, time, id }) => {
 	const feedbackOnScore = useMemo(() => {
 		const data = FEEDBACKS.find((feedback) => {
 			if (
@@ -21,7 +22,10 @@ const HistoryCard: React.FC<Score> = ({ calculatedScore, time }) => {
 		return data?.feedback[Math.floor(Math.random() * FEEDBACKS_LENGTH)];
 	}, [calculatedScore]);
 	return (
-		<div className='w-full bg-tertiary border border-secondary rounded-xl px-8 py-4 flex flex-col md:flex-row md:justify-between gap-4 items-center transition-all hover:border-secondaryDark hover:-translate-y-1 hover:shadow-md select-none'>
+		<Link
+			to={`${id}`}
+			className='w-full bg-tertiary border border-secondary rounded-xl px-8 py-4 flex flex-col md:flex-row md:justify-between gap-4 items-center transition-all hover:border-secondaryDark hover:-translate-y-1 hover:shadow-md select-none'
+		>
 			<div
 				className={`${
 					calculatedScore >= 0 && calculatedScore <= 33
@@ -40,7 +44,7 @@ const HistoryCard: React.FC<Score> = ({ calculatedScore, time }) => {
 			<p className='text-sm md:text-base'>
 				Test Taken: {time as unknown as string}
 			</p>
-		</div>
+		</Link>
 	);
 };
 
