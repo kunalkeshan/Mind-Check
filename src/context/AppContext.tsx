@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	);
 
 	useEffect(() => {
-		fetchAllResources();
+		fetchAllResources({});
 	}, []);
 
 	return (
