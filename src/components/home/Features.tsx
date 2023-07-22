@@ -50,7 +50,7 @@ function Features() {
 			whileInView={{ opacity: 1, y: 0 }}
 			transition={{ delay: 0.2, type: 'spring' }}
 			viewport={{ once: true }}
-			className='mt-20 text-center md:text-left'
+			className='mt-20 text-center md:text-left scroll-m-20'
 			id='features'
 		>
 			<h2 className='font-heading text-2xl md:text-4xl font-bold'>
