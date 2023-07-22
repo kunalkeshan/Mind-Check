@@ -5,6 +5,7 @@
 // Dependencies
 import React from 'react';
 import INSTRUCTIONS from '../../data/instructions';
+import { motion } from 'framer-motion';
 
 interface InstructionsProps {
 	setTestInProgress: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,7 +28,15 @@ const Instructions: React.FC<InstructionsProps> = ({ setTestInProgress }) => {
 			</h2>
 			<div className='flex flex-col gap-8 mt-8 w-full'>
 				{INSTRUCTIONS.map((instruction, index) => (
-					<div
+					<motion.div
+						initial={{ opacity: 0, scale: 0.9, y: 20 }}
+						whileInView={{ opacity: 1, scale: 1, y: 0 }}
+						transition={{
+							delay: 0.05 * (index + 1),
+							type: 'keyframes',
+							duration: 0.2,
+						}}
+						viewport={{ once: true }}
 						key={`${instruction.text}`}
 						className={`${
 							index % 2
@@ -54,7 +63,7 @@ const Instructions: React.FC<InstructionsProps> = ({ setTestInProgress }) => {
 								/>
 							</div>
 						</div>
-					</div>
+					</motion.div>
 				))}
 			</div>
 			<div className='min-h-[20vh] md:min-h-[40vh] mt-12 flex flex-col items-center justify-center gap-8 text-center'>

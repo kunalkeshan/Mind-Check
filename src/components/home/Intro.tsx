@@ -6,10 +6,17 @@
 import Lottie from 'lottie-react';
 import MentalWellBeingAnimationData from '../../assets/lottie/mental-wellbeing-seek-help.json';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 function Intro() {
 	return (
-		<section className='w-full grid grid-cols-1 md:grid-cols-2 place-items-center text-center md:text-left'>
+		<motion.section
+			initial={{ opacity: 0, y: 20 }}
+			whileInView={{ opacity: 1, y: 0 }}
+			transition={{ delay: 0.2, type: 'spring' }}
+			viewport={{ once: true }}
+			className='w-full grid grid-cols-1 md:grid-cols-2 place-items-center text-center md:text-left'
+		>
 			<div className='flex flex-col gap-4'>
 				<h1 className='font-heading text-3xl md:text-5xl font-bold'>
 					Assess Your Mental Well-being
@@ -36,7 +43,7 @@ function Intro() {
 					/>
 				</div>
 			</div>
-		</section>
+		</motion.section>
 	);
 }
 

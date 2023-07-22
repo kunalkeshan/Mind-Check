@@ -8,11 +8,17 @@ import { Link } from 'react-router-dom';
 import Instructions from '../components/test/Instructions';
 import TestQuestions from '../components/test/Test';
 import ScrollToTop from '../components/reusable/ScrollToTop';
+import { motion } from 'framer-motion';
 
 function Test() {
 	const [testInProgress, setTestInProgress] = useState(false);
 	return (
-		<>
+		<motion.main
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			key={'test-page'}
+		>
 			<nav className='fixed top-0 left-0 py-4 px-8 z-50 bg-primary w-full text-textPrimary'>
 				<div className='max-w-7xl mx-auto flex items-center justify-between md:justify-normal w-full md:gap-8'>
 					<Link
@@ -32,7 +38,7 @@ function Test() {
 					</Link>
 				</div>
 			</nav>
-			<main className='w-full min-h-screen mt-12'>
+			<div className='w-full min-h-screen mt-12'>
 				{testInProgress ? (
 					<>
 						<TestQuestions />
@@ -41,9 +47,9 @@ function Test() {
 				) : (
 					<Instructions setTestInProgress={setTestInProgress} />
 				)}
-			</main>
+			</div>
 			<ScrollToTop />
-		</>
+		</motion.main>
 	);
 }
 

@@ -2,6 +2,9 @@
  * Landing Page - Features Section
  */
 
+// Dependencies
+import { motion } from 'framer-motion';
+
 const FEATURES_CONTENT = [
 	{
 		title: 'Free Test and Feedback',
@@ -42,14 +45,29 @@ const FEATURES_CONTENT = [
 
 function Features() {
 	return (
-		<section className='mt-20 text-center md:text-left' id='features'>
+		<motion.section
+			initial={{ opacity: 0, y: 20 }}
+			whileInView={{ opacity: 1, y: 0 }}
+			transition={{ delay: 0.2, type: 'spring' }}
+			viewport={{ once: true }}
+			className='mt-20 text-center md:text-left'
+			id='features'
+		>
 			<h2 className='font-heading text-2xl md:text-4xl font-bold'>
 				Our Features
 			</h2>
 			<ul className='grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-4'>
 				{FEATURES_CONTENT.map((content, index) => (
-					<li
-						key={index}
+					<motion.li
+						initial={{ opacity: 0, scale: 1.1, y: -20 }}
+						whileInView={{ opacity: 1, scale: 1, y: 0 }}
+						transition={{
+							delay: 0.1 * (index + 1),
+							type: 'keyframes',
+							duration: 0.2,
+						}}
+						viewport={{ once: true }}
+						key={`${content.title}-${index}`}
 						className='border-2 border-secondary overflow-hidden group transition-all hover:border-secondaryDark rounded-3xl px-8 py-4 h-full select-none hover:-translate-y-2 hover:-translate-x-2'
 					>
 						<h3 className='font-heading text-lg md:text-2xl font-semibold'>
@@ -65,7 +83,7 @@ function Features() {
 							<div className='bg-secondary rounded-full w-[160px] h-[160px] group-hover:w-[500%] group-hover:h-[500%] bg-opacity-40 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-0 transition-all duration-300' />
 						</div>
 						<p>{content.description}</p>
-					</li>
+					</motion.li>
 				))}
 			</ul>
 			<p className='mt-4'>
@@ -74,7 +92,7 @@ function Features() {
 				and receive personalized feedback to support your mental health
 				journey. Sign up or log in today to get started!
 			</p>
-		</section>
+		</motion.section>
 	);
 }
 

@@ -3,23 +3,26 @@
  */
 
 // Dependencies
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Home from './pages/Home';
-import Test from './pages/Test';
-import NotFound from './pages/NotFound';
-import Score from './pages/Score';
-import Login from './pages/Login';
-import Profile from './pages/me/Profile';
-import ScoreHistory from './pages/me/ScoreHistory';
-import Main from './pages/me/Main';
-import TermsOfConditions from './pages/TermsOfConditions';
-import PrivacyPolicy from './pages/PrivacyPolicy';
 import { useUserStore } from './store/user';
-import Resources from './pages/resources/Resources';
-import AllResources from './pages/resources/AllResources';
-import SignleResource from './pages/resources/SignleResource';
-import IndividualScoreHistoryPage from './pages/me/IndividualScoreHistory';
+const Home = lazy(() => import('./pages/Home'));
+const Test = lazy(() => import('./pages/Test'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+const Score = lazy(() => import('./pages/Score'));
+const Login = lazy(() => import('./pages/Login'));
+const Profile = lazy(() => import('./pages/me/Profile'));
+const ScoreHistory = lazy(() => import('./pages/me/ScoreHistory'));
+const Main = lazy(() => import('./pages/me/Main'));
+const TermsOfConditions = lazy(() => import('./pages/TermsOfConditions'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const Resources = lazy(() => import('./pages/resources/Resources'));
+const AllResources = lazy(() => import('./pages/resources/AllResources'));
+const SignleResource = lazy(() => import('./pages/resources/SignleResource'));
+const IndividualScoreHistoryPage = lazy(
+	() => import('./pages/me/IndividualScoreHistory')
+);
+const LoadingScreen = lazy(() => import('./components/reusable/LoadingScreen'));
 
 function App() {
 	const { user } = useUserStore();
@@ -37,44 +40,46 @@ function App() {
 		return user !== null ? <>{children}</> : <Navigate to='/login' />;
 	};
 	return (
-		<Routes>
-			<Route path='/' element={<Home />} />
-			<Route path='/test' element={<Test />} />
-			<Route path='/score' element={<Score />} />
-			<Route
-				path='/login'
-				element={
-					<CheckUserAlreadyLoggedIn>
-						<Login />
-					</CheckUserAlreadyLoggedIn>
-				}
-			/>
-			<Route
-				path='/me'
-				element={
-					<ProtectedRoute>
-						<Main />
-					</ProtectedRoute>
-				}
-			>
-				<Route index element={<Profile />} />
-				<Route path='history' element={<ScoreHistory />} />
+		<Suspense fallback={<LoadingScreen />}>
+			<Routes>
+				<Route path='/' element={<Home />} />
+				<Route path='/test' element={<Test />} />
+				<Route path='/score' element={<Score />} />
 				<Route
-					path='history/:historyId'
-					element={<IndividualScoreHistoryPage />}
+					path='/login'
+					element={
+						<CheckUserAlreadyLoggedIn>
+							<Login />
+						</CheckUserAlreadyLoggedIn>
+					}
 				/>
-			</Route>
-			<Route path='/resources' element={<Resources />}>
-				<Route index element={<AllResources />} />
-				<Route path=':resourceSlug' element={<SignleResource />} />
-			</Route>
-			<Route
-				path='/terms-of-conditions'
-				element={<TermsOfConditions />}
-			/>
-			<Route path='/privacy-policy' element={<PrivacyPolicy />} />
-			<Route path='*' element={<NotFound />} />
-		</Routes>
+				<Route
+					path='/me'
+					element={
+						<ProtectedRoute>
+							<Main />
+						</ProtectedRoute>
+					}
+				>
+					<Route index element={<Profile />} />
+					<Route path='history' element={<ScoreHistory />} />
+					<Route
+						path='history/:historyId'
+						element={<IndividualScoreHistoryPage />}
+					/>
+				</Route>
+				<Route path='/resources' element={<Resources />}>
+					<Route index element={<AllResources />} />
+					<Route path=':resourceSlug' element={<SignleResource />} />
+				</Route>
+				<Route
+					path='/terms-of-conditions'
+					element={<TermsOfConditions />}
+				/>
+				<Route path='/privacy-policy' element={<PrivacyPolicy />} />
+				<Route path='*' element={<NotFound />} />
+			</Routes>
+		</Suspense>
 	);
 }
 
