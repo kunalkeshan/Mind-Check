@@ -32,7 +32,7 @@ const Instructions: React.FC<InstructionsProps> = ({ setTestInProgress }) => {
 						initial={{ opacity: 0, scale: 0.9, y: 20 }}
 						whileInView={{ opacity: 1, scale: 1, y: 0 }}
 						transition={{
-							delay: 0.1 * (index + 1),
+							delay: 0.05 * (index + 1),
 							type: 'keyframes',
 							duration: 0.2,
 						}}

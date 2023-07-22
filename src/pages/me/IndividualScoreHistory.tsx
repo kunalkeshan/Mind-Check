@@ -117,9 +117,9 @@ function IndividualScoreHistoryPage() {
 									test.
 								</h3>
 								<div className='mt-4 grid grid-cols-1 md:grid-cols-2 gap-8'>
-									{Object.keys(data.score).map((key) => (
+									{Object.keys(data.score).map((key, idx) => (
 										<div
-											key={key}
+											key={`${key}-${idx}`}
 											className='w-full mt-4 text-base md:text-lg'
 										>
 											<h4 className='text-lg md:text-2xl font-semibold'>
@@ -130,8 +130,11 @@ function IndividualScoreHistoryPage() {
 													data.score[
 														key as keyof Score['score']
 													]
-												).map((questionId) => (
-													<li className='mt-1 border-b gap-2 md:gap-8 flex md:items-center justify-between flex-col md:flex-row'>
+												).map((questionId, idx) => (
+													<li
+														key={`${questionId}-${idx}`}
+														className='mt-1 border-b gap-2 md:gap-8 flex md:items-center justify-between flex-col md:flex-row'
+													>
 														<span>
 															Q.{' '}
 															{

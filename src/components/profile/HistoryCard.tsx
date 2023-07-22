@@ -29,7 +29,7 @@ const HistoryCard: React.FC<Score> = ({ calculatedScore, time, id, index }) => {
 			whileInView={{ opacity: 1, scale: 1, y: 0 }}
 			viewport={{ once: true }}
 			transition={{
-				delay: 0.1 * (index + 1),
+				delay: 0.05 * (index + 1),
 				type: 'keyframes',
 				duration: 0.2,
 			}}
