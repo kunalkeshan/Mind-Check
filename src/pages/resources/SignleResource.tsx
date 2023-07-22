@@ -10,6 +10,7 @@ import ReactMarkdown from 'react-markdown';
 import { Copy, Github, Share } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useMemo } from 'react';
+import ScrollToTop from '../../components/reusable/ScrollToTop';
 
 function SignleResource() {
 	const { resourceSlug } = useParams();
@@ -132,6 +133,7 @@ function SignleResource() {
 										<button
 											onClick={handleCopyPostLink}
 											className='flex items-center gap-2'
+											title={window.location.href}
 										>
 											<Copy
 												size={16}
@@ -160,6 +162,24 @@ function SignleResource() {
 									</img>
 								</div>
 							),
+							ol: ({ children, ...props }) => (
+								<ol className='mt-4 [&>*]:mt-4' {...props}>
+									{children}
+								</ol>
+							),
+							li: ({ children, ...props }) => (
+								<li className='ml-4' {...props}>
+									{children}
+								</li>
+							),
+							pre: ({ children, ...props }) => (
+								<pre
+									className='font-mono bg-[#1b1b1b] [&>code]:max-w-[100%] [&>code]:min-w-[100%] text-white rounded-xl px-8 py-4 overflow-x-scroll [&>code]:whitespace-pre [&>code]:box-decoration-clone [&>code]:break-words'
+									{...props}
+								>
+									{children}
+								</pre>
+							),
 						}}
 					/>
 					<a
@@ -173,6 +193,7 @@ function SignleResource() {
 					</a>
 				</article>
 			)}
+			<ScrollToTop />
 		</div>
 	);
 }

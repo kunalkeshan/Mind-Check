@@ -19,6 +19,10 @@ export const MAIN_LINKS: NavLinks = [...COMMON_LINKS];
 
 export const FOOTER_LINKS: NavLinks = [
 	...COMMON_LINKS,
+	{
+		name: 'Contribute to Resources',
+		url: '/resources/contributing-to-resources',
+	},
 	{ name: 'Terms of Conditions', url: '/terms-of-conditions' },
 	{ name: 'Privacy Policy', url: '/privacy-policy' },
 ];
