@@ -4,6 +4,7 @@ import { FirebaseAuth } from '../firebase';
 import { useUserStore } from '../store/user';
 import { useNavigate } from 'react-router-dom';
 import { fetchAllResources } from '../utils/resources';
+import LoadingScreen from '../components/reusable/LoadingScreen';
 
 export const AuthContext = createContext({});
 
@@ -31,7 +32,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 	return (
 		<AuthContext.Provider value={{}}>
-			{initialLoader ? 'Loading...' : children}
+			{initialLoader ? <LoadingScreen /> : children}
 		</AuthContext.Provider>
 	);
 };
