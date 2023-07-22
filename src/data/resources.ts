@@ -34,7 +34,7 @@ const RESOURCES: Resource[] = [
 		published: new Date('2023-07-16'),
 		author: {
 			name: 'Kunal Keshan',
-			social: 'https://kunalkesha.dev/',
+			social: 'https://kunalkeshan.dev/',
 		},
 	},
 ];
