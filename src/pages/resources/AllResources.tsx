@@ -5,7 +5,7 @@ import ResourceCard from '../../components/resources/ResourceCard';
 
 function AllResources() {
 	const { data, isError, isLoading } = useQuery(['fetchAllResources'], () =>
-		fetchAllResources({})
+		fetchAllResources({ sort: { by: 'date', order: 'desc' } })
 	);
 
 	return (

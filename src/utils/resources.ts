@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import RESOURCES, { Resource } from '../data/resources';
 
 const SOURCE_URL = '/resources';
@@ -18,7 +19,22 @@ const fetchAllResourcesDefaults: FetchAllResourcesOptions = {
 
 export const fetchAllResources = async (_options: FetchAllResourcesOptions) => {
 	const options = { ...fetchAllResourcesDefaults, ..._options };
-	const data = RESOURCES.slice(0, options.limit).map(async (resource) => {
+	let sorted: Resource[] = [];
+	switch (options?.sort?.by) {
+		case 'date': {
+			sorted = RESOURCES.sort((a, b) =>
+				options?.sort?.order === 'asc'
+					? a.published.getTime() - b.published.getTime()
+					: b.published.getTime() - a.published.getTime()
+			);
+			break;
+		}
+		default: {
+			sorted = RESOURCES;
+			break;
+		}
+	}
+	const data = sorted.slice(0, options.limit).map(async (resource) => {
 		if (sessionStorage.getItem(resource.url)) {
 			const data = JSON.parse(
 				sessionStorage.getItem(resource.url) as string
