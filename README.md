@@ -14,6 +14,8 @@ Mind Check is a web application designed to help individuals assess and track th
 
 - **Secure Data Storage**: Mind Check utilizes Firebase, a cloud-based platform, for secure data storage and authentication. User data, including test results and personal information, is encrypted and protected.
 
+- **Curated Resources**: A treasure trove of articles and blogs, personalized to your mental health test results. Unlock valuable insights, strategies, and self-care tips, empowering you to thrive on your emotional well-being journey. Written in Markdown and rendered in JSX.
+
 - **AI-powered Feedback**: (Coming Soon!) The application leverages AI algorithms to provide customized feedback based on the user's test inputs. This feedback is designed to offer insights, suggestions, and resources to support the user's mental well-being.
 
 ## Tech Stack
@@ -51,6 +53,39 @@ If you're interested in contributing to Mind Check, please refer to the [Contrib
 <a href="https://github.com/kunalkeshan/Mind-Check/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=kunalkeshan/Mind-Check" />
 </a>
+
+### Contributing to Resources
+
+At Mind Check, we believe in the power of community-driven knowledge sharing to empower individuals on their mental health journey. We welcome contributions to our curated resources, making it a collective effort to provide valuable insights and support for emotional well-being.
+
+To contribute to Mind Check's resources, follow these simple steps:
+
+1. Explore the `src/public/resources/` Directory:
+   - Navigate to the 'public/resources/' directory in our GitHub repository.
+   - Here, you'll find all the resources written in Markdown format.
+
+2. Choose a Resource to Edit or Create a New One:
+   - Browse through the existing resources to see if there's an opportunity to enhance or update the content.
+   - Alternatively, if you have valuable insights to share, you can create a new resource by following the same Markdown format.
+
+3. Edit or Create the Resource:
+   - Use a Markdown editor of your choice to edit an existing resource or create a new one from scratch.
+   - Ensure that the content is relevant, informative, and aligns with our mission of promoting mental well-being.
+
+4. Update your content in the `src/data/resources.ts`.
+   - This is to ensure that the content reflects on the platform when a user is looking for it.
+   - Also to ensure to place a proper title, name of the markdown file, and associated tags for the same.
+
+5. Save and Submit Your Changes:
+   - Once you're satisfied with your edits or the new resource, save the Markdown file with a descriptive filename.
+
+6. Create a Pull Request:
+   - Submit your changes as a pull request through GitHub.
+   - Our team will review your contribution and provide feedback or merge it into the repository if it meets our guidelines.
+
+By contributing to Mind Check's resources, you'll be empowering individuals worldwide to access valuable information and support for their mental health. Together, we can make a difference in fostering emotional resilience and well-being.
+
+Thank you for being a part of our community-driven mission. Your contributions matter!
 
 ## License
 

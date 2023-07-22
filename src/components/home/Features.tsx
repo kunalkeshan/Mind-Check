@@ -25,6 +25,13 @@ const FEATURES_CONTENT = [
 		image: '/images/features/history.svg',
 	},
 	{
+		title: "Discover Mind Check's Curated Resources",
+		description:
+			'A treasure trove of articles and blogs, personalized to your mental health test results. Unlock valuable insights, strategies, and self-care tips, empowering you to thrive on your emotional well-being journey.',
+		available: true,
+		image: '/images/features/resources.svg',
+	},
+	{
 		title: 'Personalized Feedback Based on Test Inputs (Using AI)',
 		description:
 			'Benefit from the power of artificial intelligence (AI) to receive personalized feedback based on your test inputs. Our AI algorithms analyze your responses and generate tailored feedback, providing you with valuable insights and suggestions for improving your emotional well-being.',
