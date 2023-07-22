@@ -13,7 +13,7 @@ interface IFetchAllResourcesOptions {
 type FetchAllResourcesOptions = Partial<IFetchAllResourcesOptions>;
 
 const fetchAllResourcesDefaults: FetchAllResourcesOptions = {
-	limit: 0,
+	limit: undefined,
 };
 
 export const fetchAllResources = async (_options: FetchAllResourcesOptions) => {
