@@ -62,7 +62,7 @@ function ScoreHistory() {
 				: data &&
 				  data?.length > 0 &&
 				  data?.map((score, index) => (
-						<HistoryCard {...score} key={index} />
+						<HistoryCard {...score} key={index} index={index} />
 				  ))}
 		</div>
 	);

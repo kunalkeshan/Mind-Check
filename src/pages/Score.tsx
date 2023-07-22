@@ -15,6 +15,7 @@ import { toast } from 'react-hot-toast';
 import { Timestamp, doc, setDoc } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import { useUserStore } from '../store/user';
+import { motion } from 'framer-motion';
 
 function Score() {
 	const { user } = useUserStore();
@@ -94,7 +95,12 @@ function Score() {
 	};
 
 	return (
-		<>
+		<motion.main
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			key={'score-page'}
+		>
 			<nav className='fixed top-0 left-0 py-4 px-8 z-50 bg-primary w-full text-textPrimary'>
 				<div className='max-w-7xl mx-auto flex items-center justify-between md:justify-normal w-full md:gap-8'>
 					<Link
@@ -114,7 +120,7 @@ function Score() {
 					</Link>
 				</div>
 			</nav>
-			<main className='w-full max-w-7xl mx-auto py-12 px-8 flex flex-col mt-12'>
+			<div className='w-full max-w-7xl mx-auto py-12 px-8 flex flex-col mt-12'>
 				<h1 className='font-heading text-3xl md:text-5xl font-bold text-center'>
 					Your Mental Health Score
 				</h1>
@@ -180,9 +186,9 @@ function Score() {
 						</button>
 					)}
 				</section>
-			</main>
+			</div>
 			<ScrollToTop />
-		</>
+		</motion.main>
 	);
 }
 

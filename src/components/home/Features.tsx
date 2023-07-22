@@ -66,6 +66,7 @@ function Features() {
 							type: 'keyframes',
 							duration: 0.2,
 						}}
+						viewport={{ once: true }}
 						key={`${content.title}-${index}`}
 						className='border-2 border-secondary overflow-hidden group transition-all hover:border-secondaryDark rounded-3xl px-8 py-4 h-full select-none hover:-translate-y-2 hover:-translate-x-2'
 					>
