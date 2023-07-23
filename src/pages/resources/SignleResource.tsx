@@ -180,6 +180,14 @@ function SignleResource() {
 									{children}
 								</pre>
 							),
+							a: ({ children, ...props }) => (
+								<a
+									className='text-textSecondary underline underline-offset-4 hover:underline-offset-2 text-opacity-80 hover:text-opacity-100 transition-all duration-300'
+									{...props}
+								>
+									{children}
+								</a>
+							),
 						}}
 					/>
 					<a
