@@ -6,6 +6,7 @@ import {
 } from '../../utils/resources';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import footnotes from 'remark-footnotes';
 import ReactMarkdown from 'react-markdown';
 import { Copy, Github, Share } from 'lucide-react';
 import { toast } from 'react-hot-toast';
@@ -85,7 +86,7 @@ function SignleResource() {
 				<article className='max-w-5xl mx-auto'>
 					<ReactMarkdown
 						children={data?.body ?? ''}
-						remarkPlugins={[remarkGfm]}
+						remarkPlugins={[remarkGfm, footnotes]}
 						rehypePlugins={[rehypeRaw]}
 						className='[&>*]:mt-4 text-lg'
 						components={{

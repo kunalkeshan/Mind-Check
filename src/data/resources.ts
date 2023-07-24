@@ -50,6 +50,19 @@ const RESOURCES: Resource[] = [
 			social: 'https://kunalkeshan.dev/',
 		},
 	},
+	{
+		title: 'Embracing Failure: A Journey Towards Self-Improvement',
+		description:
+			'Most people in this space get extremely motivated and try to form lots of good habits all at once and become burnt out. Instead, try to focus on instituting ONE good habit at a time.',
+		tags: ['Thoughts & Feelings'],
+		url: 'embracing-failure-a-journey-towards-self-development',
+		image: '/images/resources/embracing-failure-a-journey-towards-self-development.svg',
+		published: new Date('2023-07-24'),
+		author: {
+			name: 'Kunal Keshan',
+			social: 'https://kunalkeshan.dev/',
+		},
+	},
 ];
 
 export default RESOURCES;
