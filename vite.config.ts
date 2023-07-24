@@ -15,8 +15,7 @@ const manifestForPlugin: Partial<VitePWAOptions> = {
 		theme_color: '#f1b5ac',
 		background_color: '#f3f6ef',
 		display: 'standalone',
-		scope: '/',
-		// start_url: '/index.html',
+		start_url: 'https://mind-check.vercel.app',
 		orientation: 'portrait',
 		icons: [
 			{

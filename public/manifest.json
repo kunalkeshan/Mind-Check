@@ -1,6 +1,7 @@
 {
 	"name": "Mind Check",
 	"short_name": "Mind Check",
+	"orientation": "portrait",
 	"icons": [
 		{
 			"src": "/android-chrome-192x192.png",
@@ -25,7 +26,9 @@
 			"purpose": "any maskable"
 		}
 	],
+	"description": "Mind Check is a free web application designed to assess and track your mental well-being. Take a variety of mental health tests, receive personalized feedback, and track your progress over time. Improve your mental well-being with Mind Check's AI-powered insights and resources.",
 	"theme_color": "#f1b5ac",
 	"background_color": "#f3f6ef",
-	"display": "standalone"
+	"display": "standalone",
+	"start_url": "https://mind-check.vercel.app"
 }
