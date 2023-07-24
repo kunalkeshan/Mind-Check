@@ -89,6 +89,32 @@ const RESOURCES: Resource[] = [
 			social: 'https://kunalkeshan.dev/',
 		},
 	},
+	{
+		title: 'You are not a bad person',
+		description:
+			'Feeling like a failure because of mistakes can be all-consuming, but remember, you are not defined by your past. Good people can stumble and rise again, stronger and wiser. Use your experiences as stepping stones to personal growth and improvement.',
+		tags: ['Thoughts & Feelings'],
+		url: 'you-are-not-a-bad-person',
+		image: '/images/resources/you-are-not-a-bad-person.svg',
+		published: new Date('2023-07-24'),
+		author: {
+			name: 'Kunal Keshan',
+			social: 'https://kunalkeshan.dev/',
+		},
+	},
+	{
+		title: 'How to deal with afternoon blues?',
+		description:
+			'Struggling with the afternoon crash? Recharge your energy by taking a 10-20 minute walk after eating! As your body continues to digest food for a few hours after a meal, your "fasted state" emerges, offering potential benefits like improved focus, better sleep, and more efficient exercise.',
+		tags: ['Physical Symptoms'],
+		url: 'dealing-with-afternoon-blues',
+		image: '/images/resources/dealing-with-afternoon-blues.svg',
+		published: new Date('2023-07-24'),
+		author: {
+			name: 'Kunal Keshan',
+			social: 'https://kunalkeshan.dev/',
+		},
+	},
 ];
 
 export default RESOURCES;

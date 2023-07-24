@@ -1,0 +1,19 @@
+# You’re Not A Bad Person
+
+*Note: Actual author is a random stranger on reddit, these are their words shared below. I don't have the link to the original post, and I've kept what they've shared down below.*
+
+---
+
+Making yourself out to be the bad person can take over your life, you will judge every move you make. Should I have done that? Will there be consequences? Am I a bad person?
+
+Not all bad people do bad things, good things can also do them. But, does that make YOU a bad person? No. Good people do bad things in the past and that has grown them into what they are today. You’ve become a stronger and wiser person. What should you do with these past mistakes and experiences? A) Should you let them define you? B) Or should they make you a better person? Option B should always be the answer.
+
+Typically, a person will deem themselves to be a bad, horrible and problematic person due to the mistakes he/she has made. Look, you’re not perfect, neither am I, nobody isn’t. We make a handful of mistakes a day. When you feel in your heart that it’s time to change, do it. Don’t think twice about changing into a better person. You look into it and then you act on it. One of the biggest problems people who have made a mistake do is that they keep looking back at that specific problem or mistake. By doing this, it will make it seemingly impossible to move on with life. Instead of using this mistake as a driving force to move forward, use it as a motivator to better yourself. A mistake is a lesson of wisdom, be your very own teacher, teach yourself, learn from yourself and by doing so, you’ll become your own star pupil.
+
+You don’t know exactly who you are until you’re completely broken. Until you find yourself crying in your bedroom, tears flowing down your face and questioning yourself “Why? WHY?!”, you’ll never know what you’re truly made of. By doing this feeling, you’ll then have a better understanding of how strong or weak you are. If you’re weak, that’s no problem, give yourself enough time to heal and get over your particular situation. Sure, it may take time, a lot of time, but in the end, it will all be worth it. You’ll then understand where you went wrong, what you need to do next time and what not to do in the future. It’s a win-win situation for all. If you feel like you’re in the pits of the world and are struggling to get out, take your time, one day you’ll get back on your knees and you’ll find enough strength inside of you to get to your feet. Once you’re on your feet, you’ll have the ability to press that restart button and go again. Build yourself up once again, take it day by day and in the end, you’ll be stronger than you once were.
+
+Sometimes in life, you’ll have to fall apart and break down to realise who you truly are. At the end of the day, it’s all about maturity. If you’ve made a mistake, take responsibility for it and better yourself. You’re human, you make mistakes. But, those mistakes will take over your life unless you sort yourself out. Don’t think about changing who you are, act on it. The sooner, the better!
+
+Remember, mistakes don’t define your character or who you truly are. The three things that define you are how you work off it, how you forgive yourself and how you move on from it. Understandably, people will let mistakes take over their life, they’re not able to move on and hate the person they once were. But, those same exact people find the strength and power within them to change. Progressing isn’t about pace and how fast you get over something, it’s about how you end it. So, if you’re in month 6 or year 6 of progressing, keep on going, you’re doing a fantastic job, take as much time as you need, there is no race.
+
+If you’ve made 1, 2, 3 or 400 mistakes, learn from them. Take each of them as a lesson, better yourself and move on with your life.
