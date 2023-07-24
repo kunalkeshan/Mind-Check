@@ -65,10 +65,24 @@ const RESOURCES: Resource[] = [
 	},
 	{
 		title: "When you feel like you shouldn't exist",
-		description: '',
+		description:
+			'Amidst the overwhelming weight of my inner turmoil, I found solace in volunteering at a social service nonprofit. Organizing a basketball tournament for kids acted as a beacon of hope, gradually easing my depression. In valuing the lives and happiness of others, we often discover the true purpose and value of our own existence.',
 		tags: ['Thoughts & Feelings', 'Suicidal Urges'],
 		url: 'when-you-feel-like-you-shouldnt-exist',
 		image: '/images/resources/when-you-feel-like-you-shouldnt-exist.svg',
+		published: new Date('2023-07-24'),
+		author: {
+			name: 'Kunal Keshan',
+			social: 'https://kunalkeshan.dev/',
+		},
+	},
+	{
+		title: 'Feeling like a failure',
+		description:
+			'Feeling like a failure, unemployed, and without many friends, can leave you feeling lost. But envision a reality where success is within reach - where persistence is the key to unlocking your dreams',
+		tags: ['Thoughts & Feelings', 'Activities & Personal Relationships'],
+		url: 'feeling-like-a-failure',
+		image: '/images/resources/feeling-like-a-failure.svg',
 		published: new Date('2023-07-24'),
 		author: {
 			name: 'Kunal Keshan',

@@ -37,8 +37,9 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
 			<ul className='mt-4 flex items-center gap-2'>
 				{resource.tags.map((tag) => (
 					<li
+						title={tag}
 						key={`${resource.url}-${tag}`}
-						className='text-textPrimary px-2 py-1 rounded-full border border-textSecondary font-heading group-hover:bg-textSecondary bg-opacity-20 group-hover:text-white duration-300 transition-all font-bold text-sm w-fit'
+						className='text-textPrimary max-w-[12] text-ellipsis overflow-hidden whitespace-nowrap px-2 py-1 w-fit rounded-full border border-textSecondary font-heading group-hover:bg-textSecondary bg-opacity-20 group-hover:text-white duration-300 transition-all font-bold text-sm'
 					>
 						{tag}
 					</li>
