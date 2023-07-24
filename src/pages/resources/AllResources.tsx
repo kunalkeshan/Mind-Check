@@ -25,11 +25,16 @@ function AllResources() {
 			) : isError ? (
 				<p>Unable to fetch resources at the moment. Try again later.</p>
 			) : (
-				<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
-					{data?.map((resource) => (
-						<ResourceCard resource={resource} key={resource.url} />
-					))}
-				</div>
+				<>
+					<section className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
+						{data?.map((resource) => (
+							<ResourceCard
+								resource={resource}
+								key={resource.url}
+							/>
+						))}
+					</section>
+				</>
 			)}
 		</div>
 	);
