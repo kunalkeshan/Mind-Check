@@ -7,11 +7,6 @@ interface UserState {
 	setUser: (user: User | null) => void;
 }
 
-interface UserTestScoresState {
-	scores: UserTestScores[] | null;
-	setScores: (scores: UserTestScores[]) => void;
-}
-
 export const useUserStore = create<UserState>()(
 	persist(
 		(set) => ({
@@ -21,19 +16,6 @@ export const useUserStore = create<UserState>()(
 		{
 			name: 'MindCheckUser-v2.0',
 			storage: createJSONStorage(() => localStorage),
-		}
-	)
-);
-
-export const useUserTestScores = create<UserTestScoresState>()(
-	persist(
-		(set) => ({
-			scores: null,
-			setScores: (scores) => set({ scores }),
-		}),
-		{
-			name: 'MindCheckUserTestScores-v2.0',
-			storage: createJSONStorage(() => sessionStorage),
 		}
 	)
 );
