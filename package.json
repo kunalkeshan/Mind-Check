@@ -27,6 +27,8 @@
 		"rehype-raw": "^6.1.1",
 		"remark-footnotes": "^4.0.1",
 		"remark-gfm": "^3.0.1",
+		"vite-plugin-pwa": "^0.16.4",
+		"workbox-window": "^7.0.0",
 		"zustand": "^4.3.8"
 	},
 	"devDependencies": {
