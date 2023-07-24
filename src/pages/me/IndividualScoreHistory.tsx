@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { FirebaseDb } from '../../firebase';
 import { doc, getDoc } from 'firebase/firestore';
@@ -7,21 +7,9 @@ import { useUserStore } from '../../store/user';
 import { useMemo } from 'react';
 import FEEDBACKS, { FEEDBACKS_LENGTH } from '../../data/feedback';
 import QUESTIONS from '../../data/questions';
-import WorkInProgress from '../../components/reusable/WorkInProgress';
-
-type ScoreValue = Record<number, number>;
-
-interface Score {
-	id: string;
-	calculatedScore: number;
-	time: string;
-	score: {
-		'Thoughts & Feelings': ScoreValue;
-		'Activities & Personal Relationships': ScoreValue;
-		'Physical Symptoms': ScoreValue;
-		'Suicidal Urges': ScoreValue;
-	};
-}
+import { fetchRecommendedResources } from '../../utils/resources';
+import { Resource } from '../../data/resources';
+import ResourceCard from '../../components/resources/ResourceCard';
 
 function IndividualScoreHistoryPage() {
 	const { historyId } = useParams();
@@ -59,6 +47,14 @@ function IndividualScoreHistoryPage() {
 			}
 		});
 		return fb?.feedback[Math.floor(Math.random() * FEEDBACKS_LENGTH)];
+	}, [data]);
+
+	const recommendedResources = useMemo(() => {
+		let reads: Resource[] = [];
+		if (data && data.score) {
+			reads = fetchRecommendedResources(data.score);
+		}
+		return reads;
 	}, [data]);
 
 	return (
@@ -168,7 +164,7 @@ function IndividualScoreHistoryPage() {
 									))}
 								</div>
 							</section>
-							<section className='flex flex-col items-center text-justify gap-6 max-w-2xl mx-auto mt-6'>
+							<section className='flex flex-col items-center text-justify gap-6 max-w-6xl mx-auto mt-6'>
 								<h2 className='font-heading text-2xl md:text-4xl font-bold text-center'>
 									Recommended Reads
 								</h2>
@@ -176,7 +172,34 @@ function IndividualScoreHistoryPage() {
 									Based on your test score and results, try
 									reading this for a better perspective.
 								</h3>
-								<WorkInProgress />
+								{recommendedResources.length === 0 ? (
+									<div className='text-base md:text-lg flex flex-col items-center text-center'>
+										<p>
+											Your scores are below the threshold!
+											Keep up the positive outlook and
+											continue taking care of your mental
+											well-being.
+										</p>
+										<Link
+											to={'/resources'}
+											className='text-textSecondary underline underline-offset-4 font-heading text-xl'
+										>
+											Interested in resources? Check this
+											out.
+										</Link>
+									</div>
+								) : (
+									<div className='grid grid-cols-1 md:grid-cols-3 gap-2'>
+										{recommendedResources.map(
+											(resource) => (
+												<ResourceCard
+													resource={resource}
+													key={resource.title}
+												/>
+											)
+										)}
+									</div>
+								)}
 							</section>
 						</>
 				  )}

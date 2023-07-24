@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import RESOURCES, { Resource } from '../data/resources';
+import RESOURCES, { Resource, Tags } from '../data/resources';
 
 const SOURCE_URL = '/resources';
 
@@ -74,4 +74,56 @@ export const calculateReadingTime = (text: string) => {
 	const AVERAGE_HUMAN_READING_TIME = 200; // words per minute;
 	const totalReadingTime = Math.ceil(textLength / AVERAGE_HUMAN_READING_TIME);
 	return totalReadingTime;
+};
+
+export const fetchRecommendedResources = (scores: Score['score']) => {
+	function checkThreshold(section: keyof Score['score'], score: number) {
+		let crossesThreshold = false;
+		switch (section) {
+			case 'Activities & Personal Relationships': {
+				if (score >= 8) crossesThreshold = true;
+				break;
+			}
+			case 'Physical Symptoms': {
+				if (score >= 5) crossesThreshold = true;
+				break;
+			}
+			case 'Suicidal Urges': {
+				if (score >= 1) crossesThreshold = true;
+				break;
+			}
+			case 'Thoughts & Feelings': {
+				if (score >= 10) crossesThreshold = true;
+				break;
+			}
+		}
+		return crossesThreshold;
+	}
+
+	const resources: Resource[] = [];
+	const tags: Tags[] = [];
+
+	// Get Tags Crossing the threshold
+	Object.keys(scores).forEach((section) => {
+		const sectionScore = Object.values(
+			scores[section as keyof Score['score']]
+		).reduce((prev, curr) => prev + curr, 0);
+		if (checkThreshold(section as keyof Score['score'], sectionScore)) {
+			tags.push(section as keyof Score['score']);
+		}
+	});
+
+	// Selecting Random Resources as per Tags
+	tags.forEach((tag) => {
+		const selectedResources = RESOURCES.filter(
+			(resource) => resource.tags.findIndex((value) => value === tag) > -1
+		);
+		resources.push(
+			selectedResources[
+				Math.floor(Math.random() * selectedResources.length)
+			]
+		);
+	});
+
+	return resources;
 };

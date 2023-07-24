@@ -16,6 +16,13 @@ import { Timestamp, doc, setDoc } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import { useUserStore } from '../store/user';
 import { motion } from 'framer-motion';
+import { Resource } from '../data/resources';
+import { fetchRecommendedResources } from '../utils/resources';
+import ResourceCard from '../components/resources/ResourceCard';
+
+interface ScoreData extends Score {
+	data: Score['score'];
+}
 
 function Score() {
 	const { user } = useUserStore();
@@ -23,7 +30,7 @@ function Score() {
 	const [loginLoading, setLoginLoading] = useState(false);
 	const { setUser } = useUserStore();
 
-	const score = useMemo(() => {
+	const score: ScoreData = useMemo(() => {
 		if (
 			(sessionStorage.getItem('MindCheckUserScore.v2') as string) !== null
 		) {
@@ -45,6 +52,14 @@ function Score() {
 			}
 		});
 		return data?.feedback[Math.floor(Math.random() * FEEDBACKS_LENGTH)];
+	}, [score]);
+
+	const recommendedResources = useMemo(() => {
+		let reads: Resource[] = [];
+		if (score) {
+			reads = fetchRecommendedResources(score.data);
+		}
+		return reads;
 	}, [score]);
 
 	useLayoutEffect(() => {
@@ -184,6 +199,39 @@ function Score() {
 						>
 							Login to save score.
 						</button>
+					)}
+				</section>
+				<section className='flex flex-col items-center text-justify gap-6 max-w-6xl mx-auto mt-6'>
+					<h2 className='font-heading text-2xl md:text-4xl font-bold text-center'>
+						Recommended Reads
+					</h2>
+					<h3 className='text-base md:text-xl font-medium text-center max-w-2xl mx-auto mt-4'>
+						Based on your test score and results, try reading this
+						for a better perspective.
+					</h3>
+					{recommendedResources.length === 0 ? (
+						<div className='text-base md:text-lg flex flex-col items-center text-center'>
+							<p>
+								Your scores are below the threshold! Keep up the
+								positive outlook and continue taking care of
+								your mental well-being.
+							</p>
+							<Link
+								to={'/resources'}
+								className='text-textSecondary underline underline-offset-4 font-heading text-xl'
+							>
+								Interested in resources? Check this out.
+							</Link>
+						</div>
+					) : (
+						<div className='grid grid-cols-1 md:grid-cols-3 gap-2'>
+							{recommendedResources.map((resource) => (
+								<ResourceCard
+									resource={resource}
+									key={resource.title}
+								/>
+							))}
+						</div>
 					)}
 				</section>
 			</div>
