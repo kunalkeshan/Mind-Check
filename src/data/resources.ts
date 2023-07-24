@@ -2,7 +2,7 @@
  * Resources Data
  */
 
-type Tags =
+export type Tags =
 	| 'Thoughts & Feelings'
 	| 'Activities & Personal Relationships'
 	| 'Physical Symptoms'
