@@ -8,7 +8,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import footnotes from 'remark-footnotes';
 import ReactMarkdown from 'react-markdown';
-import { Copy, Github, Share } from 'lucide-react';
+import { Copy, Github, Pencil, Share } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useMemo } from 'react';
 import ScrollToTop from '../../components/reusable/ScrollToTop';
@@ -191,15 +191,26 @@ function SignleResource() {
 							),
 						}}
 					/>
-					<a
-						href={`https://github.com/kunalkeshan/Mind-Check/tree/main/public/resources/${data?.url}.md`}
-						title={`https://github.com/kunalkeshan/Mind-Check/tree/main/public/resources/${data?.url}.md`}
-						className='flex justify-end items-center gap-2 w-full mt-4 text-textSecondary hover:underline text-opacity-80 transition-all duration-300 hover:text-opacity-100 underline-offset-4'
-						target='_blank'
-					>
-						Edit this page on GitHub{' '}
-						<Github size={16} strokeWidth={1.25} />
-					</a>
+					<p className='flex justify-between items-center gap-2 mt-4 flex-wrap'>
+						<a
+							href={`https://github.com/kunalkeshan/Mind-Check/tree/main/public/resources/${data?.url}.md`}
+							title={`https://github.com/kunalkeshan/Mind-Check/tree/main/public/resources/${data?.url}.md`}
+							className='flex items-center gap-2 w-fit text-textSecondary hover:underline text-opacity-80 transition-all duration-300 hover:text-opacity-100 underline-offset-4'
+							target='_blank'
+						>
+							Edit this page on GitHub{' '}
+							<Github size={16} strokeWidth={1.25} />
+						</a>
+						<a
+							href={`https://mind-check.vercel.app/resources/contributing-to-resources`}
+							title={`https://mind-check.vercel.app/resources/contributing-to-resources`}
+							className='flex items-center gap-2 w-fit text-textSecondary hover:underline text-opacity-80 transition-all duration-300 hover:text-opacity-100 underline-offset-4'
+							target='_blank'
+						>
+							Confused on how to edit? Read this{' '}
+							<Pencil size={16} strokeWidth={1.25} />
+						</a>
+					</p>
 				</article>
 			)}
 			<ScrollToTop />

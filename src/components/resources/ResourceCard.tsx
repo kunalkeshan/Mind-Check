@@ -13,7 +13,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
 	return (
 		<Link
 			to={`/resources/${resource.url}`}
-			className='border-2 border-secondary overflow-hidden group transition-all hover:border-secondaryDark rounded-3xl px-8 py-4 h-full select-none hover:-translate-y-2 hover:-translate-x-2'
+			className='border-2 border-secondary overflow-hidden group transition-all hover:border-secondaryDark rounded-3xl px-8 py-4 h-full select-none'
 		>
 			<h3 className='font-heading text-lg md:text-2xl font-semibold'>
 				{resource.title}
@@ -34,7 +34,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
 			<p className='text-sm'>
 				{resource.description.slice(0, 120)}... Read more →
 			</p>
-			<ul className='mt-4'>
+			<ul className='mt-4 flex items-center gap-2'>
 				{resource.tags.map((tag) => (
 					<li
 						key={`${resource.url}-${tag}`}

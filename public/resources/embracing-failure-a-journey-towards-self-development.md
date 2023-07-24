@@ -1,6 +1,6 @@
 # Embracing Failure: A Journey Towards Self-Improvement
 
-*Note: Actual author is from a random stranger on reddit, these are their words shared below.*
+*Note: Actual author is a random stranger on reddit, these are their words shared below.*
 
 ---
 

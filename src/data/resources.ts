@@ -63,6 +63,18 @@ const RESOURCES: Resource[] = [
 			social: 'https://kunalkeshan.dev/',
 		},
 	},
+	{
+		title: "When you feel like you shouldn't exist",
+		description: '',
+		tags: ['Thoughts & Feelings', 'Suicidal Urges'],
+		url: 'when-you-feel-like-you-shouldnt-exist',
+		image: '/images/resources/when-you-feel-like-you-shouldnt-exist.svg',
+		published: new Date('2023-07-24'),
+		author: {
+			name: 'Kunal Keshan',
+			social: 'https://kunalkeshan.dev/',
+		},
+	},
 ];
 
 export default RESOURCES;
