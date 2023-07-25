@@ -1,4 +1,3 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
 import RESOURCES, { Resource, Tags } from '../data/resources';
 
 const SOURCE_URL = '/resources';

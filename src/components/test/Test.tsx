@@ -27,7 +27,7 @@ function Test() {
 	}, []);
 
 	const handleTestSumbmissionInFirebase = async (
-		data: any,
+		data: Score['score'],
 		calculatedScore: number
 	) => {
 		try {
@@ -63,14 +63,15 @@ function Test() {
 		e.preventDefault();
 		const data = new FormData(e.currentTarget);
 		let calculatedScore = 0;
-		const normalizedData: any = {};
+		const normalizedData = {} as Score['score'];
 		Object.keys(QUESTIONS).forEach((key) => {
-			normalizedData[key] = {};
+			normalizedData[key as keyof Score['score']] = {};
 			QUESTIONS[key as keyof typeof QUESTIONS].forEach((question) => {
-				normalizedData[key][question.id] = parseInt(
-					data.get(question.question) as unknown as string,
-					10
-				);
+				normalizedData[key as keyof Score['score']][question.id] =
+					parseInt(
+						data.get(question.question) as unknown as string,
+						10
+					);
 				calculatedScore += parseInt(
 					data.get(question.question) as unknown as string,
 					10
