@@ -12,6 +12,7 @@ import { Copy, Github, Pencil, Share } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useMemo } from 'react';
 import ScrollToTop from '../../components/reusable/ScrollToTop';
+import { motion } from 'framer-motion';
 
 function SignleResource() {
 	const { resourceSlug } = useParams();
@@ -57,7 +58,13 @@ function SignleResource() {
 
 	return (
 		<div className='w-full'>
-			<p className='font-heading font-semibold text-xl tracking-wide text-textSecondary'>
+			<motion.p
+				initial={{ opacity: 0, y: 20 }}
+				whileInView={{ opacity: 1, y: 0 }}
+				transition={{ delay: 0.2, type: 'spring' }}
+				viewport={{ once: true }}
+				className='font-heading font-semibold text-xl tracking-wide text-textSecondary'
+			>
 				/
 				<Link
 					to='/resources'
@@ -76,14 +83,20 @@ function SignleResource() {
 						</Link>
 					</>
 				) : null}
-			</p>
+			</motion.p>
 			<hr className='mt-2 mb-8' />
 			{isLoading ? (
 				<p>Loading Resource...</p>
 			) : isError ? (
 				<p>Unable to fetch resource at the moment. Try again later.</p>
 			) : (
-				<article className='max-w-5xl mx-auto'>
+				<motion.article
+					initial={{ opacity: 0, y: 20 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					transition={{ delay: 0.2, type: 'spring' }}
+					viewport={{ once: true }}
+					className='max-w-5xl mx-auto'
+				>
 					<ReactMarkdown
 						children={data?.body ?? ''}
 						remarkPlugins={[remarkGfm, footnotes]}
@@ -211,7 +224,7 @@ function SignleResource() {
 							<Pencil size={16} strokeWidth={1.25} />
 						</a>
 					</p>
-				</article>
+				</motion.article>
 			)}
 			<ScrollToTop />
 		</div>

@@ -10,6 +10,7 @@ import QUESTIONS from '../../data/questions';
 import { fetchRecommendedResources } from '../../utils/resources';
 import { Resource } from '../../data/resources';
 import ResourceCard from '../../components/resources/ResourceCard';
+import { motion } from 'framer-motion';
 
 function IndividualScoreHistoryPage() {
 	const { historyId } = useParams();
@@ -65,7 +66,14 @@ function IndividualScoreHistoryPage() {
 				? 'Unable to get score history...'
 				: data && (
 						<>
-							<section className='flex flex-col items-center text-justify gap-6 max-w-2xl mx-auto mt-6'>
+							<motion.section
+								initial={{ opacity: 0, y: 20 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								transition={{ delay: 0.2, type: 'spring' }}
+								viewport={{ once: true }}
+								key={'IndividualScorePage-TotalScoreSection'}
+								className='flex flex-col items-center text-justify gap-6 max-w-2xl mx-auto mt-6'
+							>
 								<h1 className='font-heading text-3xl md:text-5xl font-bold text-center'>
 									Your Score History
 								</h1>
@@ -103,8 +111,17 @@ function IndividualScoreHistoryPage() {
 									guidance and support, but it's not a
 									substitute for professional help.
 								</p>
-							</section>
-							<section className='flex flex-col items-center text-justify gap-6 max-w-6xl mx-auto mt-6'>
+							</motion.section>
+							<motion.section
+								initial={{ opacity: 0, y: 20 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								transition={{ delay: 0.2, type: 'spring' }}
+								viewport={{ once: true }}
+								key={
+									'IndividualScorePage-IndividualScoreSection'
+								}
+								className='flex flex-col items-center text-justify gap-6 max-w-6xl mx-auto mt-6'
+							>
 								<h2 className='font-heading text-2xl md:text-4xl font-bold text-center'>
 									Individual Question Answer
 								</h2>
@@ -163,8 +180,17 @@ function IndividualScoreHistoryPage() {
 										</div>
 									))}
 								</div>
-							</section>
-							<section className='flex flex-col items-center text-justify gap-6 max-w-6xl mx-auto mt-6'>
+							</motion.section>
+							<motion.section
+								initial={{ opacity: 0, y: 20 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								transition={{ delay: 0.2, type: 'spring' }}
+								viewport={{ once: true }}
+								key={
+									'IndividualScorePage-RecommendedReadsSection'
+								}
+								className='flex flex-col items-center text-justify gap-6 max-w-6xl mx-auto mt-6'
+							>
 								<h2 className='font-heading text-2xl md:text-4xl font-bold text-center'>
 									Recommended Reads
 								</h2>
@@ -191,8 +217,9 @@ function IndividualScoreHistoryPage() {
 								) : (
 									<div className='grid grid-cols-1 md:grid-cols-3 gap-2'>
 										{recommendedResources.map(
-											(resource) => (
+											(resource, index) => (
 												<ResourceCard
+													index={index}
 													resource={resource}
 													key={resource.title}
 												/>
@@ -200,7 +227,7 @@ function IndividualScoreHistoryPage() {
 										)}
 									</div>
 								)}
-							</section>
+							</motion.section>
 						</>
 				  )}
 		</div>

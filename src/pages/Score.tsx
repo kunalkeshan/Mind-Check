@@ -225,8 +225,9 @@ function Score() {
 						</div>
 					) : (
 						<div className='grid grid-cols-1 md:grid-cols-3 gap-2'>
-							{recommendedResources.map((resource) => (
+							{recommendedResources.map((resource, index) => (
 								<ResourceCard
+									index={index}
 									resource={resource}
 									key={resource.title}
 								/>

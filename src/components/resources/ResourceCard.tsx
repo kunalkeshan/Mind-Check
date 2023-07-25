@@ -2,16 +2,28 @@ import React from 'react';
 import { Resource } from '../../data/resources';
 import { Link } from 'react-router-dom';
 import { calculateReadingTime } from '../../utils/resources';
+import { motion } from 'framer-motion';
 
 interface ResourceCardProps {
 	resource: Resource;
+	index: number;
 }
 
-const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
+const MotinLink = motion(Link);
+
+const ResourceCard: React.FC<ResourceCardProps> = ({ resource, index }) => {
 	const totalReadingTime = calculateReadingTime(resource.body ?? '');
 
 	return (
-		<Link
+		<MotinLink
+			initial={{ opacity: 0, scale: 0.9 }}
+			whileInView={{ opacity: 1, scale: 1 }}
+			viewport={{ once: true }}
+			transition={{
+				delay: 0.05 * (index + 1),
+				type: 'keyframes',
+				duration: 0.2,
+			}}
 			to={`/resources/${resource.url}`}
 			className='border-2 border-secondary overflow-hidden group transition-all hover:border-secondaryDark rounded-3xl px-8 py-4 h-full select-none'
 		>
@@ -45,7 +57,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
 					</li>
 				))}
 			</ul>
-		</Link>
+		</MotinLink>
 	);
 };
 

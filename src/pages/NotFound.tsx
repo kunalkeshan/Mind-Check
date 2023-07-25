@@ -56,6 +56,7 @@ function NotFound() {
 						<div className='w-full grid grid-cols-1 md:grid-cols-2 gap-8 mt-4'>
 							{data?.map((resource) => (
 								<ResourceCard
+									index={index}
 									resource={resource}
 									key={resource.url}
 								/>

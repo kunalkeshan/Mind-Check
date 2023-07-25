@@ -18,6 +18,7 @@ import {
 	Tooltip,
 	Legend,
 } from 'recharts';
+import { motion } from 'framer-motion';
 
 interface Score {
 	id: string;
@@ -71,7 +72,12 @@ const TotalHistoryChart = () => {
 	}, []);
 
 	return (
-		<div>
+		<motion.div
+			initial={{ opacity: 0, y: 20 }}
+			whileInView={{ opacity: 1, y: 0 }}
+			transition={{ delay: 0.2, type: 'spring' }}
+			viewport={{ once: true }}
+		>
 			<h3 className='font-heading text-xl font-bold'>Total History</h3>
 			<hr className='w-full' />
 			{isLoading ? (
@@ -103,7 +109,7 @@ const TotalHistoryChart = () => {
 					<Legend />
 				</LineChart>
 			)}
-		</div>
+		</motion.div>
 	);
 };
 
