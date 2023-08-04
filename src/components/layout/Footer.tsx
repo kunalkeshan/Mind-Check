@@ -59,7 +59,7 @@ function Footer() {
 						target='_blank'
 						className='text-textSecondary underline text-opacity-80 hover:text-opacity-100 transition-all'
 					>
-						Vite + React
+						Vite + React{' '}
 					</a>
 					| Brainchild of{' '}
 					<a
