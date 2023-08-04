@@ -41,6 +41,64 @@ const manifestForPlugin: Partial<VitePWAOptions> = {
 				purpose: 'any maskable',
 			},
 		],
+		shortcuts: [
+			{
+				name: 'Take Test',
+				description:
+					'Start a mental health assessment to track your well-being.',
+				short_name: 'Test',
+				url: '/test',
+				icons: [
+					{
+						src: '/icons/test.png',
+						sizes: '192x192',
+						type: 'image/png',
+					},
+				],
+			},
+			{
+				name: 'View Profile',
+				description:
+					'Access your profile to view and manage your test data.',
+				short_name: 'Profile',
+				url: '/me',
+				icons: [
+					{
+						src: '/icons/profile.png',
+						sizes: '192x192',
+						type: 'image/png',
+					},
+				],
+			},
+			{
+				name: 'View Score History',
+				description:
+					'Check your previous test scores and track your progress.',
+				short_name: 'Scores',
+				url: '/me/history',
+				icons: [
+					{
+						src: '/icons/score-history.png',
+						sizes: '192x192',
+						type: 'image/png',
+					},
+				],
+			},
+			{
+				name: 'Resources',
+				description:
+					'Access curated resources for mental health support.',
+				short_name: 'Resources',
+				url: '/resources',
+				icons: [
+					{
+						src: '/icons/resources.png',
+						sizes: '192x192',
+						type: 'image/png',
+					},
+				],
+			},
+		],
 	},
 };
 
