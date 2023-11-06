@@ -170,6 +170,7 @@ function SignleResource() {
 								<div className='rounded-xl w-2/3 overflow-hidden border border-secondaryDark mx-auto'>
 									<img
 										className='w-full h-auto object-contain'
+										loading='lazy'
 										{...props}
 									>
 										{children}

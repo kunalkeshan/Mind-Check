@@ -30,6 +30,7 @@ function Test() {
 								src='/mind-check-logo.png'
 								alt='🧠'
 								className='w-full h-auto object-contain'
+								loading='lazy'
 							/>
 						</div>
 						<p className='font-heading text-3xl font-bold'>

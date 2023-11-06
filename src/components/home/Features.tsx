@@ -79,6 +79,7 @@ function Features() {
 								src={content.image}
 								alt={content.title}
 								className='w-full h-auto object-contain z-10 group-hover:scale-95 transition-all duration-700'
+								loading='lazy'
 							/>
 							<div className='bg-secondary rounded-full w-[160px] h-[160px] group-hover:w-[500%] group-hover:h-[500%] bg-opacity-40 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-0 transition-all duration-300' />
 						</div>

@@ -73,6 +73,7 @@ function Login() {
 							src='/icons/google.png'
 							alt='Google'
 							className='w-full h-auto object-contain'
+							loading='lazy'
 						/>
 					</span>
 					<span className='w-full md:w-fit'>

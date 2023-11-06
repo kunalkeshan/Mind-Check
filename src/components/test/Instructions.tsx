@@ -60,6 +60,7 @@ const Instructions: React.FC<InstructionsProps> = ({ setTestInProgress }) => {
 									src={instruction.image}
 									alt={instruction.text}
 									className='w-full h-auto object-contain'
+									loading='lazy'
 								/>
 							</div>
 						</div>

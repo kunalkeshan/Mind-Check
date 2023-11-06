@@ -33,6 +33,7 @@ function Navbar() {
 							src='/mind-check-logo.png'
 							alt='🧠'
 							className='w-full h-auto object-contain'
+							loading='lazy'
 						/>
 					</div>
 					<p className='font-heading text-3xl font-bold'>
@@ -63,6 +64,7 @@ function Navbar() {
 								src={user?.photoURL ?? ''}
 								alt={user?.displayName ?? ''}
 								className='w-full h-auto object-contain'
+								loading='lazy'
 							/>
 						</div>
 					</Link>

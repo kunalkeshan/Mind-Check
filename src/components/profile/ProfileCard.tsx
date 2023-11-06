@@ -42,6 +42,7 @@ const ProfileCard = () => {
 					src={user?.photoURL ?? ''}
 					alt={user?.displayName ?? ''}
 					className='w-full h-auto object-contain rounded-full'
+					loading='lazy'
 				/>
 			</div>
 			<div className='font-heading'>
