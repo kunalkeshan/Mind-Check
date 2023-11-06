@@ -26,11 +26,11 @@ const UserProfileHeader = () => {
 							isActive
 								? 'bg-secondary bg-opacity-80'
 								: 'hover:bg-secondary hover:bg-opacity-40'
-						} w-full font-heading text-xl flex items-center justify-center gap-2 transition-all font-semibold text-center py-2 rounded-xl`
+						} w-full font-heading text-xl flex items-center justify-center gap-2 transition-all font-semibold text-center p-2 rounded-xl`
 					}
 					end
 				>
-					<link.Icon size={20} strokeWidth={1.5} />{' '}
+					<link.Icon size={20} strokeWidth={1.5} min={20} />{' '}
 					<span>{link.name}</span>
 				</NavLink>
 			))}
