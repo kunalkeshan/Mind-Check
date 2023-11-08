@@ -132,29 +132,42 @@ function SignleResource() {
 									<span className='text-sm'>
 										{totalReadingTime} min read
 									</span>
-									<div className='w-full border-t gap-2 border-b flex items-center justify-end py-2 text-sm hover:text-textSecondary text-textPrimary transition-all duration-300'>
-										<button
-											onClick={handleSharePost}
-											className='flex items-center gap-2'
-										>
-											<Share
-												size={16}
-												strokeWidth={1.25}
-											/>
-											Share
-										</button>
-										•
-										<button
-											onClick={handleCopyPostLink}
-											className='flex items-center gap-2'
-											title={window.location.href}
-										>
-											<Copy
-												size={16}
-												strokeWidth={1.25}
-											/>
-											Copy link
-										</button>
+									<div className='w-full border-t gap-2 border-b flex flex-wrap items-center justify-center sm:justify-between py-2 text-sm text-textPrimary transition-all duration-300'>
+										<ul className='flex items-center gap-2'>
+											{data?.tags.map((tag) => (
+												<li
+													title={tag}
+													key={`${data.url}-${tag}`}
+													className='text-textPrimary max-w-[12] select-none text-ellipsis overflow-hidden whitespace-nowrap px-2 py-1 w-fit rounded-full border border-textSecondary font-heading hover:bg-textSecondary bg-opacity-20 hover:text-white duration-300 transition-all font-bold text-xs'
+												>
+													{tag}
+												</li>
+											))}
+										</ul>
+										<div className='flex items-centerr gap-2'>
+											<button
+												onClick={handleSharePost}
+												className='flex items-center gap-2 hover:text-textSecondary transition-all duration-300'
+											>
+												<Share
+													size={16}
+													strokeWidth={1.25}
+												/>
+												Share
+											</button>
+											•
+											<button
+												onClick={handleCopyPostLink}
+												className='flex items-center gap-2 hover:text-textSecondary transition-all duration-300'
+												title={window.location.href}
+											>
+												<Copy
+													size={16}
+													strokeWidth={1.25}
+												/>
+												Copy link
+											</button>
+										</div>
 									</div>
 								</header>
 							),
