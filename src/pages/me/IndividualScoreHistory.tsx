@@ -54,6 +54,7 @@ function IndividualScoreHistoryPage() {
 		let reads: Resource[] = [];
 		if (data && data.score) {
 			reads = fetchRecommendedResources(data.score);
+			reads = [...new Set(reads)];
 		}
 		return reads;
 	}, [data]);
@@ -215,16 +216,25 @@ function IndividualScoreHistoryPage() {
 										</Link>
 									</div>
 								) : (
-									<div className='grid grid-cols-1 md:grid-cols-3 gap-2'>
-										{recommendedResources.map(
-											(resource, index) => (
-												<ResourceCard
-													index={index}
-													resource={resource}
-													key={resource.title}
-												/>
-											)
-										)}
+									<div className='w-full flex flex-col items-center justify-center gap-4'>
+										<div className='grid grid-cols-1 md:grid-cols-3 gap-2 w-full'>
+											{recommendedResources.map(
+												(resource, index) => (
+													<ResourceCard
+														index={index}
+														resource={resource}
+														key={resource.title}
+													/>
+												)
+											)}
+										</div>
+										<Link
+											to={'/resources'}
+											className='text-textSecondary underline underline-offset-4 font-heading text-xl'
+										>
+											Interested in resources? Check this
+											out.
+										</Link>
 									</div>
 								)}
 							</motion.section>
