@@ -54,6 +54,7 @@ function IndividualScoreHistoryPage() {
 		let reads: Resource[] = [];
 		if (data && data.score) {
 			reads = fetchRecommendedResources(data.score);
+			reads = [...new Set(reads)];
 		}
 		return reads;
 	}, [data]);
