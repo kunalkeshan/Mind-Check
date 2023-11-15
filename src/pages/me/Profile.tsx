@@ -3,6 +3,7 @@
  */
 
 // Dependencies
+import AverageScore from '../../components/profile/AverageScore';
 import ProfileCard from '../../components/profile/ProfileCard';
 import TotalHistoryChart from '../../components/profile/TotalHistoryChart';
 
@@ -14,6 +15,7 @@ function Profile() {
 			</section>
 			<section className='md:col-span-2'>
 				<TotalHistoryChart />
+				<AverageScore />
 			</section>
 		</div>
 	);
