@@ -72,11 +72,8 @@ function App() {
 					<Route index element={<AllResources />} />
 					<Route path=':resourceSlug' element={<SignleResource />} />
 				</Route>
-				<Route
-					path='/terms-of-conditions'
-					element={<TermsOfConditions />}
-				/>
-				<Route path='/privacy-policy' element={<PrivacyPolicy />} />
+				<Route path='/terms' element={<TermsOfConditions />} />
+				<Route path='/privacy' element={<PrivacyPolicy />} />
 				<Route path='*' element={<NotFound />} />
 			</Routes>
 		</Suspense>
