@@ -23,6 +23,6 @@ export const FOOTER_LINKS: NavLinks = [
 		name: 'Contribute to Resources',
 		url: '/resources/contributing-to-resources',
 	},
-	{ name: 'Terms of Conditions', url: '/terms-of-conditions' },
-	{ name: 'Privacy Policy', url: '/privacy-policy' },
+	{ name: 'Terms & Conditions', url: '/terms' },
+	{ name: 'Privacy Policy', url: '/privacy' },
 ];
