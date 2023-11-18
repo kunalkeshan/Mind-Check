@@ -2,6 +2,9 @@ import QUESTIONS from '../data/questions';
 import { User } from 'firebase/auth';
 import { FirebaseDb } from '../firebase';
 import { doc, getDoc, increment, setDoc, updateDoc } from 'firebase/firestore';
+import X2JS from 'x2js';
+
+const x2js = new X2JS();
 
 export const EXPORT_LIMIT = 3;
 
@@ -13,6 +16,7 @@ type ExportProps = {
 type ExportReturnValue = {
 	csv: 'export/csv-export-success' | 'export/csv-export-error';
 	json: 'export/json-export-success' | 'export/json-export-error';
+	xml: 'export/xml-export-success' | 'export/xml-export-error';
 };
 
 export const exportDataToCsv = ({
@@ -155,6 +159,81 @@ export const exportDataToJson = ({
 	});
 };
 
+export const exportDataToXml = ({
+	data,
+	user,
+}: ExportProps): Promise<ExportReturnValue['xml']> => {
+	return new Promise((resolve, reject) => {
+		try {
+			const normalizedData = data
+				.filter((score) => typeof score.score !== 'undefined')
+				.map((score) => {
+					const scores: Record<
+						string,
+						{ category: string; score: number }
+					> = {};
+					Object.keys(score.score).forEach((key) => {
+						Object.keys(
+							score.score[key as keyof Score['score']]
+						).forEach((questionId) => {
+							const question = QUESTIONS[
+								key as keyof Score['score']
+							]
+								.find(
+									(QUESTION) =>
+										QUESTION.id === parseInt(questionId)
+								)
+								?.question.replace(/[^a-zA-Z0-9 ]/g, ' ')
+								.replace(/\s+/g, '_');
+							const answer =
+								score.score[key as keyof Score['score']][
+									questionId as unknown as keyof ScoreValue
+								];
+							if (!question) return;
+							scores[question] = {
+								category: key
+									.replace(/[^a-zA-Z0-9 ]/g, ' ')
+									.replace(/\s+/g, '_'),
+								score: answer,
+							};
+						});
+					});
+					return {
+						calculatedScore: score.calculatedScore,
+						testTaken: score.time,
+						scores,
+					};
+				});
+			const exportJsonData = {
+				exportedAt: new Date(),
+				user: {
+					name: user?.displayName,
+					email: user?.email,
+				},
+				scores: normalizedData,
+			};
+			const exportXmlDataName = `${user?.displayName
+				?.toLowerCase()
+				.replace(/\s+/g, '-')}-score-data-${Date.now()}`;
+			const xmlAsString = x2js.js2xml({ data: exportJsonData });
+			console.log(xmlAsString);
+			const dataStr = 'data:text/json;charset=utf-8,' + xmlAsString;
+			const downloadAnchorNode = document.createElement('a');
+			downloadAnchorNode.setAttribute('href', dataStr);
+			downloadAnchorNode.setAttribute(
+				'download',
+				exportXmlDataName + '.xml'
+			);
+			document.body.appendChild(downloadAnchorNode); // required for firefox
+			downloadAnchorNode.click();
+			downloadAnchorNode.remove();
+			resolve('export/xml-export-success');
+		} catch (error) {
+			reject('export/xml-export-error');
+		}
+	});
+};
+
 type ExportCategoryUpdateProps = {
 	user: User | null;
 	category: keyof ExportStatus;
@@ -195,11 +274,8 @@ export const validateExportThreshold = ({
 				resolve('export/allowed');
 				return;
 			}
-			const exportStatus = exports.data() as {
-				csv: number;
-				json: number;
-			};
-			if (exportStatus[category] >= 3) {
+			const exportStatus = exports.data() as ExportStatus;
+			if (exportStatus[category] && exportStatus[category] >= 3) {
 				reject('export/threshold-crossed');
 				return;
 			}
@@ -242,5 +318,6 @@ export function createDefaultExportStatusValue(): ExportStatus {
 	return {
 		csv: 0,
 		json: 0,
+		xml: 0,
 	};
 }

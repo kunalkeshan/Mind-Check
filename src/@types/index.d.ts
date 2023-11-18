@@ -15,4 +15,5 @@ interface Score {
 interface ExportStatus {
 	csv: number;
 	json: number;
+	xml: number;
 }

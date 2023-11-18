@@ -16,6 +16,7 @@ import {
 	validateExportThreshold,
 	incrementExportThreshold,
 	createDefaultExportStatusValue,
+	exportDataToXml,
 } from '../../utils/export';
 import toast from 'react-hot-toast';
 
@@ -117,6 +118,33 @@ const ExportData = () => {
 		}
 	};
 
+	const handleExportAsXml = async () => {
+		const category = 'xml';
+		try {
+			if (!data) return;
+			await validateExportThreshold({ user, category });
+			await exportDataToXml({ data: data.scores, user });
+			await incrementExportThreshold({ user, category });
+			await refetch({ queryKey: 'allScoresExportData' });
+		} catch (error) {
+			if (typeof error === 'string') {
+				if (error === 'export/threshold-crossed') {
+					return Promise.reject(
+						`You've crossed your export limit for ${category} exports!`
+					);
+				} else if (error === 'export/threshold-check-error') {
+					return Promise.reject(
+						`Something went wrong! Please try again later.`
+					);
+				}
+			} else {
+				return Promise.reject(
+					`Something went wrong! Please try again later.`
+				);
+			}
+		}
+	};
+
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 20 }}
@@ -160,6 +188,19 @@ const ExportData = () => {
 						>
 							JSON
 						</button>
+						<button
+							onClick={() =>
+								toast.promise(handleExportAsXml(), {
+									loading:
+										'Collecting data and converting to xml format',
+									success: 'xml data successfully exported',
+									error: (value) => value,
+								})
+							}
+							className='px-4 py-2 mx-auto border-secondary border-2 rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
+						>
+							XML
+						</button>
 					</div>
 					<div className='w-full mt-4 text-justify text-sm md:text-base'>
 						<h4>
@@ -186,6 +227,11 @@ const ExportData = () => {
 							<li>
 								<b>For JSON:</b>{' '}
 								{3 - (data?.exportStatus.json ?? 0)} out of 3
+								download limits left.
+							</li>
+							<li>
+								<b>For XML:</b>{' '}
+								{3 - (data?.exportStatus.xml ?? 0)} out of 3
 								download limits left.
 							</li>
 						</ul>
