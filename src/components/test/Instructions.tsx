@@ -4,6 +4,7 @@
 
 // Dependencies
 import React from 'react';
+import { Link } from 'react-router-dom';
 import INSTRUCTIONS from '../../data/instructions';
 import { motion } from 'framer-motion';
 
@@ -78,6 +79,12 @@ const Instructions: React.FC<InstructionsProps> = ({ setTestInProgress }) => {
 				>
 					Take test now
 				</button>
+				<Link
+					to={'/'}
+					className='text-textSecondary underline underline-offset-4 font-heading text-xl'
+				>
+					Go back home? Click here.
+				</Link>
 			</div>
 		</section>
 	);

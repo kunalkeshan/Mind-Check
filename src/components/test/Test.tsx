@@ -256,6 +256,12 @@ function Test() {
 						<li>3 - a lot</li>
 						<li>4 - extremely</li>
 					</ul>
+					<Link
+						to={'/'}
+						className='text-textSecondary underline underline-offset-4 font-heading text-xl'
+					>
+						Go back home? Click here.
+					</Link>
 				</div>
 			</div>
 		</section>
