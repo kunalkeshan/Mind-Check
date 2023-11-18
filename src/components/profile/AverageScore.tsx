@@ -85,7 +85,7 @@ const AverageScore = () => {
 			{isLoading ? (
 				'Loading...'
 			) : error ? (
-				'Unable totalTestsScore load chart...'
+				'Unable to load average score...'
 			) : (
 				<section className='w-full'>
 					<div
