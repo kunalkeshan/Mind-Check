@@ -1,5 +1,9 @@
 import QUESTIONS from '../data/questions';
 import { User } from 'firebase/auth';
+import { FirebaseDb } from '../firebase';
+import { doc, getDoc, increment, setDoc, updateDoc } from 'firebase/firestore';
+
+export const EXPORT_LIMIT = 3;
 
 type ExportProps = {
 	data: Score[];
@@ -147,6 +151,89 @@ export const exportDataToJson = ({
 			resolve('export/json-export-success');
 		} catch (error) {
 			reject('export/json-export-error');
+		}
+	});
+};
+
+type ExportCategoryUpdateProps = {
+	user: User | null;
+	category: 'csv' | 'json';
+};
+
+type ExportCategoryReturnValue = {
+	threshold:
+		| 'export/allowed'
+		| 'export/threshold-crossed'
+		| 'export/threshold-check-error';
+	increment: 'export/increment-success' | 'export/increment-error';
+};
+
+export const validateExportThreshold = ({
+	user,
+	category,
+}: ExportCategoryUpdateProps): Promise<
+	ExportCategoryReturnValue['threshold']
+> => {
+	// eslint-disable-next-line no-async-promise-executor
+	return new Promise(async (resolve, reject) => {
+		try {
+			const currentDate = new Date()
+				.toDateString()
+				.toLowerCase()
+				.replace(/\s+/g, '-');
+			const exportsRef = doc(
+				FirebaseDb,
+				'users',
+				user?.uid as string,
+				'exports',
+				currentDate
+			);
+			const exports = await getDoc(exportsRef);
+			if (!exports.exists()) {
+				// Does not exist
+				await setDoc(exportsRef, { json: 0, csv: 0 });
+				resolve('export/allowed');
+				return;
+			}
+			const exportStatus = exports.data() as {
+				csv: number;
+				json: number;
+			};
+			if (exportStatus[category] >= 3) {
+				reject('export/threshold-crossed');
+				return;
+			}
+			resolve('export/allowed');
+		} catch (error) {
+			reject('export/threshold-check-error');
+		}
+	});
+};
+
+export const incrementExportThreshold = ({
+	user,
+	category,
+}: ExportCategoryUpdateProps): Promise<
+	ExportCategoryReturnValue['increment']
+> => {
+	// eslint-disable-next-line no-async-promise-executor
+	return new Promise(async (resolve, reject) => {
+		try {
+			const currentDate = new Date()
+				.toDateString()
+				.toLowerCase()
+				.replace(/\s+/g, '-');
+			const exportsRef = doc(
+				FirebaseDb,
+				'users',
+				user?.uid as string,
+				'exports',
+				currentDate
+			);
+			await updateDoc(exportsRef, { [category]: increment(1) });
+			resolve('export/increment-success');
+		} catch (error) {
+			reject('export/increment-error');
 		}
 	});
 };
