@@ -10,7 +10,7 @@ import TotalHistoryChart from '../../components/profile/TotalHistoryChart';
 function Profile() {
 	return (
 		<div className='w-full relative grid grid-cols-1 md:grid-cols-3 mt-8 text-left gap-8'>
-			<section className='md:sticky top-16'>
+			<section className='md:sticky md:top-20 h-fit'>
 				<ProfileCard />
 			</section>
 			<section className='md:col-span-2'>
