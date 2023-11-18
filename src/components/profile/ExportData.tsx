@@ -3,7 +3,7 @@ import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import { useUserStore } from '../../store/user';
 import { motion } from 'framer-motion';
-import QUESTIONS from '../../data/questions';
+import { exportDataToCsv, exportDataToJson } from '../../utils/export';
 
 const ExportData = () => {
 	const { user } = useUserStore();
@@ -31,64 +31,14 @@ const ExportData = () => {
 		}
 	);
 
+	const handleExportAsCsv = async () => {
+		if (!data) return;
+		await exportDataToCsv({ data, user });
+	};
+
 	const handleExportAsJson = async () => {
 		if (!data) return;
-		const normalizedData = data
-			.filter((score) => typeof score.score !== 'undefined')
-			.map((score) => {
-				const scores: Record<
-					string,
-					{ category: string; score: number }
-				> = {};
-				Object.keys(score.score).forEach((key) => {
-					Object.keys(
-						score.score[key as keyof Score['score']]
-					).forEach((questionId) => {
-						const question = QUESTIONS[
-							key as keyof Score['score']
-						].find(
-							(QUESTION) => QUESTION.id === parseInt(questionId)
-						)?.question;
-						const answer =
-							score.score[key as keyof Score['score']][
-								questionId as unknown as keyof ScoreValue
-							];
-						if (!question) return;
-						scores[question] = {
-							category: key,
-							score: answer,
-						};
-					});
-				});
-				return {
-					calculatedScore: score.calculatedScore,
-					testTaken: score.time,
-					scores,
-				};
-			});
-		const exportJsonData = {
-			exportedAt: new Date(),
-			user: {
-				name: user?.displayName,
-				email: user?.email,
-			},
-			scores: normalizedData,
-		};
-		const exportJsonDataName = `${user?.displayName
-			?.toLowerCase()
-			.replace(/\s+/g, '-')}-score-data-${Date.now()}`;
-		const dataStr =
-			'data:text/json;charset=utf-8,' +
-			encodeURIComponent(JSON.stringify(exportJsonData));
-		const downloadAnchorNode = document.createElement('a');
-		downloadAnchorNode.setAttribute('href', dataStr);
-		downloadAnchorNode.setAttribute(
-			'download',
-			exportJsonDataName + '.json'
-		);
-		document.body.appendChild(downloadAnchorNode); // required for firefox
-		downloadAnchorNode.click();
-		downloadAnchorNode.remove();
+		await exportDataToJson({ data, user });
 	};
 
 	return (
@@ -108,7 +58,10 @@ const ExportData = () => {
 			) : (
 				<section className='mt-4'>
 					<div className='flex items-center gap-4 w-fit'>
-						<button className='px-4 py-2 mx-auto border-secondary border-2 rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'>
+						<button
+							onClick={handleExportAsCsv}
+							className='px-4 py-2 mx-auto border-secondary border-2 rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
+						>
 							CSV
 						</button>
 						<button
