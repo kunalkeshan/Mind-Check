@@ -72,8 +72,6 @@ const AverageScore = () => {
 		];
 	}, [data?.averageScore]);
 
-	console.log(feedbackOnScore);
-
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 20 }}
