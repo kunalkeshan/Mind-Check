@@ -13,7 +13,6 @@ import { useUserStore } from '../../store/user';
 function Navbar() {
 	const [open, setOpen] = useState(false);
 	const { user } = useUserStore();
-	//   console.log(user?.photoURL);
 	const handleMenuToggle = () => {
 		setOpen(!open);
 	};

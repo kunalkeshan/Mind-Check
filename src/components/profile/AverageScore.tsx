@@ -72,8 +72,6 @@ const AverageScore = () => {
 		];
 	}, [data?.averageScore]);
 
-	console.log(feedbackOnScore);
-
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 20 }}
@@ -87,7 +85,7 @@ const AverageScore = () => {
 			{isLoading ? (
 				'Loading...'
 			) : error ? (
-				'Unable totalTestsScore load chart...'
+				'Unable to load average score...'
 			) : (
 				<section className='w-full'>
 					<div

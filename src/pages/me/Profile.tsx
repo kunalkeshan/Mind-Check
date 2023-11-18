@@ -3,9 +3,10 @@
  */
 
 // Dependencies
-import AverageScore from '../../components/profile/AverageScore';
 import ProfileCard from '../../components/profile/ProfileCard';
 import TotalHistoryChart from '../../components/profile/TotalHistoryChart';
+import AverageScore from '../../components/profile/AverageScore';
+import ExportData from '../../components/profile/ExportData';
 
 function Profile() {
 	return (
@@ -16,6 +17,7 @@ function Profile() {
 			<section className='md:col-span-2'>
 				<TotalHistoryChart />
 				<AverageScore />
+				<ExportData />
 			</section>
 		</div>
 	);
