@@ -11,3 +11,8 @@ interface Score {
 		'Suicidal Urges': ScoreValue;
 	};
 }
+
+interface ExportStatus {
+	csv: number;
+	json: number;
+}

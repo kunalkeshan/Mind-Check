@@ -157,7 +157,7 @@ export const exportDataToJson = ({
 
 type ExportCategoryUpdateProps = {
 	user: User | null;
-	category: 'csv' | 'json';
+	category: keyof ExportStatus;
 };
 
 type ExportCategoryReturnValue = {
@@ -191,7 +191,7 @@ export const validateExportThreshold = ({
 			const exports = await getDoc(exportsRef);
 			if (!exports.exists()) {
 				// Does not exist
-				await setDoc(exportsRef, { json: 0, csv: 0 });
+				await setDoc(exportsRef, createDefaultExportStatusValue());
 				resolve('export/allowed');
 				return;
 			}
@@ -237,3 +237,10 @@ export const incrementExportThreshold = ({
 		}
 	});
 };
+
+export function createDefaultExportStatusValue(): ExportStatus {
+	return {
+		csv: 0,
+		json: 0,
+	};
+}

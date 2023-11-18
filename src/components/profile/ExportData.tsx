@@ -15,6 +15,7 @@ import {
 	exportDataToJson,
 	validateExportThreshold,
 	incrementExportThreshold,
+	createDefaultExportStatusValue,
 } from '../../utils/export';
 import toast from 'react-hot-toast';
 
@@ -55,10 +56,8 @@ const ExportData = () => {
 				currentDate
 			);
 			const exports = await getDoc(exportsRef);
-			const exportStatus = (exports.data() ?? { json: 0, csv: 0 }) as {
-				csv: number;
-				json: number;
-			};
+			const exportStatus = (exports.data() ??
+				createDefaultExportStatusValue()) as ExportStatus;
 			return { scores, exportStatus };
 		}
 	);
