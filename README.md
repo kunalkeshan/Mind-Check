@@ -101,7 +101,7 @@ So, feel free to fork this repo. If you do, please just give us proper credit by
 
 ## Contact
 
-If you have any questions or suggestions, feel free to reach out to the project maintainers at [https://github.com/kunalkeshan](https://github.com/kunalkeshan).
+If you have any questions or suggestions, feel free to reach out to the project maintainers at [https://github.com/kunalkeshan](https://github.com/kunalkeshan) or message at [https://x.com/\_kunalkeshan\_](https://x.com/_kunalkeshan_)
 
 ## References
 
