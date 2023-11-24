@@ -31,7 +31,7 @@ const JournalInput = () => {
 			);
 			await setDoc(docRef, {
 				type: 'journal',
-				journal: input,
+				journal: input.trim(),
 				time: Timestamp.now(),
 			});
 			toast.success('Journal saved successfully.');
