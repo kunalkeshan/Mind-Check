@@ -8,6 +8,8 @@ interface Mood {
 	mood: string;
 }
 
+// ⚠ WARNING: do not change the order.
+// Index is stored in firebase and later used to map out in respective sections.
 const MOODS: Mood[] = [
 	{ scale: 1, emoji: '😢', mood: 'Devastated' },
 	{ scale: 2, emoji: '😞', mood: 'Sad' },

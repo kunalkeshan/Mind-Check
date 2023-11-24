@@ -14,6 +14,8 @@ interface Sections {
 	'Suicidal Urges': Question[];
 }
 
+// ⚠ WARNING: do not change the order.
+// Index is stored in firebase and later used to map out in respective sections.
 const QUESTIONS: Sections = {
 	'Thoughts & Feelings': [
 		{
