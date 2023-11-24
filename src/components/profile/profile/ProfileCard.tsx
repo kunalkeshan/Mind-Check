@@ -1,7 +1,7 @@
 import { collection, getCountFromServer } from 'firebase/firestore';
 import { useQuery } from 'react-query';
-import { FirebaseDb, FirebaseAuth } from '../../firebase';
-import { useUserStore } from '../../store/user';
+import { FirebaseDb, FirebaseAuth } from '../../../firebase';
+import { useUserStore } from '../../../store/user';
 import { signOut } from 'firebase/auth';
 import { toast } from 'react-hot-toast';
 import { motion } from 'framer-motion';

@@ -1,4 +1,4 @@
-import { FirebaseDb } from '../../firebase';
+import { FirebaseDb } from '../../../firebase';
 import {
 	collection,
 	getDocs,
@@ -8,7 +8,7 @@ import {
 	getDoc,
 } from 'firebase/firestore';
 import { useQuery } from 'react-query';
-import { useUserStore } from '../../store/user';
+import { useUserStore } from '../../../store/user';
 import { motion } from 'framer-motion';
 import {
 	exportDataToCsv,
@@ -17,7 +17,7 @@ import {
 	incrementExportThreshold,
 	createDefaultExportStatusValue,
 	exportDataToXml,
-} from '../../utils/export';
+} from '../../../utils/export';
 import toast from 'react-hot-toast';
 
 const ExportData = () => {

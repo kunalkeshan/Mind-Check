@@ -14,7 +14,7 @@ import {
 } from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import { useUserStore } from '../../store/user';
-import HistoryCard from '../../components/profile/HistoryCard';
+import HistoryCard from '../../components/profile/score/HistoryCard';
 
 interface Score {
 	id: string;

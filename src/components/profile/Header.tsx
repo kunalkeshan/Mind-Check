@@ -1,4 +1,4 @@
-import { History, UserCircle2 } from 'lucide-react';
+import { History, UserCircle2, BookOpen, BookDown } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 const LINKS = [
@@ -6,6 +6,16 @@ const LINKS = [
 		name: 'Profile',
 		url: '/me',
 		Icon: UserCircle2,
+	},
+	{
+		name: 'Journal',
+		url: '/me/journal',
+		Icon: BookOpen,
+	},
+	{
+		name: 'Journal History',
+		url: '/me/journal-history',
+		Icon: BookDown,
 	},
 	{
 		name: 'Score History',
@@ -16,7 +26,7 @@ const LINKS = [
 
 const UserProfileHeader = () => {
 	return (
-		<div className='w-full flex items-center text-textPrimary gap-8 bg-primary'>
+		<div className='w-full grid grid-cols-2 md:grid-cols-4 text-textPrimary gap-8 bg-primary'>
 			{LINKS.map((link, index) => (
 				<NavLink
 					to={link.url}
