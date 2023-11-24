@@ -44,6 +44,20 @@ const ExportData = () => {
 				} as Score);
 			});
 
+			const journalsRef = query(
+				collection(
+					FirebaseDb,
+					'users',
+					user?.uid as string,
+					'journals'
+				),
+				orderBy('time', 'asc')
+			);
+			const journalsData = await getDocs(journalsRef);
+			const journals = journalsData.docs.map((doc) => {
+				return { id: doc.id, ...doc.data() } as Journal;
+			});
+
 			// Exports Data
 			const currentDate = new Date()
 				.toDateString()
@@ -59,7 +73,7 @@ const ExportData = () => {
 			const exports = await getDoc(exportsRef);
 			const exportStatus = (exports.data() ??
 				createDefaultExportStatusValue()) as ExportStatus;
-			return { scores, exportStatus };
+			return { scores, exportStatus, journals };
 		}
 	);
 
@@ -68,7 +82,11 @@ const ExportData = () => {
 		try {
 			if (!data) return;
 			await validateExportThreshold({ user, category });
-			await exportDataToCsv({ data: data.scores, user });
+			await exportDataToCsv({
+				data: data.scores,
+				user,
+				journals: data.journals,
+			});
 			await incrementExportThreshold({ user, category });
 			await refetch({ queryKey: 'allScoresExportData' });
 			return Promise.resolve();
@@ -96,7 +114,11 @@ const ExportData = () => {
 		try {
 			if (!data) return;
 			await validateExportThreshold({ user, category });
-			await exportDataToJson({ data: data.scores, user });
+			await exportDataToJson({
+				data: data.scores,
+				user,
+				journals: data.journals,
+			});
 			await incrementExportThreshold({ user, category });
 			await refetch({ queryKey: 'allScoresExportData' });
 		} catch (error) {
@@ -123,7 +145,11 @@ const ExportData = () => {
 		try {
 			if (!data) return;
 			await validateExportThreshold({ user, category });
-			await exportDataToXml({ data: data.scores, user });
+			await exportDataToXml({
+				data: data.scores,
+				user,
+				journals: data.journals,
+			});
 			await incrementExportThreshold({ user, category });
 			await refetch({ queryKey: 'allScoresExportData' });
 		} catch (error) {

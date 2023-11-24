@@ -1,4 +1,5 @@
 import QUESTIONS from '../data/questions';
+import MOODS from '../data/moods';
 import { User } from 'firebase/auth';
 import { FirebaseDb } from '../firebase';
 import { doc, getDoc, increment, setDoc, updateDoc } from 'firebase/firestore';
@@ -10,6 +11,7 @@ export const EXPORT_LIMIT = 3;
 
 type ExportProps = {
 	data: Score[];
+	journals: Journal[];
 	user: User | null;
 };
 
@@ -92,6 +94,7 @@ export const exportDataToCsv = ({
 export const exportDataToJson = ({
 	data,
 	user,
+	journals,
 }: ExportProps): Promise<ExportReturnValue['json']> => {
 	return new Promise((resolve, reject) => {
 		try {
@@ -129,6 +132,13 @@ export const exportDataToJson = ({
 						scores,
 					};
 				});
+			const normalizedJournals = journals
+				.filter((journal) => typeof journal !== 'undefined')
+				.map((journal) => {
+					if (journal.type === 'journal') return journal;
+					const mood = MOODS.find((m) => m.id === journal.mood);
+					return { ...journal, mood };
+				});
 			const exportJsonData = {
 				exportedAt: new Date(),
 				user: {
@@ -136,6 +146,7 @@ export const exportDataToJson = ({
 					email: user?.email,
 				},
 				scores: normalizedData,
+				journals: normalizedJournals,
 			};
 			const exportJsonDataName = `${user?.displayName
 				?.toLowerCase()
