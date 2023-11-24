@@ -62,7 +62,7 @@ const MoodSelection = () => {
 				represents how you feel right now.
 			</h2>
 			<hr className='w-full' />
-			<div className='w-full grid grid-cols-5 sm:grid-cols-10 gap-2 place-items-center'>
+			<div className='w-full grid grid-cols-5 gap-2 place-items-center'>
 				{MOODS.map((mood) => (
 					<button
 						data-tooltip-id='emoji-mood-meaning'
@@ -75,7 +75,7 @@ const MoodSelection = () => {
 									? 'scale-150 rotate-12'
 									: 'grayscale'
 								: ''
-						} text-xl transition-all hover:scale-150 hover:rotate-12 hover:grayscale-0 w-fit`}
+						} text-2xl transition-all hover:scale-150 hover:rotate-12 hover:grayscale-0 w-fit`}
 					>
 						{mood.emoji}
 					</button>
