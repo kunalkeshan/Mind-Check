@@ -1,4 +1,9 @@
-import { collection, getCountFromServer } from 'firebase/firestore';
+import {
+	collection,
+	getCountFromServer,
+	query,
+	where,
+} from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import { FirebaseDb, FirebaseAuth } from '../../../firebase';
 import { useUserStore } from '../../../store/user';
@@ -9,9 +14,9 @@ import { motion } from 'framer-motion';
 const ProfileCard = () => {
 	const { user } = useUserStore();
 	const {
-		data: testCountData,
-		error: testCountError,
-		isLoading: testCountIsLoading,
+		data: countData,
+		error: countError,
+		isLoading: countIsLoading,
 	} = useQuery('testsTakenByUser', async () => {
 		const scoresRef = collection(
 			FirebaseDb,
@@ -19,8 +24,22 @@ const ProfileCard = () => {
 			user?.uid as string,
 			'scores'
 		);
-		const count = await getCountFromServer(scoresRef);
-		return count.data().count;
+		const moodsRef = query(
+			collection(FirebaseDb, 'users', user?.uid as string, 'journals'),
+			where('type', '==', 'mood')
+		);
+		const journalsRef = query(
+			collection(FirebaseDb, 'users', user?.uid as string, 'journals'),
+			where('type', '==', 'journal')
+		);
+		const testCount = await getCountFromServer(scoresRef);
+		const moodCount = await getCountFromServer(moodsRef);
+		const journalCount = await getCountFromServer(journalsRef);
+		return {
+			testsTaken: testCount.data().count,
+			moodEntries: moodCount.data().count,
+			journalEntries: journalCount.data().count,
+		};
 	});
 	const handleUserSignOut = async () => {
 		toast.promise(signOut(FirebaseAuth), {
@@ -45,26 +64,42 @@ const ProfileCard = () => {
 					loading='lazy'
 				/>
 			</div>
-			<div className='font-heading'>
+			<div className='font-heading text-center'>
 				<p className='text-xl font-bold'>{user?.displayName}</p>
 				<p>
 					User since:{' '}
 					{new Intl.DateTimeFormat('en-US', {
-						year: 'numeric',
-						month: 'long',
-						day: 'numeric',
+						dateStyle: 'long',
 					}).format(
 						new Date(user?.metadata?.creationTime as string)
 					)}{' '}
 				</p>
-				<p>
-					Tests Taken:{' '}
-					{testCountIsLoading
-						? 'Loading...'
-						: testCountError
-						? 'Unable to get count'
-						: testCountData}
-				</p>
+				<div className='w-full grid grid-cols-2 gap-x-4 mt-2 text-left'>
+					<p>
+						<b>Tests Taken</b>:{' '}
+						{countIsLoading
+							? 'Loading...'
+							: countError
+							? 'Unable to get count'
+							: countData?.testsTaken}
+					</p>
+					<p>
+						<b>Mood Entries</b>:{' '}
+						{countIsLoading
+							? 'Loading...'
+							: countError
+							? 'Unable to get count'
+							: countData?.moodEntries}
+					</p>
+					<p>
+						<b>Journal Entries</b>:{' '}
+						{countIsLoading
+							? 'Loading...'
+							: countError
+							? 'Unable to get count'
+							: countData?.journalEntries}
+					</p>
+				</div>
 			</div>
 			<hr className='border w-full' />
 			<button
