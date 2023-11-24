@@ -158,7 +158,7 @@ const ExportData = () => {
 			{isLoading ? (
 				'Loading...'
 			) : error ? (
-				'Unable to load chart...'
+				'Unable to export at the moment...'
 			) : (
 				<section className='mt-4'>
 					<div className='flex items-center gap-4 w-fit'>
