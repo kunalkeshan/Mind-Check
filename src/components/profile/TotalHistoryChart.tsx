@@ -78,7 +78,9 @@ const TotalHistoryChart = () => {
 			transition={{ delay: 0.2, type: 'spring' }}
 			viewport={{ once: true }}
 		>
-			<h3 className='font-heading text-xl font-bold'>Total History</h3>
+			<h3 className='font-heading text-xl font-bold'>
+				Total Score History
+			</h3>
 			<hr className='w-full' />
 			{isLoading ? (
 				'Loading...'
