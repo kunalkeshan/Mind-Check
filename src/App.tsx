@@ -13,6 +13,8 @@ const Score = lazy(() => import('./pages/Score'));
 const Login = lazy(() => import('./pages/Login'));
 const Profile = lazy(() => import('./pages/me/Profile'));
 const ScoreHistory = lazy(() => import('./pages/me/ScoreHistory'));
+const Journal = lazy(() => import('./pages/me/Journal'));
+const JournalHistory = lazy(() => import('./pages/me/JournalHistory'));
 const Main = lazy(() => import('./pages/me/Main'));
 const TermsOfConditions = lazy(() => import('./pages/TermsOfConditions'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
@@ -63,6 +65,11 @@ function App() {
 				>
 					<Route index element={<Profile />} />
 					<Route path='history' element={<ScoreHistory />} />
+					<Route path='journal' element={<Journal />} />
+					<Route
+						path='journal-history'
+						element={<JournalHistory />}
+					/>
 					<Route
 						path='history/:historyId'
 						element={<IndividualScoreHistoryPage />}
