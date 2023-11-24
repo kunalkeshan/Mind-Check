@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FirebaseDb } from '../../firebase';
+import { FirebaseDb } from '../../../firebase';
 import {
 	Timestamp,
 	collection,
@@ -8,7 +8,7 @@ import {
 	orderBy,
 } from 'firebase/firestore';
 import { useQuery } from 'react-query';
-import { useUserStore } from '../../store/user';
+import { useUserStore } from '../../../store/user';
 import {
 	LineChart,
 	Line,

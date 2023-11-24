@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Timestamp } from 'firebase/firestore';
-import FEEDBACKS, { FEEDBACKS_LENGTH } from '../../data/feedback';
+import FEEDBACKS, { FEEDBACKS_LENGTH } from '../../../data/feedback';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 

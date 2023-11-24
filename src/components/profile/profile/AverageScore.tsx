@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { useMemo } from 'react';
-import { FirebaseDb } from '../../firebase';
+import { FirebaseDb } from '../../../firebase';
 import {
 	Timestamp,
 	collection,
@@ -9,9 +9,9 @@ import {
 	orderBy,
 } from 'firebase/firestore';
 import { useQuery } from 'react-query';
-import { useUserStore } from '../../store/user';
+import { useUserStore } from '../../../store/user';
 import { motion } from 'framer-motion';
-import FEEDBACKS, { FEEDBACKS_LENGTH } from '../../data/feedback';
+import FEEDBACKS, { FEEDBACKS_LENGTH } from '../../../data/feedback';
 
 type IScore = Score & {
 	time: Timestamp;
