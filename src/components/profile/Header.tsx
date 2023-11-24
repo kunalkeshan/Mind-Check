@@ -26,7 +26,7 @@ const LINKS = [
 
 const UserProfileHeader = () => {
 	return (
-		<div className='w-full flex items-center text-textPrimary gap-8 bg-primary'>
+		<div className='w-full grid grid-cols-2 md:grid-cols-4 text-textPrimary gap-8 bg-primary'>
 			{LINKS.map((link, index) => (
 				<NavLink
 					to={link.url}
