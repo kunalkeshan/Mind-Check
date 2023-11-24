@@ -43,8 +43,7 @@ const JournalTimeline = () => {
 					id: doc.id,
 					...doc.data(),
 					time: new Intl.DateTimeFormat('en-US', {
-						dateStyle: 'medium',
-						timeStyle: 'short',
+						timeStyle: 'full',
 					}).format(doc.data().time.toDate()),
 				}));
 				setJournals(data as unknown as Journal[]);
@@ -70,11 +69,14 @@ const JournalTimeline = () => {
 			<hr className='w-full' />
 			{error ? (
 				'Unable to load journals...'
-			) : (
-				<VerticalTimeline className='!mt-8' layout='1-column-left'>
+			) : journals.length > 0 ? (
+				<VerticalTimeline className='!py-4' layout='1-column-left'>
 					{journals.map((journal) => (
 						<VerticalTimelineElement
+							key={`journal-entry-timeline-${journal.id}`}
 							date={journal.time}
+							iconStyle={{ backgroundColor: '#ffffff' }}
+							style={{ margin: '1em 0' }}
 							icon={
 								journal.type === 'journal' ? (
 									<BookOpen />
@@ -83,11 +85,14 @@ const JournalTimeline = () => {
 								)
 							}
 						>
-							<JournalEntry journal={journal} />
+							<JournalEntry
+								key={`journal-entry-${journal.id}`}
+								journal={journal}
+							/>
 						</VerticalTimelineElement>
 					))}
 				</VerticalTimeline>
-			)}
+			) : null}
 		</motion.div>
 	);
 };

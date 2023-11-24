@@ -29,9 +29,8 @@ function IndividualScoreHistoryPage() {
 			if (!res.exists) throw new Error('Unable to fetch with given id');
 			const docData = res.data();
 			const time = new Intl.DateTimeFormat('en-US', {
-				year: 'numeric',
-				month: 'short',
-				day: 'numeric',
+				dateStyle: 'full',
+				timeStyle: 'full',
 			}).format(docData?.time.toDate());
 			return { id: res.id, ...docData, time } as Score;
 		}

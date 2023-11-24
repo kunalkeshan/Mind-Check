@@ -5,22 +5,10 @@
 
 // Dependencies
 import { FirebaseDb } from '../../firebase';
-import {
-	Timestamp,
-	collection,
-	getDocs,
-	query,
-	orderBy,
-} from 'firebase/firestore';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import { useUserStore } from '../../store/user';
 import HistoryCard from '../../components/profile/score/HistoryCard';
-
-interface Score {
-	id: string;
-	calculatedScore: number;
-	time: Timestamp;
-}
 
 function ScoreHistory() {
 	const { user } = useUserStore();
@@ -39,9 +27,8 @@ function ScoreHistory() {
 			data.forEach((doc) => {
 				const docData = doc.data();
 				docData.time = new Intl.DateTimeFormat('en-US', {
-					year: 'numeric',
-					month: 'short',
-					day: 'numeric',
+					dateStyle: 'medium',
+					timeStyle: 'short',
 				}).format(docData.time.toDate());
 				delete docData.score;
 				scores.push({

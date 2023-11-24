@@ -1,17 +1,19 @@
 import React, { useMemo } from 'react';
-import { Timestamp } from 'firebase/firestore';
 import FEEDBACKS, { FEEDBACKS_LENGTH } from '../../../data/feedback';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-interface Score {
-	id: string;
-	calculatedScore: number;
-	time: Timestamp;
-	index: number;
-}
+type HistoryCardProps = React.ComponentProps<'div'> &
+	Score & {
+		index: number;
+	};
 
-const HistoryCard: React.FC<Score> = ({ calculatedScore, time, id, index }) => {
+const HistoryCard: React.FC<HistoryCardProps> = ({
+	calculatedScore,
+	time,
+	id,
+	index,
+}) => {
 	const feedbackOnScore = useMemo(() => {
 		const data = FEEDBACKS.find((feedback) => {
 			if (
@@ -53,8 +55,8 @@ const HistoryCard: React.FC<Score> = ({ calculatedScore, time, id, index }) => {
 				<p className='w-full md:max-w-[60%] text-justify text-sm md:text-base'>
 					{feedbackOnScore}
 				</p>
-				<p className='text-sm md:text-base'>
-					Test Taken: {time as unknown as string}
+				<p className='text-sm md:text-base max-w-[16ch]'>
+					<b>Test Taken:</b> <br /> {time}
 				</p>
 			</Link>
 		</motion.div>

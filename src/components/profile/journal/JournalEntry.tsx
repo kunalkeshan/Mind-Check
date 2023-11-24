@@ -14,25 +14,30 @@ const JournalEntry: React.FC<JournalEntryProps> = ({ journal }) => {
 		return null;
 	}, [journal]);
 
-	return journal.type === 'journal' ? (
+	return (
 		<div>
-			<h4 className='font-heading text-lg font-semibold capitalize'>
-				Journal entry
-			</h4>
-			<hr className='w-full' />
-			<p>{journal.journal}</p>
-		</div>
-	) : (
-		<div>
-			<h4 className='font-heading text-lg font-semibold capitalize'>
-				Mood entry
-			</h4>
-			<hr className='w-full' />
-			{mood ? (
-				<p>
-					{mood.emoji} - feeling {mood.mood}
-				</p>
-			) : null}
+			{journal.type === 'journal' ? (
+				<>
+					<h4 className='font-heading text-lg font-semibold capitalize'>
+						Journal entry
+					</h4>
+					<hr className='w-full' />
+					<p className='text-lg'>{journal.journal}</p>
+				</>
+			) : (
+				<>
+					<h4 className='font-heading text-lg font-semibold capitalize'>
+						Mood entry
+					</h4>
+					<hr className='w-full' />
+					{mood ? (
+						<p className='text-lg'>
+							<span className='text-2xl'>{mood.emoji}</span> -
+							feeling {mood.mood}
+						</p>
+					) : null}
+				</>
+			)}
 		</div>
 	);
 };
