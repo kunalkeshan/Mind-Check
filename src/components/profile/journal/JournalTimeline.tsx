@@ -73,6 +73,7 @@ const JournalTimeline = () => {
 				<VerticalTimeline className='!py-4' layout='1-column-left'>
 					{journals.map((journal) => (
 						<VerticalTimelineElement
+							className='group'
 							key={`journal-entry-timeline-${journal.id}`}
 							date={journal.time}
 							iconStyle={{ backgroundColor: '#ffffff' }}
