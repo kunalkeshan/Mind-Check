@@ -12,6 +12,21 @@ interface Score {
 	};
 }
 
+interface MoodData {
+	type: 'mood';
+	mood: number;
+}
+
+interface JournalData {
+	type: 'journal';
+	journal: string;
+}
+
+type Journal = {
+	id: string;
+	time: string;
+} & (MoodData | JournalData);
+
 interface ExportStatus {
 	csv: number;
 	json: number;

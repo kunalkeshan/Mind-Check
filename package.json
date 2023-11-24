@@ -24,6 +24,7 @@
 		"react-query": "^3.39.3",
 		"react-router-dom": "^6.11.2",
 		"react-tooltip": "^5.24.0",
+		"react-vertical-timeline-component": "^3.6.0",
 		"recharts": "^2.7.2",
 		"rehype-raw": "^6.1.1",
 		"remark-footnotes": "^4.0.1",

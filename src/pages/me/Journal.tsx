@@ -1,5 +1,6 @@
 import MoodSelection from '../../components/profile/journal/MoodSelection';
 import JournalInput from '../../components/profile/journal/JournalInput';
+import JournalTimeline from '../../components/profile/journal/JournalTimeline';
 
 const Journal = () => {
 	return (
@@ -8,7 +9,9 @@ const Journal = () => {
 				<MoodSelection />
 				<JournalInput />
 			</section>
-			<section className='md:col-span-2'></section>
+			<section className='md:col-span-2'>
+				<JournalTimeline />
+			</section>
 		</div>
 	);
 };
