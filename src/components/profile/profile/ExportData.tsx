@@ -55,7 +55,12 @@ const ExportData = () => {
 			);
 			const journalsData = await getDocs(journalsRef);
 			const journals = journalsData.docs.map((doc) => {
-				return { id: doc.id, ...doc.data() } as Journal;
+				const docData = doc.data();
+				docData.time = docData.time.toDate();
+				return {
+					id: doc.id,
+					...docData,
+				} as Journal;
 			});
 
 			// Exports Data

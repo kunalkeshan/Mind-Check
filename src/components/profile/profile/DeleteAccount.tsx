@@ -18,8 +18,6 @@ const DeleteAccount = () => {
 		setInput(e.target.value);
 	};
 
-	console.log(user);
-
 	const handleDeleteUserAccount = async () => {
 		try {
 			const userRef = doc(FirebaseDb, 'users', user?.uid as string);
