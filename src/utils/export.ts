@@ -221,6 +221,7 @@ export const exportDataToJson = ({
 export const exportDataToXml = ({
 	data,
 	user,
+	journals,
 }: ExportProps): Promise<ExportReturnValue['xml']> => {
 	return new Promise((resolve, reject) => {
 		try {
@@ -263,6 +264,19 @@ export const exportDataToXml = ({
 						scores,
 					};
 				});
+			const normalizedJournals = journals
+				.filter((journal) => typeof journal !== 'undefined')
+				.map((journal) => {
+					if (journal.type === 'journal')
+						return { ...journal, entry: journal.journal };
+					const mood = MOODS.find((m) => m.id === journal.mood);
+					return {
+						...journal,
+						mood: mood?.mood
+							.replace(/[^a-zA-Z0-9 ]/g, ' ')
+							.replace(/\s+/g, '_'),
+					};
+				});
 			const exportJsonData = {
 				exportedAt: new Date(),
 				user: {
@@ -270,6 +284,7 @@ export const exportDataToXml = ({
 					email: user?.email,
 				},
 				scores: normalizedData,
+				journals: normalizedJournals,
 			};
 			const exportXmlDataName = `${user?.displayName
 				?.toLowerCase()
