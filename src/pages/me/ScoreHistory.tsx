@@ -6,11 +6,19 @@
 // Dependencies
 import { useState } from 'react';
 import { FirebaseDb } from '../../firebase';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import {
+	collection,
+	getDocs,
+	query,
+	orderBy,
+	limit,
+	where,
+} from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import { useUserStore } from '../../store/user';
 import HistoryCard from '../../components/profile/score/HistoryCard';
 import ScoreFilter from '../../components/profile/score/ScorerFilter';
+import { getQueryForDateRange } from '../../utils/filter';
 
 const PER_PAGE_LIMIT = 10;
 
@@ -28,7 +36,7 @@ function ScoreHistory() {
 			},
 			order: 'asc',
 		},
-		limit: 50,
+		page: 10,
 	});
 	const { data, isLoading, error } = useQuery(
 		['scoreHistoryPage', filter],
@@ -39,7 +47,12 @@ function ScoreHistory() {
 				user?.uid as string,
 				'scores'
 			);
-			const q = query(ref, orderBy('time', filter.date.order));
+			let q = query(
+				ref,
+				orderBy('time', filter.date.order),
+				limit(PER_PAGE_LIMIT)
+			);
+			q = getQueryForDateRange(q, filter.date.range);
 			const data = await getDocs(q);
 			const scores: Score[] = [];
 			data.forEach((doc) => {

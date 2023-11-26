@@ -54,5 +54,5 @@ interface ScoreHistoryFilter {
 		};
 		order: 'asc' | 'desc';
 	};
-	limit: number;
+	page: number;
 }

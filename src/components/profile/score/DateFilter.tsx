@@ -2,26 +2,16 @@ import React, { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronsUpDown } from 'lucide-react';
 import { CheckIcon } from 'lucide-react';
+import { DATE_FILTER } from '../../../data/filter';
 
 type DateFilterProps = React.ComponentProps<'div'> & {
 	filter: ScoreHistoryFilter;
 	setFilter: React.Dispatch<React.SetStateAction<ScoreHistoryFilter>>;
 };
 
-const dateFilterObject: DateFilter = {
-	Today: 0,
-	'Last 1 week': 7,
-	'Last 2 weeks': 14,
-	'Last 30 days': 30,
-	'Last 90 days': 90,
-	'All Time': 'all',
-};
-
 const DateFilterList: React.FC<DateFilterProps> = ({ filter, setFilter }) => {
 	const dateRangeOptions: Array<ScoreHistoryFilter['date']['range']> =
-		Object.keys(dateFilterObject) as Array<
-			ScoreHistoryFilter['date']['range']
-		>;
+		Object.keys(DATE_FILTER) as Array<ScoreHistoryFilter['date']['range']>;
 
 	const handleDateRangeChange = (
 		value: ScoreHistoryFilter['date']['range']
