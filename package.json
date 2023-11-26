@@ -11,6 +11,8 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@headlessui/react": "^1.7.17",
+		"@headlessui/tailwindcss": "^0.2.0",
 		"axios": "^1.4.0",
 		"firebase": "^9.22.1",
 		"framer-motion": "^10.12.16",
