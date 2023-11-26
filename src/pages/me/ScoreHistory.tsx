@@ -6,14 +6,7 @@
 // Dependencies
 import { useState } from 'react';
 import { FirebaseDb } from '../../firebase';
-import {
-	collection,
-	getDocs,
-	query,
-	orderBy,
-	limit,
-	where,
-} from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import { useUserStore } from '../../store/user';
 import HistoryCard from '../../components/profile/score/HistoryCard';
@@ -36,7 +29,7 @@ function ScoreHistory() {
 			},
 			order: 'asc',
 		},
-		page: 10,
+		page: 1,
 	});
 	const { data, isLoading, error } = useQuery(
 		['scoreHistoryPage', filter],
