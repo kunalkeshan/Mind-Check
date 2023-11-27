@@ -45,14 +45,14 @@ interface DateFilter {
 interface ScoreHistoryFilter {
 	date: {
 		range: keyof DateFilter;
-		order: 'asc' | 'desc';
+		order: 'asc' | 'desc' | 'none';
 	};
 	score: {
 		range: {
 			start: number;
 			end: number;
 		};
-		order: 'asc' | 'desc';
+		order: 'asc' | 'desc' | 'none';
 	};
 	page: number;
 }

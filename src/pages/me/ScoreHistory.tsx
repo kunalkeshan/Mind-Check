@@ -6,20 +6,20 @@
 // Dependencies
 import { useState } from 'react';
 import { FirebaseDb } from '../../firebase';
-import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import { useUserStore } from '../../store/user';
 import HistoryCard from '../../components/profile/score/HistoryCard';
-import ScoreFilter from '../../components/profile/score/ScorerFilter';
-import { getQueryForDateRange } from '../../utils/filter';
+import ScoreFilter from '../../components/profile/score/ScoreFilter';
+import { filterByScoreRange, getQueryForDateRange } from '../../utils/filter';
 
-const PER_PAGE_LIMIT = 10;
+// const PER_PAGE_LIMIT = 10;
 
 function ScoreHistory() {
 	const { user } = useUserStore();
 	const [filter, setFilter] = useState<ScoreHistoryFilter>({
 		date: {
-			order: 'asc',
+			order: 'none',
 			range: 'Last 1 week',
 		},
 		score: {
@@ -27,7 +27,7 @@ function ScoreHistory() {
 				start: 0,
 				end: 100,
 			},
-			order: 'asc',
+			order: 'none',
 		},
 		page: 1,
 	});
@@ -40,14 +40,15 @@ function ScoreHistory() {
 				user?.uid as string,
 				'scores'
 			);
-			let q = query(
-				ref,
-				orderBy('time', filter.date.order),
-				limit(PER_PAGE_LIMIT)
-			);
+			let q = query(ref);
+
+			// Date Order & Range
+			if (filter.date.order !== 'none')
+				q = query(q, orderBy('time', filter.date.order));
 			q = getQueryForDateRange(q, filter.date.range);
+
 			const data = await getDocs(q);
-			const scores: Score[] = [];
+			let scores: Score[] = [];
 			data.forEach((doc) => {
 				const docData = doc.data();
 				docData.time = new Intl.DateTimeFormat('en-US', {
@@ -60,21 +61,32 @@ function ScoreHistory() {
 					...docData,
 				} as Score);
 			});
-			scores.sort((a, b) => {
-				if (filter.score.order === 'desc')
-					return a.calculatedScore - b.calculatedScore;
-				else return b.calculatedScore - a.calculatedScore;
-			});
+
+			// Sort by Score Order
+			if (filter.score.order !== 'none') {
+				scores.sort((a, b) => {
+					if (filter.score.order === 'desc')
+						return a.calculatedScore - b.calculatedScore;
+					else return b.calculatedScore - a.calculatedScore;
+				});
+			}
+
+			// Filter By Score Range
+			if (filter.score.range.end !== 100) {
+				scores = filterByScoreRange(
+					scores,
+					filter.score.range.start,
+					filter.score.range.end
+				);
+			}
 			return scores;
 		}
 	);
 
-	console.log(filter);
-
 	return (
-		<div className='w-full flex flex-col items-center gap-4 mt-4'>
+		<div className='w-full flex flex-col items-center'>
 			<ScoreFilter filter={filter} setFilter={setFilter} />
-			<section className='w-full flex flex-col items-center gap-4'>
+			<section className='w-full flex flex-col items-center gap-4 mt-4'>
 				{isLoading
 					? 'Loading...'
 					: error

@@ -36,3 +36,9 @@ export const getQueryForDateRange = (
 
 	return q;
 };
+
+export function filterByScoreRange(data: Score[], start: number, end: number) {
+	return data.filter(
+		(item) => item.calculatedScore >= start && item.calculatedScore <= end
+	);
+}

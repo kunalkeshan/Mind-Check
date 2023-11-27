@@ -15,6 +15,7 @@ const ScoreOrder: React.FC<ScoreOrderProps> = ({ filter, setFilter }) => {
 	> = {
 		asc: 'Ascending',
 		desc: 'Descending',
+		['none']: 'None',
 	};
 
 	const handleScoreOrderhange = (
@@ -32,7 +33,7 @@ const ScoreOrder: React.FC<ScoreOrderProps> = ({ filter, setFilter }) => {
 	};
 
 	return (
-		<div className='relative z-20'>
+		<div className='relative'>
 			<p className='text-xs md:text-sm'>filter by score order:</p>
 			<Listbox
 				value={filter.score.order}
