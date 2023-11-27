@@ -1,6 +1,7 @@
 import React from 'react';
 import DateFilter from './DateFilter';
 import DateOrder from './DateOrder';
+import ScoreOrder from './ScoreOrder';
 
 type ScoreFilterProrps = React.ComponentProps<'section'> & {
 	filter: ScoreHistoryFilter;
@@ -13,7 +14,7 @@ const ScoreFilter: React.FC<ScoreFilterProrps> = ({ filter, setFilter }) => {
 			<DateFilter filter={filter} setFilter={setFilter} />
 			<DateOrder filter={filter} setFilter={setFilter} />
 			<div></div>
-			<div></div>
+			<ScoreOrder filter={filter} setFilter={setFilter} />
 		</section>
 	);
 };

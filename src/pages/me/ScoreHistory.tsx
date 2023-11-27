@@ -60,9 +60,16 @@ function ScoreHistory() {
 					...docData,
 				} as Score);
 			});
+			scores.sort((a, b) => {
+				if (filter.score.order === 'desc')
+					return a.calculatedScore - b.calculatedScore;
+				else return b.calculatedScore - a.calculatedScore;
+			});
 			return scores;
 		}
 	);
+
+	console.log(filter);
 
 	return (
 		<div className='w-full flex flex-col items-center gap-4 mt-4'>
