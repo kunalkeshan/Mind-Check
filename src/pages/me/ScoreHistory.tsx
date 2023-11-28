@@ -12,6 +12,7 @@ import { useUserStore } from '../../store/user';
 import HistoryCard from '../../components/profile/score/HistoryCard';
 import ScoreFilter from '../../components/profile/score/ScoreFilter';
 import { filterByScoreRange, getQueryForDateRange } from '../../utils/filter';
+import EmptyList from '../../components/reusable/EmptyList';
 
 // const PER_PAGE_LIMIT = 10;
 
@@ -87,15 +88,23 @@ function ScoreHistory() {
 		<div className='w-full flex flex-col items-center'>
 			<ScoreFilter filter={filter} setFilter={setFilter} />
 			<section className='w-full flex flex-col items-center gap-4 mt-4'>
-				{isLoading
-					? 'Loading...'
-					: error
-					? 'Unable to get score history...'
-					: data &&
-					  data?.length > 0 &&
-					  data?.map((score, index) => (
-							<HistoryCard {...score} key={index} index={index} />
-					  ))}
+				{isLoading ? (
+					'Loading...'
+				) : error ? (
+					'Unable to get score history...'
+				) : data && data?.length > 0 ? (
+					data?.map((score, index) => (
+						<HistoryCard {...score} key={index} index={index} />
+					))
+				) : (
+					<EmptyList
+						data={{
+							title: 'No score history found!',
+							description:
+								'Oops! It seems like there are no scores matching the selected filters. Try adjusting your filters or take a new test to view your score history!',
+						}}
+					/>
+				)}
 			</section>
 		</div>
 	);
