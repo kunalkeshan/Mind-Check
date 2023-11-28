@@ -38,7 +38,7 @@ function Intro() {
 				<div className='max-w-md md:max-w-lg'>
 					<Lottie
 						animationData={MentalWellBeingAnimationData}
-						loop={true}
+						loop={false}
 						className='w-full h-auto object-contain'
 					/>
 				</div>

@@ -32,3 +32,34 @@ interface ExportStatus {
 	json: number;
 	xml: number;
 }
+
+interface DateFilter {
+	Today: 0;
+	'Last 1 week': 7;
+	'Last 2 weeks': 14;
+	'Last 30 days': 30;
+	'Last 90 days': 90;
+	'All Time': 'all';
+}
+
+interface BaseHistoryFilter {
+	date: {
+		range: keyof DateFilter;
+		order: 'asc' | 'desc' | 'none';
+	};
+	page: number;
+}
+
+interface ScoreHistoryFilter extends BaseHistoryFilter {
+	score: {
+		range: {
+			start: number;
+			end: number;
+		};
+		order: 'asc' | 'desc' | 'none';
+	};
+}
+
+interface JournalHistoryFilter extends BaseHistoryFilter {
+	type: 'mood' | 'journal' | 'all';
+}

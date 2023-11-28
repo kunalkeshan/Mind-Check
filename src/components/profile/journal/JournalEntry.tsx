@@ -104,20 +104,24 @@ const JournalEntry: React.FC<JournalEntryProps> = ({ journal }) => {
 	}, [allowEdit]);
 
 	return (
-		<div className='flex flex-col lg:flex-row gap-2 overflow-hidden'>
+		<div className='flex flex-col lg:flex-row gap-2 overflow-hidden h-auto'>
 			{journal.type === 'journal' ? (
 				<section className='w-full px-2'>
 					<h4 className='font-heading text-lg font-semibold capitalize'>
 						Journal entry
 					</h4>
 					<hr className='w-full' />
-					<textarea
-						className='text-lg px-2 resize min-h-[2rem] max-h-12 min-w-full md:min-w-[12rem] lg:min-w-[20rem] overflow-y-auto'
-						value={input}
-						disabled={!allowEdit}
-						ref={inputRef}
-						onChange={handleInputChange}
-					/>
+					{allowEdit ? (
+						<textarea
+							className='text-lg px-2 resize-y min-h-[2rem] max-h-20 min-w-full overflow-y-auto border border-textPrimary'
+							value={input}
+							disabled={!allowEdit}
+							ref={inputRef}
+							onChange={handleInputChange}
+						/>
+					) : (
+						<div>{journal.journal}</div>
+					)}
 					{isInputChanged ? (
 						<button
 							onClick={handleResetInput}
@@ -163,7 +167,8 @@ const JournalEntry: React.FC<JournalEntryProps> = ({ journal }) => {
 								: ''
 						} flex items-center gap-2 px-2 py-1 rounded-xl border border-textPrimary w-full justify-center text-xs hover:bg-textPrimary hover:text-white transition-all font-semibold`}
 					>
-						<Edit size={16} /> <span>edit</span>
+						<Edit size={16} />{' '}
+						<span>{allowEdit ? 'cancel' : 'edit'}</span>
 					</button>
 				) : null}
 				{journal.type === 'journal' && isInputChanged ? (
