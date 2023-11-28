@@ -42,11 +42,15 @@ interface DateFilter {
 	'All Time': 'all';
 }
 
-interface ScoreHistoryFilter {
+interface BaseHistoryFilter {
 	date: {
 		range: keyof DateFilter;
 		order: 'asc' | 'desc' | 'none';
 	};
+	page: number;
+}
+
+interface ScoreHistoryFilter extends BaseHistoryFilter {
 	score: {
 		range: {
 			start: number;
@@ -54,5 +58,8 @@ interface ScoreHistoryFilter {
 		};
 		order: 'asc' | 'desc' | 'none';
 	};
-	page: number;
+}
+
+interface JournalHistoryFilter extends BaseHistoryFilter {
+	type: 'mood' | 'journal' | 'all';
 }
