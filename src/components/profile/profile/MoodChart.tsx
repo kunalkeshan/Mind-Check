@@ -46,8 +46,8 @@ const MoodChart = () => {
 			if (entry.type !== 'mood') return;
 			if (entry.mood !== undefined) {
 				const moodName = `${
-					MOODS.find((m) => m.scale === entry.mood)?.mood
-				} - ${MOODS.find((m) => m.scale === entry.mood)?.emoji}`;
+					MOODS.find((m) => m.id === entry.mood)?.mood
+				} - ${MOODS.find((m) => m.id === entry.mood)?.emoji}`;
 
 				if (moodCounts[moodName]) {
 					moodCounts[moodName]++;
@@ -62,6 +62,7 @@ const MoodChart = () => {
 		}));
 		return moodArray;
 	});
+	console.log(data);
 
 	useEffect(() => {
 		const handleResize = () =>
