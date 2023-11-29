@@ -10,11 +10,13 @@ Mind Check is a web application designed to help individuals assess and track th
 
 - **Free Test and Feedback**: Mind Check offers a collection of mental health tests that users can take for free. After completing a test, users receive personalized feedback based on their responses.
 
-- **User Accounts**: Users have the option to create an account to store their test data and access additional features. Creating an account allows users to view their test history, track their progress over time, and receive recommendations for improving their mental well-being.
+- **User Accounts**: Users have the option to create an account to store their test data and access additional features. Creating an account allows users to view their test history, track their progress over time, and receive recommendations for improving their mental well-being. *Users can now export their data for personal records and, if needed, delete their account for a seamless exit.*
 
 - **Secure Data Storage**: Mind Check utilizes Firebase, a cloud-based platform, for secure data storage and authentication. User data, including test results and personal information, is encrypted and protected.
 
 - **Curated Resources**: A treasure trove of articles and blogs, personalized to your mental health test results. Unlock valuable insights, strategies, and self-care tips, empowering you to thrive on your emotional well-being journey. Written in Markdown and rendered in JSX.
+
+- **Daily Moods and Journals (New!)**: Mind Check introduces a new dimension to user engagement. Users can now log their daily moods through expressive emojis and journal their thoughts. This feature enables a more holistic understanding of mental well-being, allowing users to track patterns and trends over time.
 
 - **AI-powered Feedback**: (Coming Soon!) The application leverages AI algorithms to provide customized feedback based on the user's test inputs. This feedback is designed to offer insights, suggestions, and resources to support the user's mental well-being.
 

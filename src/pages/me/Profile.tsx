@@ -3,10 +3,11 @@
  */
 
 // Dependencies
-import ProfileCard from '../../components/profile/ProfileCard';
-import TotalHistoryChart from '../../components/profile/TotalHistoryChart';
-import AverageScore from '../../components/profile/AverageScore';
-import ExportData from '../../components/profile/ExportData';
+import ProfileCard from '../../components/profile/profile/ProfileCard';
+import TotalHistoryChart from '../../components/profile/profile/TotalHistoryChart';
+import AverageScore from '../../components/profile/profile/AverageScore';
+import ExportData from '../../components/profile/profile/ExportData';
+import DeleteAccount from '../../components/profile/profile/DeleteAccount';
 
 function Profile() {
 	return (
@@ -18,6 +19,7 @@ function Profile() {
 				<TotalHistoryChart />
 				<AverageScore />
 				<ExportData />
+				<DeleteAccount />
 			</section>
 		</div>
 	);

@@ -1,4 +1,6 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import QUESTIONS from '../data/questions';
+import MOODS from '../data/moods';
 import { User } from 'firebase/auth';
 import { FirebaseDb } from '../firebase';
 import { doc, getDoc, increment, setDoc, updateDoc } from 'firebase/firestore';
@@ -10,6 +12,7 @@ export const EXPORT_LIMIT = 3;
 
 type ExportProps = {
 	data: Score[];
+	journals: Journal[];
 	user: User | null;
 };
 
@@ -22,6 +25,7 @@ type ExportReturnValue = {
 export const exportDataToCsv = ({
 	data,
 	user,
+	journals,
 }: ExportProps): Promise<ExportReturnValue['csv']> => {
 	return new Promise((resolve, reject) => {
 		try {
@@ -49,9 +53,9 @@ export const exportDataToCsv = ({
 					});
 					return Object.freeze({
 						'S.No.': index + 1,
-						'Calculated Score': score.calculatedScore,
 						'Test Taken': score.time,
 						...scores,
+						'Calculated Score': score.calculatedScore,
 					});
 				});
 			const array = [Object.keys(normalizedData[0])].concat(
@@ -68,11 +72,50 @@ export const exportDataToCsv = ({
 						.toString();
 				})
 				.join('\n');
+			const normalizedJournals = journals
+				.filter((journal) => typeof journal !== 'undefined')
+				.map((journal, index) => {
+					return Object.freeze({
+						'S.No.': index + 1,
+						'Test Taken': journal.time,
+						Type: journal.type,
+						...(journal.type === 'journal'
+							? {
+									Entry: journal.journal,
+							  }
+							: {
+									Entry: MOODS.find(
+										(m) => m.id === journal.mood
+									)?.mood,
+							  }),
+					});
+				});
+			const journalArray = [Object.keys(normalizedJournals[0])].concat(
+				normalizedJournals as unknown as string[]
+			);
+			const journalCsvString = journalArray
+				.map((row) => {
+					return Object.values(row)
+						.map((value) => {
+							return typeof value === 'string'
+								? JSON.stringify(value)
+								: value;
+						})
+						.toString();
+				})
+				.join('\n');
+			const currentTime = Date.now();
 			const exportCsvDataName = `${user?.displayName
 				?.toLowerCase()
-				.replace(/\s+/g, '-')}-score-data-${Date.now()}`;
+				.replace(/\s+/g, '-')}-score-data-${currentTime}`;
+			const exportJournalCsvDataName = `${user?.displayName
+				?.toLowerCase()
+				.replace(/\s+/g, '-')}-journal-data-${currentTime}`;
 			const dataStr =
 				'data:text/csv;charset=utf-8,' + encodeURIComponent(csvString);
+			const journalDataStr =
+				'data:text/csv;charset=utf-8,' +
+				encodeURIComponent(journalCsvString);
 			const downloadAnchorNode = document.createElement('a');
 			downloadAnchorNode.setAttribute('href', dataStr);
 			downloadAnchorNode.setAttribute(
@@ -81,9 +124,16 @@ export const exportDataToCsv = ({
 			);
 			document.body.appendChild(downloadAnchorNode); // required for firefox
 			downloadAnchorNode.click();
+			downloadAnchorNode.setAttribute('href', journalDataStr);
+			downloadAnchorNode.setAttribute(
+				'download',
+				exportJournalCsvDataName + '.csv'
+			);
+			downloadAnchorNode.click();
 			downloadAnchorNode.remove();
 			resolve('export/csv-export-success');
 		} catch (error) {
+			console.log(error);
 			reject('export/csv-export-error');
 		}
 	});
@@ -92,6 +142,7 @@ export const exportDataToCsv = ({
 export const exportDataToJson = ({
 	data,
 	user,
+	journals,
 }: ExportProps): Promise<ExportReturnValue['json']> => {
 	return new Promise((resolve, reject) => {
 		try {
@@ -129,6 +180,13 @@ export const exportDataToJson = ({
 						scores,
 					};
 				});
+			const normalizedJournals = journals
+				.filter((journal) => typeof journal !== 'undefined')
+				.map((journal) => {
+					if (journal.type === 'journal') return journal;
+					const mood = MOODS.find((m) => m.id === journal.mood);
+					return { ...journal, mood };
+				});
 			const exportJsonData = {
 				exportedAt: new Date(),
 				user: {
@@ -136,6 +194,7 @@ export const exportDataToJson = ({
 					email: user?.email,
 				},
 				scores: normalizedData,
+				journals: normalizedJournals,
 			};
 			const exportJsonDataName = `${user?.displayName
 				?.toLowerCase()
@@ -162,6 +221,7 @@ export const exportDataToJson = ({
 export const exportDataToXml = ({
 	data,
 	user,
+	journals,
 }: ExportProps): Promise<ExportReturnValue['xml']> => {
 	return new Promise((resolve, reject) => {
 		try {
@@ -204,6 +264,19 @@ export const exportDataToXml = ({
 						scores,
 					};
 				});
+			const normalizedJournals = journals
+				.filter((journal) => typeof journal !== 'undefined')
+				.map((journal) => {
+					if (journal.type === 'journal')
+						return { ...journal, entry: journal.journal };
+					const mood = MOODS.find((m) => m.id === journal.mood);
+					return {
+						...journal,
+						mood: mood?.mood
+							.replace(/[^a-zA-Z0-9 ]/g, ' ')
+							.replace(/\s+/g, '_'),
+					};
+				});
 			const exportJsonData = {
 				exportedAt: new Date(),
 				user: {
@@ -211,6 +284,7 @@ export const exportDataToXml = ({
 					email: user?.email,
 				},
 				scores: normalizedData,
+				journals: normalizedJournals,
 			};
 			const exportXmlDataName = `${user?.displayName
 				?.toLowerCase()

@@ -1,4 +1,4 @@
-import { FirebaseDb } from '../../firebase';
+import { FirebaseDb } from '../../../firebase';
 import {
 	collection,
 	getDocs,
@@ -8,7 +8,7 @@ import {
 	getDoc,
 } from 'firebase/firestore';
 import { useQuery } from 'react-query';
-import { useUserStore } from '../../store/user';
+import { useUserStore } from '../../../store/user';
 import { motion } from 'framer-motion';
 import {
 	exportDataToCsv,
@@ -17,7 +17,7 @@ import {
 	incrementExportThreshold,
 	createDefaultExportStatusValue,
 	exportDataToXml,
-} from '../../utils/export';
+} from '../../../utils/export';
 import toast from 'react-hot-toast';
 
 const ExportData = () => {
@@ -44,6 +44,25 @@ const ExportData = () => {
 				} as Score);
 			});
 
+			const journalsRef = query(
+				collection(
+					FirebaseDb,
+					'users',
+					user?.uid as string,
+					'journals'
+				),
+				orderBy('time', 'asc')
+			);
+			const journalsData = await getDocs(journalsRef);
+			const journals = journalsData.docs.map((doc) => {
+				const docData = doc.data();
+				docData.time = docData.time.toDate();
+				return {
+					id: doc.id,
+					...docData,
+				} as Journal;
+			});
+
 			// Exports Data
 			const currentDate = new Date()
 				.toDateString()
@@ -59,7 +78,7 @@ const ExportData = () => {
 			const exports = await getDoc(exportsRef);
 			const exportStatus = (exports.data() ??
 				createDefaultExportStatusValue()) as ExportStatus;
-			return { scores, exportStatus };
+			return { scores, exportStatus, journals };
 		}
 	);
 
@@ -68,7 +87,11 @@ const ExportData = () => {
 		try {
 			if (!data) return;
 			await validateExportThreshold({ user, category });
-			await exportDataToCsv({ data: data.scores, user });
+			await exportDataToCsv({
+				data: data.scores,
+				user,
+				journals: data.journals,
+			});
 			await incrementExportThreshold({ user, category });
 			await refetch({ queryKey: 'allScoresExportData' });
 			return Promise.resolve();
@@ -96,7 +119,11 @@ const ExportData = () => {
 		try {
 			if (!data) return;
 			await validateExportThreshold({ user, category });
-			await exportDataToJson({ data: data.scores, user });
+			await exportDataToJson({
+				data: data.scores,
+				user,
+				journals: data.journals,
+			});
 			await incrementExportThreshold({ user, category });
 			await refetch({ queryKey: 'allScoresExportData' });
 		} catch (error) {
@@ -123,7 +150,11 @@ const ExportData = () => {
 		try {
 			if (!data) return;
 			await validateExportThreshold({ user, category });
-			await exportDataToXml({ data: data.scores, user });
+			await exportDataToXml({
+				data: data.scores,
+				user,
+				journals: data.journals,
+			});
 			await incrementExportThreshold({ user, category });
 			await refetch({ queryKey: 'allScoresExportData' });
 		} catch (error) {
@@ -158,7 +189,7 @@ const ExportData = () => {
 			{isLoading ? (
 				'Loading...'
 			) : error ? (
-				'Unable to load chart...'
+				'Unable to export at the moment...'
 			) : (
 				<section className='mt-4'>
 					<div className='flex items-center gap-4 w-fit'>
