@@ -16,7 +16,7 @@ const FEATURES_CONTENT = [
 	{
 		title: 'Login/Create Account to Store Test Data',
 		description:
-			'Create your account or log in to store your test data securely. Your information will be protected, allowing you to track your progress over time and access your past test results whenever you need them.',
+			'Create your account or log in to store your test data securely. Your information will be protected, allowing you to track your progress over time and access your past test results whenever you need them. Securely store your test data, export it for personal records, and exercise control over your mental health journey. If needed, seamlessly delete your account.',
 		available: true,
 		image: '/images/features/account.svg',
 	},
@@ -33,6 +33,13 @@ const FEATURES_CONTENT = [
 			'A treasure trove of articles and blogs, personalized to your mental health test results. Unlock valuable insights, strategies, and self-care tips, empowering you to thrive on your emotional well-being journey.',
 		available: true,
 		image: '/images/features/resources.svg',
+	},
+	{
+		title: 'Daily Moods and Journals (New!)',
+		description:
+			'Explore a new dimension of user engagement. Log your daily moods with expressive emojis and journal your thoughts. This feature allows for a more holistic understanding of mental well-being, enabling you to track patterns and trends over time.',
+		available: true,
+		image: '/images/features/mood.svg',
 	},
 	{
 		title: 'Personalized Feedback Based on Test Inputs (Using AI)',
