@@ -1,3 +1,8 @@
+/**
+ * Score History - Score Range Filter Component
+ */
+
+// Dependencies
 import React, { useState, useEffect } from 'react';
 
 type ScoreRangeProps = React.ComponentProps<'div'> & {

@@ -1,3 +1,9 @@
+/**
+ * Journal Entry Component
+ * Used for entries of an day with edit option.
+ */
+
+// Dependencies
 import React, { useMemo, useState, useRef, useEffect } from 'react';
 import { Delete, Edit, Check } from 'lucide-react';
 import { useUserStore } from '../../../store/user';

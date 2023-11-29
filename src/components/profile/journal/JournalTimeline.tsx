@@ -1,3 +1,8 @@
+/**
+ * Journal Timeline (moods & journals) Component
+ */
+
+// Dependencies
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import JournalEntry from './JournalEntry';

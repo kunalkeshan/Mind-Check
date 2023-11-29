@@ -1,14 +1,20 @@
+/**
+ * Journal History Date Order Component
+ */
+
+// Dependencies
+
 import React, { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronsUpDown } from 'lucide-react';
 import { CheckIcon } from 'lucide-react';
 
-type DateFilterProps = React.ComponentProps<'div'> & {
+type DateOrderProps = React.ComponentProps<'div'> & {
 	filter: JournalHistoryFilter;
 	setFilter: React.Dispatch<React.SetStateAction<JournalHistoryFilter>>;
 };
 
-const DateOrder: React.FC<DateFilterProps> = ({ filter, setFilter }) => {
+const DateOrder: React.FC<DateOrderProps> = ({ filter, setFilter }) => {
 	const dateOrderOptions: Record<
 		JournalHistoryFilter['date']['order'],
 		string

@@ -1,3 +1,8 @@
+/**
+ * Journal History Filter
+ */
+
+// Dependencies
 import React from 'react';
 import DateFilter from './DateFilter';
 import DateOrder from './DateOrder';

@@ -1,3 +1,9 @@
+/**
+ * Empty List Component
+ * Used to show when lists are empty
+ */
+
+// Dependencies
 import React from 'react';
 
 type EmptyListProps = React.ComponentProps<'div'> & {

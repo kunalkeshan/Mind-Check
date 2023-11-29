@@ -1,3 +1,8 @@
+/**
+ * Journal Page
+ */
+
+// Dependencies
 import MoodSelection from '../../components/profile/journal/MoodSelection';
 import JournalInput from '../../components/profile/journal/JournalInput';
 import JournalTimeline from '../../components/profile/journal/JournalTimeline';

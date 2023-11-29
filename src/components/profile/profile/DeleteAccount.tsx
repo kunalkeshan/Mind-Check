@@ -1,3 +1,8 @@
+/**
+ * Delete Account Component
+ */
+
+// Dependencies
 import React, { useState } from 'react';
 import { FirebaseAuth, FirebaseDb } from '../../../firebase';
 import { doc, deleteDoc } from 'firebase/firestore';

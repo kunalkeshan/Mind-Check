@@ -3,7 +3,6 @@
  */
 
 // Dependencies
-// Dependencies
 import { useState } from 'react';
 import { FirebaseDb } from '../../firebase';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';

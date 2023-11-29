@@ -1,3 +1,8 @@
+/**
+ * Journal Input Component
+ */
+
+// Dependencies
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useUserStore } from '../../../store/user';

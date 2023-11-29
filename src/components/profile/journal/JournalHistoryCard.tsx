@@ -1,4 +1,9 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
+/**
+ * Journal History Card Component
+ */
+
+// Dependencies
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Pen } from 'lucide-react';

@@ -1,3 +1,8 @@
+/**
+ * Journal History - Journal Type (mood | journal) Filter Component
+ */
+
+// Dependencies
 import React, { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronsUpDown } from 'lucide-react';
