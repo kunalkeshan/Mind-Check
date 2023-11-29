@@ -122,6 +122,19 @@ const RESOURCES: Resource[] = [
 		tags: ['General'],
 		url: 'exporting-your-mind-check-data',
 		image: '/images/resources/exporting-your-mind-check-data.svg',
+		published: new Date('2023-11-28'),
+		author: {
+			name: 'Kunal Keshan',
+			social: 'https://kunalkeshan.dev/',
+		},
+	},
+	{
+		title: 'Mind Check MVP 4 Features: Journals, Moods, and Account Deletion',
+		description:
+			"Mind Check is excited to unveil its latest features in MVP 4, designed to provide users with even more control over their mental well-being journey. In this update, we're introducing Journal Entries, Mood Tracking, and the ability to Delete Your Account. Let's explore these features in detail.",
+		tags: ['General'],
+		url: 'mind-check-mvp-4-features-journals-moods-and-account-deletion',
+		image: '/images/resources/mind-check-mvp-4-features-journals-moods-and-account-deletion.svg',
 		published: new Date('2023-11-29'),
 		author: {
 			name: 'Kunal Keshan',
