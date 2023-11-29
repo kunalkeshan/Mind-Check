@@ -5,7 +5,14 @@
 // Dependencies
 import { useState, useEffect } from 'react';
 import { FirebaseDb } from '../../../firebase';
-import { collection, getDocs, query, orderBy, where } from 'firebase/firestore';
+import {
+	collection,
+	getDocs,
+	query,
+	orderBy,
+	where,
+	limitToLast,
+} from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import { useUserStore } from '../../../store/user';
 import {
@@ -20,6 +27,8 @@ import {
 	LabelList,
 } from 'recharts';
 import MOODS from '../../../data/moods';
+
+const MAX_NUM_MOOD_ENTRIES = 50;
 
 const DateDistributedMoodChart = () => {
 	const [dimensions, setDimensions] = useState({
@@ -39,7 +48,8 @@ const DateDistributedMoodChart = () => {
 			const q = query(
 				ref,
 				where('type', '==', 'mood'),
-				orderBy('time', 'asc')
+				orderBy('time', 'asc'),
+				limitToLast(MAX_NUM_MOOD_ENTRIES)
 			);
 			const data = await getDocs(q);
 			const journals: Journal[] = [];
@@ -56,7 +66,7 @@ const DateDistributedMoodChart = () => {
 					...docData,
 				} as Journal);
 			});
-			return journals.map((entry) => {
+			const journalEntries = journals.map((entry) => {
 				if (entry.type === 'mood') {
 					return {
 						...entry,
@@ -66,6 +76,7 @@ const DateDistributedMoodChart = () => {
 					};
 				}
 			});
+			return journalEntries;
 		}
 	);
 
@@ -86,39 +97,45 @@ const DateDistributedMoodChart = () => {
 			) : error ? (
 				'Unable to load chart...'
 			) : (
-				<BarChart
-					width={
-						dimensions.width < 500
-							? 300
-							: dimensions.width > 1200
-							? 700
-							: 480
-					}
-					height={300}
-					data={data}
-					className='w-full'
-				>
-					<Bar dataKey='scale' fill='#8884d8'>
-						{data?.map((_, index) => (
-							<Cell key={`cell-${index}`} fill={'#8884d8'} />
-						))}
-						<LabelList dataKey='emoji' position='top' />
-					</Bar>
-					<CartesianGrid stroke='#ccc' strokeDasharray='5 5' />
-					<XAxis dataKey='time' fontSize={'0.75rem'}></XAxis>
-					<YAxis dataKey={'scale'} />
-					<Tooltip
-						cursor={{ fill: '#ffffff50' }}
-						content={
-							<CustomTooltip
-								active={undefined}
-								payload={undefined}
-								label={undefined}
-							/>
+				<>
+					<BarChart
+						width={
+							dimensions.width < 500
+								? 300
+								: dimensions.width > 1200
+								? 700
+								: 480
 						}
-					/>
-					<Legend />
-				</BarChart>
+						height={300}
+						data={data}
+						className='w-full'
+					>
+						<Bar dataKey='scale' fill='#8884d8'>
+							{data?.map((_, index) => (
+								<Cell key={`cell-${index}`} fill={'#8884d8'} />
+							))}
+							<LabelList dataKey='emoji' position='top' />
+						</Bar>
+						<CartesianGrid stroke='#ccc' strokeDasharray='5 5' />
+						<XAxis dataKey='time' fontSize={'0.75rem'}></XAxis>
+						<YAxis dataKey={'scale'} />
+						<Tooltip
+							cursor={{ fill: '#ffffff50' }}
+							content={
+								<CustomTooltip
+									active={undefined}
+									payload={undefined}
+									label={undefined}
+								/>
+							}
+						/>
+						<Legend />
+					</BarChart>
+					<p className='text-xs w-full text-center'>
+						Note: Only latest {MAX_NUM_MOOD_ENTRIES} mood entries
+						are shown. To view more, go to your journal history.
+					</p>
+				</>
 			)}
 		</div>
 	);
