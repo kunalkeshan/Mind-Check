@@ -115,6 +115,19 @@ const RESOURCES: Resource[] = [
 			social: 'https://kunalkeshan.dev/',
 		},
 	},
+	{
+		title: 'Exporting Your Mind Check Data',
+		description:
+			'Mind Check understands the importance of having control over your mental health data. We provide a convenient way for you to export your data in various formats, empowering you to keep track of your mental well-being journey.',
+		tags: ['General'],
+		url: 'exporting-your-mind-check-data',
+		image: '/images/resources/exporting-your-mind-check-data.svg',
+		published: new Date('2023-11-29'),
+		author: {
+			name: 'Kunal Keshan',
+			social: 'https://kunalkeshan.dev/',
+		},
+	},
 ];
 
 export default RESOURCES;
