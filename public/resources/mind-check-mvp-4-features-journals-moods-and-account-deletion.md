@@ -8,6 +8,8 @@ Mind Check is excited to unveil its latest features in MVP 4, designed to provid
 
 Journal entries are a powerful way to reflect on your day, capture your thoughts, and track your emotions. In Mind Check MVP 4, we've introduced two types of entries: Moods and Journals.
 
+![journal entry page](https://github.com/kunalkeshan/Mind-Check/assets/68579547/55071f0d-9101-4f5a-8cbb-55c30ccaa3c4)
+
 ### **Moods**
 
 Express your emotions using a range of moods, each represented by an emoji. From "Devastated" to "Blissful," choose the mood that best reflects your state of mind.
@@ -27,6 +29,8 @@ Editing is limited to the day of entry. This ensures that your reflections remai
 ### ⚠ Danger Zone: Deleting Your Account
 
 Deleting your account is a significant decision, and we want you to be fully informed before proceeding.
+
+![delete account section](https://github.com/kunalkeshan/Mind-Check/assets/68579547/a9ddf0f2-2c89-40dc-b578-9f110a481e17)
 
 **Warning: This action is irreversible.**
 
