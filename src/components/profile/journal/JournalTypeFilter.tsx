@@ -34,7 +34,7 @@ const JournalTypeFilter: React.FC<JournalTypeFilterProps> = ({
 
 	return (
 		<div className='relative col-span-2 md:col-span-1'>
-			<p className='text-xs md:text-sm'>filter by date order:</p>
+			<p className='text-xs md:text-sm'>filter by journal type:</p>
 			<Listbox
 				value={filter.date.order}
 				defaultValue={filter.date.order}
