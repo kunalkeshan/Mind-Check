@@ -114,7 +114,11 @@ const DateDistributedMoodChart = () => {
 							{data?.map((_, index) => (
 								<Cell key={`cell-${index}`} fill={'#8884d8'} />
 							))}
-							<LabelList dataKey='emoji' position='top' />
+							<LabelList
+								dataKey='emoji'
+								position='top'
+								className='text-xs md:text-sm'
+							/>
 						</Bar>
 						<CartesianGrid stroke='#ccc' strokeDasharray='5 5' />
 						<XAxis dataKey='time' fontSize={'0.75rem'}></XAxis>

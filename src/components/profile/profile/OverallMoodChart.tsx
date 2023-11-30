@@ -8,7 +8,7 @@ import { FirebaseDb } from '../../../firebase';
 import { collection, getDocs, query, orderBy, where } from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import { useUserStore } from '../../../store/user';
-import { PieChart, Pie, Tooltip, Legend } from 'recharts';
+import { PieChart, Pie, Tooltip, Legend, LabelList } from 'recharts';
 import MOODS from '../../../data/moods';
 
 const OverallMoodChart = () => {
@@ -44,7 +44,7 @@ const OverallMoodChart = () => {
 				...docData,
 			} as Journal);
 		});
-		const moodCounts: Record<string, number> = {};
+		const moodCounts: Record<string, { count: number; emoji: string }> = {};
 
 		journals.forEach((entry) => {
 			if (entry.type !== 'mood') return;
@@ -54,18 +54,25 @@ const OverallMoodChart = () => {
 				} - ${MOODS.find((m) => m.id === entry.mood)?.emoji}`;
 
 				if (moodCounts[moodName]) {
-					moodCounts[moodName]++;
+					moodCounts[moodName]['count']++;
 				} else {
-					moodCounts[moodName] = 1;
+					moodCounts[moodName] = {
+						count: 1,
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						emoji: MOODS.find((m) => m.id === entry.mood)!.emoji,
+					};
 				}
 			}
 		});
-		const moodArray = Object.entries(moodCounts).map(([name, value]) => ({
-			name,
-			value,
+		console.log(moodCounts);
+		const moodArray = Object.entries(moodCounts).map(([key, value]) => ({
+			name: key,
+			...value,
 		}));
 		return moodArray;
 	});
+
+	console.log(data, error);
 
 	useEffect(() => {
 		const handleResize = () =>
@@ -98,13 +105,19 @@ const OverallMoodChart = () => {
 				>
 					<Pie
 						data={data}
-						dataKey='value'
+						dataKey='count'
 						nameKey='name'
 						outerRadius={50}
 						fill='#8884d8'
 						legendType='diamond'
 						label={true}
-					/>
+					>
+						<LabelList
+							dataKey='emoji'
+							position='insideTop'
+							className='text-xs md:text-sm'
+						/>
+					</Pie>
 					<Tooltip />
 					<Legend />
 				</PieChart>
