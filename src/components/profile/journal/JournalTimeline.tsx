@@ -21,6 +21,7 @@ import {
 	orderBy,
 } from 'firebase/firestore';
 import 'react-vertical-timeline-component/style.min.css';
+import EmptyList from '../../reusable/EmptyList';
 
 const JournalTimeline = () => {
 	const [journals, setJournals] = useState<Journal[]>([]);
@@ -98,7 +99,15 @@ const JournalTimeline = () => {
 						</VerticalTimelineElement>
 					))}
 				</VerticalTimeline>
-			) : null}
+			) : (
+				<EmptyList
+					data={{
+						title: 'No entries for today!',
+						description:
+							"Oops! It seems like you haven't recorded any moods or created journal entries for today. Taking small steps each day can make a big difference in understanding and improving your mental well-being!",
+					}}
+				/>
+			)}
 		</motion.div>
 	);
 };
