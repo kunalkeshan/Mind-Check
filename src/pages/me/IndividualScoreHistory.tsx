@@ -216,7 +216,7 @@ function IndividualScoreHistoryPage() {
 									</div>
 								) : (
 									<div className='w-full flex flex-col items-center justify-center gap-4'>
-										<div className='grid grid-cols-1 md:grid-cols-3 gap-2 w-full'>
+										<div className='grid grid-cols-1 md:grid-cols-3 gap-8 w-full'>
 											{recommendedResources.map(
 												(resource, index) => (
 													<ResourceCard
