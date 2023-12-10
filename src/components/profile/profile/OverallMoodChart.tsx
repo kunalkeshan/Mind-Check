@@ -106,7 +106,7 @@ const OverallMoodChart = () => {
 						data={data}
 						dataKey='count'
 						nameKey='name'
-						outerRadius={50}
+						outerRadius={80}
 						fill='#8884d8'
 						legendType='diamond'
 						label={true}
