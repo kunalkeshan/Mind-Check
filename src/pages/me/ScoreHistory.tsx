@@ -4,7 +4,7 @@
  */
 
 // Dependencies
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { FirebaseDb } from '../../firebase';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { useQuery } from 'react-query';
@@ -18,6 +18,7 @@ import EmptyList from '../../components/reusable/EmptyList';
 
 function ScoreHistory() {
 	const { user } = useUserStore();
+	const emptyListId = useId();
 	const [filter, setFilter] = useState<ScoreHistoryFilter>({
 		date: {
 			order: 'none',
@@ -98,6 +99,7 @@ function ScoreHistory() {
 					))
 				) : (
 					<EmptyList
+						key={emptyListId}
 						data={{
 							title: 'No score history found!',
 							description:

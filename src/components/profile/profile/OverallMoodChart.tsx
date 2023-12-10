@@ -3,7 +3,7 @@
  */
 
 // Dependencies
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import { FirebaseDb } from '../../../firebase';
 import { collection, getDocs, query, orderBy, where } from 'firebase/firestore';
 import { useQuery } from 'react-query';
@@ -17,6 +17,7 @@ const OverallMoodChart = () => {
 		width: window.innerWidth,
 		height: window.innerHeight,
 	});
+	const emptyListId = useId();
 	const { user } = useUserStore();
 	const { data, isLoading, error } = useQuery('moodData', async () => {
 		const ref = collection(
@@ -121,6 +122,7 @@ const OverallMoodChart = () => {
 				</PieChart>
 			) : (
 				<EmptyList
+					key={emptyListId}
 					data={{
 						title: 'No journal entries made!',
 						description:

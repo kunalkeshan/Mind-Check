@@ -3,7 +3,7 @@
  */
 
 // Dependencies
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import { motion } from 'framer-motion';
 import JournalEntry from './JournalEntry';
 import {
@@ -27,6 +27,7 @@ const JournalTimeline = () => {
 	const [journals, setJournals] = useState<Journal[]>([]);
 	const [error, setError] = useState(false);
 	const { user } = useUserStore();
+	const emptyListId = useId();
 
 	useEffect(() => {
 		const today = new Date();
@@ -101,6 +102,7 @@ const JournalTimeline = () => {
 				</VerticalTimeline>
 			) : (
 				<EmptyList
+					key={emptyListId}
 					data={{
 						title: 'No entries for today!',
 						description:

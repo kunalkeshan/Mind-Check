@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { useMemo } from 'react';
+import { useMemo, useId } from 'react';
 import { FirebaseDb } from '../../../firebase';
 import {
 	Timestamp,
@@ -20,6 +20,7 @@ type IScore = Score & {
 
 const AverageScore = () => {
 	const { user } = useUserStore();
+	const emptyListId = useId();
 	const { data, isLoading, error } = useQuery(
 		'averageScoreData',
 		async () => {
@@ -124,6 +125,7 @@ const AverageScore = () => {
 				</section>
 			) : (
 				<EmptyList
+					key={emptyListId}
 					data={{
 						title: 'No tests taken!',
 						description: 'Take a test to get your average score.',

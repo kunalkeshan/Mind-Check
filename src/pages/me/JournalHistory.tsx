@@ -3,7 +3,7 @@
  */
 
 // Dependencies
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { FirebaseDb } from '../../firebase';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { useQuery } from 'react-query';
@@ -15,6 +15,7 @@ import JournalHistoryCard from '../../components/profile/journal/JournalHistoryC
 
 const JournalHistory = () => {
 	const { user } = useUserStore();
+	const emptyListId = useId();
 	const [filter, setFilter] = useState<JournalHistoryFilter>({
 		date: {
 			order: 'none',
@@ -86,6 +87,7 @@ const JournalHistory = () => {
 					</div>
 				) : (
 					<EmptyList
+						key={emptyListId}
 						data={{
 							title: 'No journal entries found!',
 							description:

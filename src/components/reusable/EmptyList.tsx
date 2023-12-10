@@ -4,7 +4,7 @@
  */
 
 // Dependencies
-import React from 'react';
+import React, { useMemo } from 'react';
 
 type EmptyListProps = React.ComponentProps<'div'> & {
 	data: {
@@ -13,12 +13,27 @@ type EmptyListProps = React.ComponentProps<'div'> & {
 	};
 };
 
+const IMAGE_LIST = [
+	'thinking.svg',
+	'thinking1.svg',
+	'thinking2.svg',
+	'thinking3.svg',
+	'thinking4.svg',
+	'thinking5.svg',
+	'thinking6.svg',
+];
+
 const EmptyList: React.FC<EmptyListProps> = ({ data }) => {
+	const image = useMemo(
+		() => IMAGE_LIST[Math.floor(Math.random() * IMAGE_LIST.length)],
+		[]
+	);
+
 	return (
 		<div className='grid grid-cols-1 md:grid-cols-2 w-full max-w-3xl mx-auto gap-8 md:gap-4 mt-8'>
 			<div className='w-full'>
 				<img
-					src='/images/thinking.svg'
+					src={`/images/${image}`}
 					className='w-full h-auto object-contain max-w-[60%] mx-auto'
 				/>
 			</div>

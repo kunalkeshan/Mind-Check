@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import { FirebaseDb } from '../../../firebase';
 import {
 	Timestamp,
@@ -33,6 +33,7 @@ const TotalHistoryChart = () => {
 		height: window.innerHeight,
 	});
 	const { user } = useUserStore();
+	const emptyListId = useId();
 	const { data, isLoading, error } = useQuery(
 		'totalHistoryScoreData',
 		async () => {
@@ -116,6 +117,7 @@ const TotalHistoryChart = () => {
 				</LineChart>
 			) : (
 				<EmptyList
+					key={emptyListId}
 					data={{
 						title: 'No tests taken!',
 						description: 'Take a test to get your chart history.',

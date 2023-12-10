@@ -3,7 +3,7 @@
  */
 
 // Dependencies
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import { FirebaseDb } from '../../../firebase';
 import {
 	collection,
@@ -37,6 +37,7 @@ const DateDistributedMoodChart = () => {
 		height: window.innerHeight,
 	});
 	const { user } = useUserStore();
+	const emptyListId = useId();
 	const { data, isLoading, error } = useQuery(
 		'dateDistributedMoodData',
 		async () => {
@@ -143,6 +144,7 @@ const DateDistributedMoodChart = () => {
 				</>
 			) : (
 				<EmptyList
+					key={emptyListId}
 					data={{
 						title: 'No journal entries made!',
 						description:

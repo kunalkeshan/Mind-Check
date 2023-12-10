@@ -20,9 +20,11 @@ import {
 	exportDataToXml,
 } from '../../../utils/export';
 import toast from 'react-hot-toast';
+import { useId } from 'react';
 
 const ExportData = () => {
 	const { user } = useUserStore();
+	const emptyListId = useId();
 	const { data, isLoading, error, refetch } = useQuery(
 		'allScoresExportData',
 		async () => {
@@ -82,8 +84,6 @@ const ExportData = () => {
 			return { scores, exportStatus, journals };
 		}
 	);
-
-	console.log(data);
 
 	const handleExportAsCsv = async () => {
 		const category = 'csv';
@@ -277,6 +277,7 @@ const ExportData = () => {
 				</section>
 			) : (
 				<EmptyList
+					key={emptyListId}
 					data={{
 						title: 'No journal or test entries made!',
 						description:
