@@ -11,6 +11,7 @@ import {
 import { useQuery } from 'react-query';
 import { useUserStore } from '../../../store/user';
 import { motion } from 'framer-motion';
+import EmptyList from '../../reusable/EmptyList';
 import FEEDBACKS, { FEEDBACKS_LENGTH } from '../../../data/feedback';
 
 type IScore = Score & {
@@ -86,7 +87,7 @@ const AverageScore = () => {
 				'Loading...'
 			) : error ? (
 				'Unable to load average score...'
-			) : (
+			) : data && data.averageScore && !isNaN(data.averageScore) ? (
 				<section className='w-full'>
 					<div
 						className={`${
@@ -121,6 +122,13 @@ const AverageScore = () => {
 						{feedbackOnScore}
 					</p>
 				</section>
+			) : (
+				<EmptyList
+					data={{
+						title: 'No tests taken!',
+						description: 'Take a test to get your average score.',
+					}}
+				/>
 			)}
 		</motion.div>
 	);

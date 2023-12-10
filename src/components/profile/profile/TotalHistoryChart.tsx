@@ -19,6 +19,7 @@ import {
 	Legend,
 } from 'recharts';
 import { motion } from 'framer-motion';
+import EmptyList from '../../reusable/EmptyList';
 
 interface Score {
 	id: string;
@@ -86,7 +87,7 @@ const TotalHistoryChart = () => {
 				'Loading...'
 			) : error ? (
 				'Unable to load chart...'
-			) : (
+			) : data && data?.length > 0 ? (
 				<LineChart
 					width={
 						// dimensions.width < 500
@@ -113,6 +114,13 @@ const TotalHistoryChart = () => {
 					<Tooltip />
 					<Legend />
 				</LineChart>
+			) : (
+				<EmptyList
+					data={{
+						title: 'No tests taken!',
+						description: 'Take a test to get your chart history.',
+					}}
+				/>
 			)}
 		</motion.div>
 	);

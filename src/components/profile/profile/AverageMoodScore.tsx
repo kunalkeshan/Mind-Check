@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 /**
  * Mood - Average Mood Score Component
  */
@@ -51,7 +52,9 @@ const AverageMoodScore = () => {
 
 	return (
 		<div>
-			{isLoading ? null : error ? null : (
+			{isLoading ? null : error ? null : data &&
+			  data.averageMoodScore &&
+			  !isNaN(data.averageMoodScore) ? (
 				<p className='mt-2 text-center text-sm'>
 					Your average score is{' '}
 					<u title={`${data?.averageMoodScore} to be exact!`}>
@@ -60,7 +63,7 @@ const AverageMoodScore = () => {
 					. It's close to {data?.closestMood.emoji} being{' '}
 					<b>{data?.closestMood.mood}</b>.
 				</p>
-			)}
+			) : null}
 		</div>
 	);
 };

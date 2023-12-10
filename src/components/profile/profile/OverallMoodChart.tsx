@@ -9,6 +9,7 @@ import { collection, getDocs, query, orderBy, where } from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import { useUserStore } from '../../../store/user';
 import { PieChart, Pie, Tooltip, Legend, LabelList } from 'recharts';
+import EmptyList from '../../reusable/EmptyList';
 import MOODS from '../../../data/moods';
 
 const OverallMoodChart = () => {
@@ -87,7 +88,7 @@ const OverallMoodChart = () => {
 				'Loading...'
 			) : error ? (
 				'Unable to load chart...'
-			) : (
+			) : data && data.length > 0 ? (
 				<PieChart
 					width={
 						dimensions.width < 500
@@ -118,6 +119,14 @@ const OverallMoodChart = () => {
 					<Tooltip />
 					<Legend />
 				</PieChart>
+			) : (
+				<EmptyList
+					data={{
+						title: 'No journal entries made!',
+						description:
+							'Make an mood entry to view your overall mood chart.',
+					}}
+				/>
 			)}
 		</div>
 	);

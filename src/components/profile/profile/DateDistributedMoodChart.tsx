@@ -26,6 +26,7 @@ import {
 	Cell,
 	LabelList,
 } from 'recharts';
+import EmptyList from '../../reusable/EmptyList';
 import MOODS from '../../../data/moods';
 
 const MAX_NUM_MOOD_ENTRIES = 50;
@@ -96,7 +97,7 @@ const DateDistributedMoodChart = () => {
 				'Loading...'
 			) : error ? (
 				'Unable to load chart...'
-			) : (
+			) : data && data.length > 0 ? (
 				<>
 					<BarChart
 						width={
@@ -140,6 +141,14 @@ const DateDistributedMoodChart = () => {
 						are shown. To view more, go to your journal history.
 					</p>
 				</>
+			) : (
+				<EmptyList
+					data={{
+						title: 'No journal entries made!',
+						description:
+							'Make an mood entry to view your date distributed chart.',
+					}}
+				/>
 			)}
 		</div>
 	);

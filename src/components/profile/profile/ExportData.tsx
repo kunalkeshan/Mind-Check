@@ -10,6 +10,7 @@ import {
 import { useQuery } from 'react-query';
 import { useUserStore } from '../../../store/user';
 import { motion } from 'framer-motion';
+import EmptyList from '../../reusable/EmptyList';
 import {
 	exportDataToCsv,
 	exportDataToJson,
@@ -81,6 +82,8 @@ const ExportData = () => {
 			return { scores, exportStatus, journals };
 		}
 	);
+
+	console.log(data);
 
 	const handleExportAsCsv = async () => {
 		const category = 'csv';
@@ -176,6 +179,10 @@ const ExportData = () => {
 		}
 	};
 
+	const isExportPossible = data
+		? data.journals.length > 0 || data.scores.length > 0
+		: false;
+
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 20 }}
@@ -190,7 +197,7 @@ const ExportData = () => {
 				'Loading...'
 			) : error ? (
 				'Unable to export at the moment...'
-			) : (
+			) : isExportPossible ? (
 				<section className='mt-4'>
 					<div className='flex items-center gap-4 w-fit'>
 						<button
@@ -268,6 +275,14 @@ const ExportData = () => {
 						</ul>
 					</div>
 				</section>
+			) : (
+				<EmptyList
+					data={{
+						title: 'No journal or test entries made!',
+						description:
+							'Take a test or make an jouranl entry to get data export option.',
+					}}
+				/>
 			)}
 		</motion.div>
 	);
