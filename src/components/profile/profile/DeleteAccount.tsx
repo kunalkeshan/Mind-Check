@@ -10,7 +10,7 @@ import { signOut, deleteUser, User } from 'firebase/auth';
 import { useUserStore } from '../../../store/user';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
-import { Link, redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const CONFIRM_DELETE_PHRASE = 'delete my account';
 
