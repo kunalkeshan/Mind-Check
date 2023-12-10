@@ -64,15 +64,12 @@ const OverallMoodChart = () => {
 				}
 			}
 		});
-		console.log(moodCounts);
 		const moodArray = Object.entries(moodCounts).map(([key, value]) => ({
 			name: key,
 			...value,
 		}));
 		return moodArray;
 	});
-
-	console.log(data, error);
 
 	useEffect(() => {
 		const handleResize = () =>

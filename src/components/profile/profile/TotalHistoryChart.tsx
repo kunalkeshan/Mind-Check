@@ -89,11 +89,14 @@ const TotalHistoryChart = () => {
 			) : (
 				<LineChart
 					width={
-						dimensions.width < 500
-							? 300
-							: dimensions.width > 1200
-							? 700
-							: 480
+						// dimensions.width < 500
+						// 	? 300
+						// 	: dimensions.width > 1200
+						// 	? 800
+						// 	: 600
+						dimensions.width < 780
+							? dimensions.width - 100
+							: dimensions.width - dimensions.width / 2
 					}
 					height={300}
 					data={data}

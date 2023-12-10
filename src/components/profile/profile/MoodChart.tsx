@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { Tab } from '@headlessui/react';
 import OverallMoodChart from './OverallMoodChart';
 import DateDistributedMoodChart from './DateDistributedMoodChart';
+import AverageMoodScore from './AverageMoodScore';
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ');
@@ -54,6 +55,7 @@ const MoodChart = () => {
 						</Tab>
 					))}
 				</Tab.List>
+				<AverageMoodScore />
 				<Tab.Panels className='mt-8 flex items-center justify-center'>
 					{Object.values(categories).map((category, idx) => (
 						<Tab.Panel

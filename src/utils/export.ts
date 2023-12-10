@@ -133,7 +133,6 @@ export const exportDataToCsv = ({
 			downloadAnchorNode.remove();
 			resolve('export/csv-export-success');
 		} catch (error) {
-			console.log(error);
 			reject('export/csv-export-error');
 		}
 	});
@@ -290,7 +289,6 @@ export const exportDataToXml = ({
 				?.toLowerCase()
 				.replace(/\s+/g, '-')}-score-data-${Date.now()}`;
 			const xmlAsString = x2js.js2xml({ data: exportJsonData });
-			console.log(xmlAsString);
 			const dataStr = 'data:text/json;charset=utf-8,' + xmlAsString;
 			const downloadAnchorNode = document.createElement('a');
 			downloadAnchorNode.setAttribute('href', dataStr);
