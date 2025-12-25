@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 package-lock.json
+!functions/package-lock.json
 
 # Editor directories and files
 .vscode/*
@@ -23,3 +24,9 @@ package-lock.json
 *.njsproj
 *.sln
 *.sw?
+
+# Firebase
+firebase-debug.log
+firebase-debug.*.log
+.firebase/
+functions/lib/
