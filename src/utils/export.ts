@@ -6,6 +6,7 @@ import { FirebaseDb } from '../firebase';
 import { doc, getDoc, increment, setDoc, updateDoc } from 'firebase/firestore';
 import X2JS from 'x2js';
 import yaml from 'js-yaml';
+import html2canvas from 'html2canvas';
 
 const x2js = new X2JS();
 
@@ -25,6 +26,7 @@ type ExportReturnValue = {
 	md: 'export/md-export-success' | 'export/md-export-error';
 	html: 'export/html-export-success' | 'export/html-export-error';
 	yaml: 'export/yaml-export-success' | 'export/yaml-export-error';
+	png: 'export/png-export-success' | 'export/png-export-error';
 };
 
 export const exportDataToCsv = ({
@@ -674,6 +676,162 @@ export const exportDataToYaml = ({
 	});
 };
 
+type ExportPngProps = {
+	data: Score[];
+	journals: Journal[];
+	user: User | null;
+	action: 'download' | 'copy';
+};
+
+export const exportDataToPng = ({
+	data,
+	user,
+	journals,
+	action,
+}: ExportPngProps): Promise<ExportReturnValue['png']> => {
+	return new Promise((resolve, reject) => {
+		try {
+			// Calculate statistics
+			const totalTests = data.length;
+			const totalJournals = journals.length;
+			const moodEntries = journals.filter((j) => j.type === 'mood').length;
+			const journalEntries = journals.filter((j) => j.type === 'journal').length;
+			
+			const scores = data.map((d) => d.calculatedScore);
+			const averageScore = scores.length > 0 
+				? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) 
+				: 0;
+			const highestScore = scores.length > 0 ? Math.max(...scores) : 0;
+			const lowestScore = scores.length > 0 ? Math.min(...scores) : 0;
+
+			// Create a styled HTML element for the image
+			const container = document.createElement('div');
+			container.style.cssText = `
+				width: 600px;
+				padding: 40px;
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				font-family: Arial, sans-serif;
+				color: white;
+				border-radius: 20px;
+				position: absolute;
+				left: -9999px;
+			`;
+
+			container.innerHTML = `
+				<div style="text-align: center; margin-bottom: 30px;">
+					<h1 style="margin: 0; font-size: 28px; font-weight: bold;">🧠 Mind Check</h1>
+					<p style="margin: 10px 0 0 0; opacity: 0.9;">Mental Health Statistics</p>
+				</div>
+				
+				<div style="background: rgba(255,255,255,0.15); border-radius: 15px; padding: 25px; margin-bottom: 20px;">
+					<div style="text-align: center; margin-bottom: 15px;">
+						<p style="margin: 0; font-size: 14px; opacity: 0.8;">User</p>
+						<p style="margin: 5px 0 0 0; font-size: 20px; font-weight: bold;">${user?.displayName || 'Anonymous'}</p>
+					</div>
+					
+					<div style="display: flex; justify-content: space-around; text-align: center;">
+						<div>
+							<p style="margin: 0; font-size: 32px; font-weight: bold;">${totalTests}</p>
+							<p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8;">Tests Taken</p>
+						</div>
+						<div>
+							<p style="margin: 0; font-size: 32px; font-weight: bold;">${totalJournals}</p>
+							<p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8;">Journal Entries</p>
+						</div>
+					</div>
+				</div>
+				
+				<div style="display: flex; gap: 15px; margin-bottom: 20px;">
+					<div style="flex: 1; background: rgba(255,255,255,0.15); border-radius: 15px; padding: 20px; text-align: center;">
+						<p style="margin: 0; font-size: 36px; font-weight: bold;">${averageScore}</p>
+						<p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8;">Average Score</p>
+					</div>
+					<div style="flex: 1; background: rgba(255,255,255,0.15); border-radius: 15px; padding: 20px; text-align: center;">
+						<p style="margin: 0; font-size: 36px; font-weight: bold;">${highestScore}</p>
+						<p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8;">Highest Score</p>
+					</div>
+					<div style="flex: 1; background: rgba(255,255,255,0.15); border-radius: 15px; padding: 20px; text-align: center;">
+						<p style="margin: 0; font-size: 36px; font-weight: bold;">${lowestScore}</p>
+						<p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8;">Lowest Score</p>
+					</div>
+				</div>
+				
+				<div style="background: rgba(255,255,255,0.15); border-radius: 15px; padding: 20px;">
+					<p style="margin: 0 0 15px 0; font-size: 14px; font-weight: bold;">Journal Breakdown</p>
+					<div style="display: flex; justify-content: space-around; text-align: center;">
+						<div>
+							<p style="margin: 0; font-size: 24px; font-weight: bold;">😊 ${moodEntries}</p>
+							<p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8;">Mood Entries</p>
+						</div>
+						<div>
+							<p style="margin: 0; font-size: 24px; font-weight: bold;">📝 ${journalEntries}</p>
+							<p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8;">Written Entries</p>
+						</div>
+					</div>
+				</div>
+				
+				<div style="text-align: center; margin-top: 25px; opacity: 0.7; font-size: 12px;">
+					<p style="margin: 0;">Generated on ${new Date().toLocaleDateString()}</p>
+				</div>
+			`;
+
+			document.body.appendChild(container);
+
+			html2canvas(container, {
+				backgroundColor: null,
+				scale: 2,
+			}).then((canvas) => {
+				if (container.parentNode) {
+					document.body.removeChild(container);
+				}
+
+				if (action === 'copy') {
+					// Check for clipboard API support
+					if (!navigator.clipboard || typeof ClipboardItem === 'undefined') {
+						reject('export/png-export-error');
+						return;
+					}
+					canvas.toBlob((blob) => {
+						if (blob) {
+							navigator.clipboard.write([
+								new ClipboardItem({ 'image/png': blob })
+							]).then(() => {
+								resolve('export/png-export-success');
+							}).catch(() => {
+								reject('export/png-export-error');
+							});
+						} else {
+							reject('export/png-export-error');
+						}
+					}, 'image/png');
+				} else {
+					const dataStr = canvas.toDataURL('image/png');
+					const exportPngDataName = `${user?.displayName
+						?.toLowerCase()
+						.replace(/\s+/g, '-')}-stats-${Date.now()}`;
+					const downloadAnchorNode = document.createElement('a');
+					downloadAnchorNode.setAttribute('href', dataStr);
+					downloadAnchorNode.setAttribute(
+						'download',
+						exportPngDataName + '.png'
+					);
+					document.body.appendChild(downloadAnchorNode);
+					downloadAnchorNode.click();
+					downloadAnchorNode.remove();
+					resolve('export/png-export-success');
+				}
+			}).catch(() => {
+				if (container.parentNode) {
+					document.body.removeChild(container);
+				}
+				reject('export/png-export-error');
+			});
+		} catch (error) {
+			reject('export/png-export-error');
+		}
+	});
+};
+
 type ExportCategoryUpdateProps = {
 	user: User | null;
 	category: keyof ExportStatus;
@@ -763,5 +921,6 @@ export function createDefaultExportStatusValue(): ExportStatus {
 		md: 0,
 		html: 0,
 		yaml: 0,
+		png: 0,
 	};
 }

@@ -35,6 +35,7 @@ interface ExportStatus {
 	md: number;
 	html: number;
 	yaml: number;
+	png: number;
 }
 
 interface DateFilter {
