@@ -31,6 +31,10 @@ interface ExportStatus {
 	csv: number;
 	json: number;
 	xml: number;
+	txt: number;
+	md: number;
+	html: number;
+	yaml: number;
 }
 
 interface DateFilter {
