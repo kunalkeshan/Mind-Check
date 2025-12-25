@@ -18,6 +18,11 @@ import {
 	incrementExportThreshold,
 	createDefaultExportStatusValue,
 	exportDataToXml,
+	exportDataToTxt,
+	exportDataToMd,
+	exportDataToHtml,
+	exportDataToYaml,
+	exportDataToPng,
 } from '../../../utils/export';
 import toast from 'react-hot-toast';
 import { useId } from 'react';
@@ -179,6 +184,162 @@ const ExportData = () => {
 		}
 	};
 
+	const handleExportAsTxt = async () => {
+		const category = 'txt';
+		try {
+			if (!data) return;
+			await validateExportThreshold({ user, category });
+			await exportDataToTxt({
+				data: data.scores,
+				user,
+				journals: data.journals,
+			});
+			await incrementExportThreshold({ user, category });
+			await refetch({ queryKey: 'allScoresExportData' });
+		} catch (error) {
+			if (typeof error === 'string') {
+				if (error === 'export/threshold-crossed') {
+					return Promise.reject(
+						`You've crossed your export limit for ${category} exports!`
+					);
+				} else if (error === 'export/threshold-check-error') {
+					return Promise.reject(
+						`Something went wrong! Please try again later.`
+					);
+				}
+			} else {
+				return Promise.reject(
+					`Something went wrong! Please try again later.`
+				);
+			}
+		}
+	};
+
+	const handleExportAsMd = async () => {
+		const category = 'md';
+		try {
+			if (!data) return;
+			await validateExportThreshold({ user, category });
+			await exportDataToMd({
+				data: data.scores,
+				user,
+				journals: data.journals,
+			});
+			await incrementExportThreshold({ user, category });
+			await refetch({ queryKey: 'allScoresExportData' });
+		} catch (error) {
+			if (typeof error === 'string') {
+				if (error === 'export/threshold-crossed') {
+					return Promise.reject(
+						`You've crossed your export limit for ${category} exports!`
+					);
+				} else if (error === 'export/threshold-check-error') {
+					return Promise.reject(
+						`Something went wrong! Please try again later.`
+					);
+				}
+			} else {
+				return Promise.reject(
+					`Something went wrong! Please try again later.`
+				);
+			}
+		}
+	};
+
+	const handleExportAsHtml = async () => {
+		const category = 'html';
+		try {
+			if (!data) return;
+			await validateExportThreshold({ user, category });
+			await exportDataToHtml({
+				data: data.scores,
+				user,
+				journals: data.journals,
+			});
+			await incrementExportThreshold({ user, category });
+			await refetch({ queryKey: 'allScoresExportData' });
+		} catch (error) {
+			if (typeof error === 'string') {
+				if (error === 'export/threshold-crossed') {
+					return Promise.reject(
+						`You've crossed your export limit for ${category} exports!`
+					);
+				} else if (error === 'export/threshold-check-error') {
+					return Promise.reject(
+						`Something went wrong! Please try again later.`
+					);
+				}
+			} else {
+				return Promise.reject(
+					`Something went wrong! Please try again later.`
+				);
+			}
+		}
+	};
+
+	const handleExportAsYaml = async () => {
+		const category = 'yaml';
+		try {
+			if (!data) return;
+			await validateExportThreshold({ user, category });
+			await exportDataToYaml({
+				data: data.scores,
+				user,
+				journals: data.journals,
+			});
+			await incrementExportThreshold({ user, category });
+			await refetch({ queryKey: 'allScoresExportData' });
+		} catch (error) {
+			if (typeof error === 'string') {
+				if (error === 'export/threshold-crossed') {
+					return Promise.reject(
+						`You've crossed your export limit for ${category} exports!`
+					);
+				} else if (error === 'export/threshold-check-error') {
+					return Promise.reject(
+						`Something went wrong! Please try again later.`
+					);
+				}
+			} else {
+				return Promise.reject(
+					`Something went wrong! Please try again later.`
+				);
+			}
+		}
+	};
+
+	const handleExportAsPng = async (action: 'download' | 'copy') => {
+		const category = 'png';
+		try {
+			if (!data) return;
+			await validateExportThreshold({ user, category });
+			await exportDataToPng({
+				data: data.scores,
+				user,
+				journals: data.journals,
+				action,
+			});
+			await incrementExportThreshold({ user, category });
+			await refetch({ queryKey: 'allScoresExportData' });
+		} catch (error) {
+			if (typeof error === 'string') {
+				if (error === 'export/threshold-crossed') {
+					return Promise.reject(
+						`You've crossed your export limit for ${category} exports!`
+					);
+				} else if (error === 'export/threshold-check-error') {
+					return Promise.reject(
+						`Something went wrong! Please try again later.`
+					);
+				}
+			} else {
+				return Promise.reject(
+					`Something went wrong! Please try again later.`
+				);
+			}
+		}
+	};
+
 	const isExportPossible = data
 		? data.journals.length > 0 || data.scores.length > 0
 		: false;
@@ -199,7 +360,7 @@ const ExportData = () => {
 				'Unable to export at the moment...'
 			) : isExportPossible ? (
 				<section className='mt-4'>
-					<div className='flex items-center gap-4 w-fit'>
+					<div className='flex flex-wrap items-center gap-4 w-fit'>
 						<button
 							onClick={() =>
 								toast.promise(handleExportAsCsv(), {
@@ -239,6 +400,84 @@ const ExportData = () => {
 						>
 							XML
 						</button>
+						<button
+							onClick={() =>
+								toast.promise(handleExportAsTxt(), {
+									loading:
+										'Collecting data and converting to plain text format',
+									success: 'Plain text data successfully exported',
+									error: (value) => value,
+								})
+							}
+							className='px-4 py-2 mx-auto border-secondary border-2 rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
+						>
+							TXT
+						</button>
+						<button
+							onClick={() =>
+								toast.promise(handleExportAsMd(), {
+									loading:
+										'Collecting data and converting to markdown format',
+									success: 'Markdown data successfully exported',
+									error: (value) => value,
+								})
+							}
+							className='px-4 py-2 mx-auto border-secondary border-2 rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
+						>
+							Markdown
+						</button>
+						<button
+							onClick={() =>
+								toast.promise(handleExportAsHtml(), {
+									loading:
+										'Collecting data and converting to html format',
+									success: 'HTML data successfully exported',
+									error: (value) => value,
+								})
+							}
+							className='px-4 py-2 mx-auto border-secondary border-2 rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
+						>
+							HTML
+						</button>
+						<button
+							onClick={() =>
+								toast.promise(handleExportAsYaml(), {
+									loading:
+										'Collecting data and converting to yaml format',
+									success: 'YAML data successfully exported',
+									error: (value) => value,
+								})
+							}
+							className='px-4 py-2 mx-auto border-secondary border-2 rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
+						>
+							YAML
+						</button>
+						<button
+							onClick={() =>
+								toast.promise(handleExportAsPng('download'), {
+									loading:
+										'Generating stats image...',
+									success: 'Stats image downloaded successfully',
+									error: (value) => value,
+								})
+							}
+							className='px-4 py-2 mx-auto border-secondary border-2 rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
+						>
+							PNG (Download)
+						</button>
+						<button
+							onClick={() =>
+								toast.promise(handleExportAsPng('copy'), {
+									loading:
+										'Copying stats image to clipboard...',
+									success: 'Stats image copied to clipboard',
+									error: (value) => value,
+								})
+							}
+							className='px-4 py-2 mx-auto border-secondary border-2 rounded-full font-semibold hover:bg-tertiary transition-all hover:border-secondaryDark'
+						>
+							PNG (Copy)
+						</button>
 					</div>
 					<div className='w-full mt-4 text-justify text-sm md:text-base'>
 						<h4>
@@ -270,6 +509,31 @@ const ExportData = () => {
 							<li>
 								<b>For XML:</b>{' '}
 								{3 - (data?.exportStatus.xml ?? 0)} out of 3
+								download limits left.
+							</li>
+							<li>
+								<b>For TXT:</b>{' '}
+								{3 - (data?.exportStatus.txt ?? 0)} out of 3
+								download limits left.
+							</li>
+							<li>
+								<b>For Markdown:</b>{' '}
+								{3 - (data?.exportStatus.md ?? 0)} out of 3
+								download limits left.
+							</li>
+							<li>
+								<b>For HTML:</b>{' '}
+								{3 - (data?.exportStatus.html ?? 0)} out of 3
+								download limits left.
+							</li>
+							<li>
+								<b>For YAML:</b>{' '}
+								{3 - (data?.exportStatus.yaml ?? 0)} out of 3
+								download limits left.
+							</li>
+							<li>
+								<b>For PNG:</b>{' '}
+								{3 - (data?.exportStatus.png ?? 0)} out of 3
 								download limits left.
 							</li>
 						</ul>
