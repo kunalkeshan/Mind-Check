@@ -11,11 +11,11 @@ function AllResources() {
 	);
 
 	const [tags, setTags] = useState({
-		'Thoughts & Feelings': true,
-		'Activities & Personal Relationships': true,
-		'Physical Symptoms': true,
-		'Suicidal Urges': true,
-		General: true,
+		'Thoughts & Feelings': false,
+		'Activities & Personal Relationships': false,
+		'Physical Symptoms': false,
+		'Suicidal Urges': false,
+		General: false,
 	});
 
 	const [sortedData, setSortedData] = useState<Resource[]>([]);
@@ -26,10 +26,17 @@ function AllResources() {
 			const selectedTags = Object.keys(tags).filter(
 				(tag) => tags[tag as keyof typeof tags]
 			);
-			updatedData = data.filter((resource) => {
-				return resource.tags.filter((tag) => selectedTags.includes(tag))
-					.length;
-			});
+
+			// If no tags are selected, show all resources
+			if (selectedTags.length === 0) {
+				updatedData = data;
+			} else {
+				// If tags are selected, filter resources by selected tags
+				updatedData = data.filter((resource) => {
+					return resource.tags.filter((tag) => selectedTags.includes(tag))
+						.length;
+				});
+			}
 			setSortedData(updatedData);
 		}
 	}, [data, tags]);
