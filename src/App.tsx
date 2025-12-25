@@ -6,6 +6,7 @@
 import React, { PropsWithChildren, Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useUserStore } from './store/user';
+import FloatingActionButton from './components/layout/FloatingActionButton';
 const Home = lazy(() => import('./pages/Home'));
 const Test = lazy(() => import('./pages/Test'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -42,48 +43,51 @@ function App() {
 		return user !== null ? <>{children}</> : <Navigate to='/login' />;
 	};
 	return (
-		<Suspense fallback={<LoadingScreen />}>
-			<Routes>
-				<Route path='/' element={<Home />} />
-				<Route path='/test' element={<Test />} />
-				<Route path='/score' element={<Score />} />
-				<Route
-					path='/login'
-					element={
-						<CheckUserAlreadyLoggedIn>
-							<Login />
-						</CheckUserAlreadyLoggedIn>
-					}
-				/>
-				<Route
-					path='/me'
-					element={
-						<ProtectedRoute>
-							<Main />
-						</ProtectedRoute>
-					}
-				>
-					<Route index element={<Profile />} />
-					<Route path='history' element={<ScoreHistory />} />
-					<Route path='journal' element={<Journal />} />
+		<>
+			<Suspense fallback={<LoadingScreen />}>
+				<Routes>
+					<Route path='/' element={<Home />} />
+					<Route path='/test' element={<Test />} />
+					<Route path='/score' element={<Score />} />
 					<Route
-						path='journal-history'
-						element={<JournalHistory />}
+						path='/login'
+						element={
+							<CheckUserAlreadyLoggedIn>
+								<Login />
+							</CheckUserAlreadyLoggedIn>
+						}
 					/>
 					<Route
-						path='history/:historyId'
-						element={<IndividualScoreHistoryPage />}
-					/>
-				</Route>
-				<Route path='/resources' element={<Resources />}>
-					<Route index element={<AllResources />} />
-					<Route path=':resourceSlug' element={<SignleResource />} />
-				</Route>
-				<Route path='/terms' element={<TermsOfConditions />} />
-				<Route path='/privacy' element={<PrivacyPolicy />} />
-				<Route path='*' element={<NotFound />} />
-			</Routes>
-		</Suspense>
+						path='/me'
+						element={
+							<ProtectedRoute>
+								<Main />
+							</ProtectedRoute>
+						}
+					>
+						<Route index element={<Profile />} />
+						<Route path='history' element={<ScoreHistory />} />
+						<Route path='journal' element={<Journal />} />
+						<Route
+							path='journal-history'
+							element={<JournalHistory />}
+						/>
+						<Route
+							path='history/:historyId'
+							element={<IndividualScoreHistoryPage />}
+						/>
+					</Route>
+					<Route path='/resources' element={<Resources />}>
+						<Route index element={<AllResources />} />
+						<Route path=':resourceSlug' element={<SignleResource />} />
+					</Route>
+					<Route path='/terms' element={<TermsOfConditions />} />
+					<Route path='/privacy' element={<PrivacyPolicy />} />
+					<Route path='*' element={<NotFound />} />
+				</Routes>
+			</Suspense>
+			<FloatingActionButton />
+		</>
 	);
 }
 
