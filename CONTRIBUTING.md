@@ -60,6 +60,43 @@ VITE_FIREBASE_PROJECT_ID=YOUR_FIREBASE_PROJECT_ID
 # etc - refer .env.sample for more information
 ```
 
+### Firebase Cloud Functions
+
+Mind Check uses Firebase Cloud Functions for server-side operations like scheduled database maintenance tasks.
+
+#### Setup
+
+1. Install Firebase CLI globally:
+   ```bash
+   pnpm install -g firebase-tools
+   ```
+
+2. Login to Firebase:
+   ```bash
+   firebase login
+   ```
+
+3. Install function dependencies:
+   ```bash
+   cd functions
+   npm install
+   ```
+
+#### Development
+
+- Build functions: `npm run build`
+- Lint code: `npm run lint`
+- Local testing: `npm run serve`
+
+#### Deployment
+
+Deploy all functions from the project root:
+```bash
+firebase deploy --only functions
+```
+
+For detailed documentation on Cloud Functions, see the [functions/README.md](functions/README.md).
+
 ### Reporting Issues
 
 If you encounter any issues or have suggestions for improvement, please open an issue on the issue tracker: [https://github.com/kunalkeshan/Mind-Check.git/issues](https://github.com/kunalkeshan/Mind-Check.git/issues)
