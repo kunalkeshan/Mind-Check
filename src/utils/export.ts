@@ -292,9 +292,9 @@ export const exportDataToXml = ({
 			};
 			const exportXmlDataName = `${user?.displayName
 				?.toLowerCase()
-				.replace(/\s+/g, '-')}-score-data-${Date.now()}`;
+				.replace(/\s+/g, '-')}-data-${Date.now()}`;
 			const xmlAsString = x2js.js2xml({ data: exportJsonData });
-			const dataStr = 'data:text/json;charset=utf-8,' + xmlAsString;
+			const dataStr = 'data:text/xml;charset=utf-8,' + encodeURIComponent(xmlAsString);
 			const downloadAnchorNode = document.createElement('a');
 			downloadAnchorNode.setAttribute('href', dataStr);
 			downloadAnchorNode.setAttribute(
