@@ -6,7 +6,57 @@ import react from '@vitejs/plugin-react';
 import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
 
 const manifestForPlugin: Partial<VitePWAOptions> = {
-	registerType: 'prompt',
+	registerType: 'autoUpdate',
+	includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+	workbox: {
+		// Clean up outdated caches automatically
+		cleanupOutdatedCaches: true,
+		// Skip waiting and activate immediately for seamless updates
+		skipWaiting: true,
+		clientsClaim: true,
+		// Add runtime caching strategies
+		runtimeCaching: [
+			{
+				urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+				handler: 'CacheFirst',
+				options: {
+					cacheName: 'google-fonts-cache',
+					expiration: {
+						maxEntries: 10,
+						maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+					},
+					cacheableResponse: {
+						statuses: [0, 200],
+					},
+				},
+			},
+			{
+				urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+				handler: 'CacheFirst',
+				options: {
+					cacheName: 'gstatic-fonts-cache',
+					expiration: {
+						maxEntries: 10,
+						maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+					},
+					cacheableResponse: {
+						statuses: [0, 200],
+					},
+				},
+			},
+			{
+				urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/,
+				handler: 'CacheFirst',
+				options: {
+					cacheName: 'images-cache',
+					expiration: {
+						maxEntries: 60,
+						maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+					},
+				},
+			},
+		],
+	},
 	manifest: {
 		name: 'Mind Check',
 		short_name: 'Mind Check',
