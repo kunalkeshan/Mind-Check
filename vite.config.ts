@@ -6,12 +6,12 @@ import react from '@vitejs/plugin-react';
 import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
 
 const manifestForPlugin: Partial<VitePWAOptions> = {
-	registerType: 'prompt',
+	registerType: 'autoUpdate',
 	includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
 	workbox: {
 		// Clean up outdated caches automatically
 		cleanupOutdatedCaches: true,
-		// Skip waiting and activate immediately
+		// Skip waiting and activate immediately for seamless updates
 		skipWaiting: true,
 		clientsClaim: true,
 		// Add runtime caching strategies
