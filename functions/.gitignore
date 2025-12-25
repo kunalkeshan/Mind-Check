@@ -1,0 +1,13 @@
+# Compiled JavaScript files
+lib/
+
+# Node modules
+node_modules/
+
+# Local environment files
+.env
+.env.local
+
+# Firebase debug logs
+firebase-debug.log
+firebase-debug.*.log
