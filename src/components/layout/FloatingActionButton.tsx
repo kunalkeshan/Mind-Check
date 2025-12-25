@@ -1,11 +1,11 @@
 /**
  * Floating Action Button Component
- * Provides quick access shortcuts for logged-in users
+ * Provides quick access shortcuts for all users
  */
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User, FileEdit, Brain, Plus, X } from 'lucide-react';
+import { User, FileEdit, Brain, Plus, X, Home, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useUserStore } from '../../store/user';
 
@@ -20,29 +20,50 @@ function FloatingActionButton() {
 	const [isOpen, setIsOpen] = useState(false);
 	const { user } = useUserStore();
 
-	// Don't render FAB if user is not logged in
-	if (!user) return null;
-
-	const actions: FABAction[] = [
-		{
-			icon: <User size={20} />,
-			label: 'Profile',
-			to: '/me',
-			color: 'bg-blue-500 hover:bg-blue-600',
-		},
-		{
-			icon: <Brain size={20} />,
-			label: 'Take Test',
-			to: '/test',
-			color: 'bg-purple-500 hover:bg-purple-600',
-		},
-		{
-			icon: <FileEdit size={20} />,
-			label: 'New Journal',
-			to: '/me/journal',
-			color: 'bg-green-500 hover:bg-green-600',
-		},
-	];
+	// Different actions based on login status
+	const actions: FABAction[] = user
+		? [
+				// Logged-in user actions
+				{
+					icon: <User size={20} />,
+					label: 'Profile',
+					to: '/me',
+					color: 'bg-blue-500 hover:bg-blue-600',
+				},
+				{
+					icon: <Brain size={20} />,
+					label: 'Take Test',
+					to: '/test',
+					color: 'bg-purple-500 hover:bg-purple-600',
+				},
+				{
+					icon: <FileEdit size={20} />,
+					label: 'New Journal',
+					to: '/me/journal',
+					color: 'bg-green-500 hover:bg-green-600',
+				},
+		  ]
+		: [
+				// Logged-out user actions
+				{
+					icon: <Home size={20} />,
+					label: 'Home',
+					to: '/',
+					color: 'bg-blue-500 hover:bg-blue-600',
+				},
+				{
+					icon: <BookOpen size={20} />,
+					label: 'Resources',
+					to: '/resources',
+					color: 'bg-green-500 hover:bg-green-600',
+				},
+				{
+					icon: <Brain size={20} />,
+					label: 'Take Test',
+					to: '/test',
+					color: 'bg-purple-500 hover:bg-purple-600',
+				},
+		  ];
 
 	const toggleMenu = () => setIsOpen(!isOpen);
 
