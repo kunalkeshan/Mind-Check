@@ -73,7 +73,7 @@ function parseDateFromDocId(docId: string): Date | null {
  * Where {date} is in format like "wed-dec-25-2024"
  */
 export const deleteOldExportStatusDocuments = functions.pubsub
-  .schedule("every 24 hours")
+  .schedule("0 0 * * *")
   .onRun(async () => {
     const now = new Date();
     const cutoffDate = new Date(
