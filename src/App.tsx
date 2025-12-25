@@ -6,6 +6,7 @@
 import React, { PropsWithChildren, Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useUserStore } from './store/user';
+import FloatingActionButton from './components/layout/FloatingActionButton';
 import UpdatePrompt from './components/reusable/UpdatePrompt';
 const Home = lazy(() => import('./pages/Home'));
 const Test = lazy(() => import('./pages/Test'));
@@ -87,6 +88,7 @@ function App() {
 					<Route path='*' element={<NotFound />} />
 				</Routes>
 			</Suspense>
+			<FloatingActionButton />
 		</>
 	);
 }
